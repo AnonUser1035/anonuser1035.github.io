@@ -12,8 +12,9 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #121212;
+            color: #e0e0e0;
+            transition: background 0.3s, color 0.3s;
         }
         .container {
             width: 80%;
@@ -34,11 +35,12 @@
             margin: 0 auto 20px;
         }
         section {
-            background: white;
+            background: #1e1e1e;
             padding: 20px;
             margin: 20px 0;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
         }
         h2 {
             border-bottom: 2px solid #007BFF;
@@ -52,15 +54,39 @@
             padding: 5px 0;
         }
         a {
-            color: #007BFF;
+            color: #80cfff;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .nav a {
+            color: #80cfff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+    <button class="toggle-button" onclick="toggleTheme()">Toggle Light Mode</button>
     <div class="container">
         <header>
             <img src="your-headshot.jpg" alt="Ryan Sohaee Bohluli" class="headshot">
@@ -68,13 +94,21 @@
             <p>Future Physician | Researcher | EMT</p>
         </header>
 
-        <section>
+        <nav class="nav">
+            <a href="#education">Education</a>
+            <a href="#research">Research</a>
+            <a href="#leadership">Leadership</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <section id="education">
             <h2>Education</h2>
             <p><strong>Johns Hopkins University</strong> - BS Neuroscience (2023-2027)</p>
             <p>Science GPA: 3.94 | Cumulative GPA: 3.83</p>
         </section>
 
-        <section>
+        <section id="research">
             <h2>Research Experience</h2>
             <ul>
                 <li><strong>Thakor Laboratory (2024-Present):</strong> Conducted surgeries, developed blood pressure feedback systems.</li>
@@ -83,7 +117,7 @@
             </ul>
         </section>
 
-        <section>
+        <section id="leadership">
             <h2>Leadership</h2>
             <ul>
                 <li><strong>President, Iranian Cultural Society</strong> - Reactivated and managed cultural club.</li>
@@ -92,18 +126,37 @@
             </ul>
         </section>
 
-        <section>
+        <section id="certifications">
             <h2>Certifications & Skills</h2>
             <p><strong>EMT-Basic:</strong> Certified since 2024 (Texas & NREMT).</p>
             <p><strong>Languages:</strong> English (Native), Farsi (Native), French (Professional).</p>
         </section>
 
-        <section>
+        <section id="contact">
             <h2>Contact</h2>
             <p>Email: <a href="mailto:rbohlul1@jh.edu">rbohlul1@jh.edu</a></p>
-            <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
-            <p>GitHub: <a href="#">github.com/yourusername</a></p>
+            <p>LinkedIn: <a href="#">linkedin.com/in/bohluli</a></p>
         </section>
     </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+            document.querySelectorAll("section").forEach(section => {
+                section.classList.toggle("light-section");
+            });
+        }
+    </script>
+    
+    <style>
+        .light-mode {
+            background-color: #ffffff;
+            color: #333;
+        }
+        .light-section {
+            background: #f4f4f4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </body>
 </html>
