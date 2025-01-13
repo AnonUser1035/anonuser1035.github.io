@@ -6,65 +6,91 @@
     <title>Your Name - Resume</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             text-align: center;
         }
         header {
-            background: #333;
-            color: white;
-            padding: 20px 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 10px auto;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
         }
         section {
-            padding: 20px;
-            margin: 20px;
-            background: white;
+            margin: 50px 0;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         a {
             color: #007BFF;
             text-decoration: none;
+            font-weight: 600;
         }
         a:hover {
             text-decoration: underline;
         }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Your Name</h1>
-        <p>Future Physician | Researcher | EMT</p>
-    </header>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I'm a sophomore pre-med student passionate about healthcare, research, and emergency medicine. I am currently conducting research at [Your University] and co-founding a cultural club.</p>
-    </section>
-
-    <section id="experience">
-        <h2>Experience</h2>
-        <ul>
-            <li><strong>Research Assistant</strong> - [University Medical School] (20XX-Present)</li>
-            <li><strong>EMT Certified</strong> - Volunteering Soon</li>
-            <li><strong>UPchieve Volunteer Tutor</strong> - Free tutoring for underserved students</li>
-        </ul>
-    </section>
-
-    <section id="projects">
-        <h2>Projects & Research</h2>
-        <p>Details about your research work, clinical experiences, or coding projects.</p>
-    </section>
-
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-        <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
-        <p>GitHub: <a href="#">github.com/yourusername</a></p>
-    </section>
+    <div class="container">
+        <header class="fade-in">Your Name</header>
+        <p class="fade-in">Future Physician | Researcher | EMT</p>
+        
+        <section id="about" class="fade-in">
+            <h2>About Me</h2>
+            <p>I'm a sophomore pre-med student passionate about healthcare, research, and emergency medicine. I am currently conducting research at [Your University] and co-founding a cultural club.</p>
+        </section>
+        
+        <section id="experience" class="fade-in">
+            <h2>Experience</h2>
+            <ul>
+                <li><strong>Research Assistant</strong> - [University Medical School] (20XX-Present)</li>
+                <li><strong>EMT Certified</strong> - Volunteering Soon</li>
+                <li><strong>UPchieve Volunteer Tutor</strong> - Free tutoring for underserved students</li>
+            </ul>
+        </section>
+        
+        <section id="projects" class="fade-in">
+            <h2>Projects & Research</h2>
+            <p>Details about your research work, clinical experiences, or coding projects.</p>
+        </section>
+        
+        <section id="contact" class="fade-in">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+            <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
+            <p>GitHub: <a href="#">github.com/yourusername</a></p>
+        </section>
+    </div>
 </body>
 </html>
