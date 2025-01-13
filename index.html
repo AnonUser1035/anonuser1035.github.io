@@ -37,21 +37,35 @@
         section {
             background: #1e1e1e;
             padding: 20px;
-            margin: 20px 0;
+            margin: 40px 0;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             transition: background 0.3s;
+        }
+        .entry {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        .entry h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .entry p {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #bdbdbd;
         }
         h2 {
             border-bottom: 2px solid #007BFF;
             padding-bottom: 5px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li {
-            padding: 5px 0;
+        .time-period {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            font-style: italic;
         }
         a {
             color: #80cfff;
@@ -60,33 +74,9 @@
         a:hover {
             text-decoration: underline;
         }
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px 0;
-        }
-        .nav a {
-            color: #80cfff;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .toggle-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
-    <button class="toggle-button" onclick="toggleTheme()">Toggle Light Mode</button>
     <div class="container">
         <header>
             <img src="your-headshot.jpg" alt="Ryan Sohaee Bohluli" class="headshot">
@@ -94,69 +84,53 @@
             <p>Future Physician | Researcher | EMT</p>
         </header>
 
-        <nav class="nav">
-            <a href="#education">Education</a>
-            <a href="#research">Research</a>
-            <a href="#leadership">Leadership</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#contact">Contact</a>
-        </nav>
-
         <section id="education">
             <h2>Education</h2>
-            <p><strong>Johns Hopkins University</strong> - BS Neuroscience (2023-2027)</p>
-            <p>Science GPA: 3.94 | Cumulative GPA: 3.83</p>
+            <div class="entry">
+                <h3>Johns Hopkins University</h3>
+                <p class="time-period">2023 - 2027</p>
+                <p>BS Neuroscience | Science GPA: 3.94 | Cumulative GPA: 3.83</p>
+            </div>
         </section>
 
         <section id="research">
             <h2>Research Experience</h2>
-            <ul>
-                <li><strong>Thakor Laboratory (2024-Present):</strong> Conducted surgeries, developed blood pressure feedback systems.</li>
-                <li><strong>Mysore Laboratory (2023-2024):</strong> Neural attentional circuit research, device programming.</li>
-                <li><strong>Abbott Laboratories (2022):</strong> Patent contribution, data analysis for neurostimulation patients.</li>
-            </ul>
+            <div class="entry">
+                <h3>Thakor Laboratory, Johns Hopkins School of Medicine</h3>
+                <p class="time-period">2024 - Present</p>
+                <p>Conducted laminectomies on rats, performed spinal exposure for ultrasound stimulation, and developed a feedback system for blood pressure modulation.</p>
+            </div>
+            <div class="entry">
+                <h3>Mysore Laboratory, Johns Hopkins</h3>
+                <p class="time-period">2023 - 2024</p>
+                <p>Worked on neural attentional circuit research and managed a team converting a Raspberry Pi simulation project into a conference-ready demonstration.</p>
+            </div>
         </section>
 
         <section id="leadership">
             <h2>Leadership</h2>
-            <ul>
-                <li><strong>President, Iranian Cultural Society</strong> - Reactivated and managed cultural club.</li>
-                <li><strong>President, Machine Learning Club</strong> - Organized machine learning projects.</li>
-                <li><strong>President, Robotics Club</strong> - Managed budget and led teams to competition finals.</li>
-            </ul>
+            <div class="entry">
+                <h3>President, Iranian Cultural Society</h3>
+                <p class="time-period">2024 - Present</p>
+                <p>Reactivated and managed a cultural club, organizing events and collaborations with the graduate student society.</p>
+            </div>
         </section>
 
         <section id="certifications">
             <h2>Certifications & Skills</h2>
-            <p><strong>EMT-Basic:</strong> Certified since 2024 (Texas & NREMT).</p>
-            <p><strong>Languages:</strong> English (Native), Farsi (Native), French (Professional).</p>
+            <div class="entry">
+                <h3>EMT-Basic</h3>
+                <p class="time-period">Certified since 2024</p>
+                <p>State of Texas Certification: 791604 | NREMT EMS ID: 7915-8892-7118</p>
+            </div>
         </section>
 
         <section id="contact">
             <h2>Contact</h2>
             <p>Email: <a href="mailto:rbohlul1@jh.edu">rbohlul1@jh.edu</a></p>
-            <p>LinkedIn: <a href="#">linkedin.com/in/bohluli</a></p>
+            <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
+            <p>GitHub: <a href="#">github.com/yourusername</a></p>
         </section>
     </div>
-
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle("light-mode");
-            document.querySelectorAll("section").forEach(section => {
-                section.classList.toggle("light-section");
-            });
-        }
-    </script>
-    
-    <style>
-        .light-mode {
-            background-color: #ffffff;
-            color: #333;
-        }
-        .light-section {
-            background: #f4f4f4;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </body>
 </html>
