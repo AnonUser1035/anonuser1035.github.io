@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Resume</title>
+    <title>Ryan Sohaee Bohluli - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
@@ -12,82 +12,95 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
+            background-color: #f8f9fa;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
-        header {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 10px auto;
-            line-height: 1.6;
         }
         .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 40px;
+            width: 80%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .headshot {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
         }
         section {
-            margin: 50px 0;
-            padding: 40px;
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 5px 0;
         }
         a {
             color: #007BFF;
             text-decoration: none;
-            font-weight: 600;
         }
         a:hover {
             text-decoration: underline;
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="fade-in">Your Name</header>
-        <p class="fade-in">Future Physician | Researcher | EMT</p>
-        
-        <section id="about" class="fade-in">
-            <h2>About Me</h2>
-            <p>I'm a sophomore pre-med student passionate about healthcare, research, and emergency medicine. I am currently conducting research at [Your University] and co-founding a cultural club.</p>
+        <header>
+            <img src="your-headshot.jpg" alt="Ryan Sohaee Bohluli" class="headshot">
+            <h1>Ryan Sohaee Bohluli</h1>
+            <p>Future Physician | Researcher | EMT</p>
+        </header>
+
+        <section>
+            <h2>Education</h2>
+            <p><strong>Johns Hopkins University</strong> - BS Neuroscience (2023-2027)</p>
+            <p>Science GPA: 3.94 | Cumulative GPA: 3.83</p>
         </section>
-        
-        <section id="experience" class="fade-in">
-            <h2>Experience</h2>
+
+        <section>
+            <h2>Research Experience</h2>
             <ul>
-                <li><strong>Research Assistant</strong> - [University Medical School] (20XX-Present)</li>
-                <li><strong>EMT Certified</strong> - Volunteering Soon</li>
-                <li><strong>UPchieve Volunteer Tutor</strong> - Free tutoring for underserved students</li>
+                <li><strong>Thakor Laboratory (2024-Present):</strong> Conducted surgeries, developed blood pressure feedback systems.</li>
+                <li><strong>Mysore Laboratory (2023-2024):</strong> Neural attentional circuit research, device programming.</li>
+                <li><strong>Abbott Laboratories (2022):</strong> Patent contribution, data analysis for neurostimulation patients.</li>
             </ul>
         </section>
-        
-        <section id="projects" class="fade-in">
-            <h2>Projects & Research</h2>
-            <p>Details about your research work, clinical experiences, or coding projects.</p>
+
+        <section>
+            <h2>Leadership</h2>
+            <ul>
+                <li><strong>President, Iranian Cultural Society</strong> - Reactivated and managed cultural club.</li>
+                <li><strong>President, Machine Learning Club</strong> - Organized machine learning projects.</li>
+                <li><strong>President, Robotics Club</strong> - Managed budget and led teams to competition finals.</li>
+            </ul>
         </section>
-        
-        <section id="contact" class="fade-in">
+
+        <section>
+            <h2>Certifications & Skills</h2>
+            <p><strong>EMT-Basic:</strong> Certified since 2024 (Texas & NREMT).</p>
+            <p><strong>Languages:</strong> English (Native), Farsi (Native), French (Professional).</p>
+        </section>
+
+        <section>
             <h2>Contact</h2>
-            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+            <p>Email: <a href="mailto:rbohlul1@jh.edu">rbohlul1@jh.edu</a></p>
             <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
             <p>GitHub: <a href="#">github.com/yourusername</a></p>
         </section>
