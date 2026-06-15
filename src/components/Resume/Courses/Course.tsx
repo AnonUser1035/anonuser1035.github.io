@@ -7,7 +7,7 @@ interface CourseProps {
 export default function Course({ data }: CourseProps) {
   const inner = (
     <>
-      <h4 className="course-number">{data.number}:</h4>
+      <p className="course-number">{data.number}:</p>
       <p className="course-name">{data.title}</p>
     </>
   );

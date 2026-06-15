@@ -26,13 +26,13 @@
   text-align: center;
 }
 
-.resume-page .education .title h3,
-.resume-page .experience .title h3,
-.resume-page .skills .title h3,
-.resume-page .courses .title h3,
-.resume-page .references .title h3 {
+.resume-page .education .title h2,
+.resume-page .experience .title h2,
+.resume-page .skills .title h2,
+.resume-page .courses .title h2,
+.resume-page .references .title h2 {
   font-size: var(--text-3xl);
-  font-weight: var(--font-weight-black);
+  font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--color-fg-bold);
   display: inline-block;
@@ -84,8 +84,8 @@
 
 .resume-title {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: var(--font-weight-black);
-  letter-spacing: var(--tracking-tight);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
   margin-bottom: 1.25rem;
   color: var(--color-fg-bold);
 }
@@ -108,9 +108,7 @@
   position: sticky;
   top: var(--header-height);
   z-index: var(--z-sticky);
-  background: color-mix(in srgb, var(--color-bg-alt) 92%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--color-bg-alt);
   padding: var(--spacing-4) var(--spacing-6);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-bg);
@@ -129,6 +127,9 @@
 }
 
 .resume-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.5rem 1rem;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
@@ -137,7 +138,9 @@
   border: none;
   border-radius: var(--radius-sm);
   text-decoration: none;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
 }
 
 .resume-nav-link:hover {

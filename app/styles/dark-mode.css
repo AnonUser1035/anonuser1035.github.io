@@ -157,7 +157,6 @@
   opacity: 0.015;
 }
 
-[data-theme='dark'] .skillbar,
 [data-theme='dark'] code {
   background: var(--color-surface-hover);
   border-color: var(--color-border-bg);

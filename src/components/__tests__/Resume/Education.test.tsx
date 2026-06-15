@@ -64,7 +64,7 @@ describe('Degree', () => {
   it('renders degree title', () => {
     render(<Degree data={mockDegree} />);
 
-    expect(screen.getByRole('heading', { level: 4 })).toHaveTextContent(
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'M.S. Computer Science',
     );
   });

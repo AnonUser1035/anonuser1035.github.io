@@ -106,7 +106,7 @@ export default function Skills({ skills, categories }: SkillsProps) {
     <div className="skills">
       <div className="link-to" id="skills" />
       <div className="title">
-        <h3>Skills</h3>
+        <h2>Skills</h2>
       </div>
       <div className="skill-button-container">{buttonElements}</div>
       <div className="skill-groups">
@@ -118,9 +118,9 @@ export default function Skills({ skills, categories }: SkillsProps) {
           } as CSSProperties;
           return (
             <div key={categoryName} className="skill-group">
-              <h4 className="skill-group-title" style={titleStyle}>
+              <h3 className="skill-group-title" style={titleStyle}>
                 {categoryName}
-              </h4>
+              </h3>
               <div className="skill-tags">
                 {categorySkills.map((skill) => (
                   <SkillTag

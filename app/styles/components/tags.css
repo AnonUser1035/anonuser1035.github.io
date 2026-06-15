@@ -29,16 +29,29 @@
 }
 
 .skill-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-sans);
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-black);
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  /* Use CSS custom property if set, fallback to default */
-  color: var(--skill-category-color, var(--color-fg-bold));
+  color: var(--color-fg-bold);
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
-  border-bottom: 3px solid var(--color-accent);
-  display: inline-block;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Category color as a non-text mark — keeps the heading readable (color-blind
+   users still get the category from the label text) instead of tinting the text. */
+.skill-group-title::before {
+  content: '';
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: var(--radius-full);
+  background: var(--skill-category-color, var(--color-accent));
 }
 
 .skill-tags {
@@ -61,7 +74,6 @@
   padding: 0.6em 1.1em;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-left: 4px solid var(--tag-color, var(--color-accent));
   border-radius: var(--radius-sm);
   font-size: var(--text-base);
   font-weight: var(--font-weight-medium);

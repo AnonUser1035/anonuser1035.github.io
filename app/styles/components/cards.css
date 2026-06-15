@@ -236,46 +236,29 @@
     box-shadow var(--duration-fast) var(--ease-out);
 }
 
-.jobs-container::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 1.5rem;
-  bottom: 1.5rem;
-  width: 3px;
-  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
-  border-radius: 2px;
-  opacity: 0;
-  transition: opacity var(--duration-fast) var(--ease-out);
-}
-
 .jobs-container:hover {
   border-color: var(--color-accent-border);
   transform: translateY(var(--lift-sm));
   box-shadow: var(--shadow-lg);
 }
 
-.jobs-container:hover::before {
-  opacity: 1;
-}
-
 .jobs-container:last-child {
   margin-bottom: 0;
 }
 
-.jobs-container header h4 {
+.jobs-container header h3 {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-semibold);
   margin-bottom: 0.35rem;
   line-height: 1.3;
 }
 
-.jobs-container header h4 a {
+.jobs-container header h3 a {
   color: var(--color-fg-bold);
   text-decoration: none;
 }
 
-.jobs-container header h4 a:hover {
+.jobs-container header h3 a:hover {
   color: var(--color-accent);
 }
 
@@ -334,7 +317,7 @@
   margin-bottom: 1.5em;
 }
 
-.degree-container h4 {
+.degree-container h3 {
   font-weight: var(--font-weight-normal);
 }
 
@@ -371,7 +354,10 @@
   border: 1px solid var(--color-border-bg);
   border-radius: var(--radius-md);
   text-decoration: none;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .course-container a:hover {
