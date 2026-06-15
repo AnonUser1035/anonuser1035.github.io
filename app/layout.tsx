@@ -27,7 +27,7 @@ const raleway = Raleway({
 });
 
 const siteDescription =
-  'Member of the Technical Staff at OpenAI, working on Promptfoo and agent security. Previously co-founded Promptfoo, Arthena, and Matroid, and led engineering at Smile ID.';
+  'Ryan Bohluli is a computational neuroscience student at Johns Hopkins, co-founder and Chief Research Officer of Neuro Safety Systems, EMT, and aspiring physician researching closed-loop neuromodulation.';
 
 export const metadata: Metadata = {
   title: {
@@ -37,13 +37,15 @@ export const metadata: Metadata = {
   description: siteDescription,
   keywords: [
     AUTHOR_NAME,
-    'OpenAI',
-    'Promptfoo',
-    'agent security',
-    'LLM security',
-    'machine learning',
-    'startup founder',
-    'YC',
+    'Johns Hopkins',
+    'neuroscience',
+    'neuromodulation',
+    'neurotechnology',
+    'EEG',
+    'EMT',
+    'pre-med',
+    'Neuro Safety Systems',
+    'research',
   ],
   authors: [{ name: AUTHOR_NAME }],
   creator: AUTHOR_NAME,

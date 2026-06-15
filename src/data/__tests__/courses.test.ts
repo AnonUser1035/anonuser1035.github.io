@@ -12,12 +12,10 @@ describe('courses data', () => {
     for (const course of courses) {
       expect(course).toHaveProperty('title');
       expect(course).toHaveProperty('number');
-      expect(course).toHaveProperty('link');
       expect(course).toHaveProperty('university');
 
       expect(typeof course.title).toBe('string');
       expect(typeof course.number).toBe('string');
-      expect(typeof course.link).toBe('string');
       expect(typeof course.university).toBe('string');
     }
   });
@@ -34,11 +32,13 @@ describe('courses data', () => {
     }
   });
 
-  it('links are valid URLs', () => {
+  it('links are valid URLs when present', () => {
     const urlRegex = /^https?:\/\/.+/;
 
     for (const course of courses) {
-      expect(course.link).toMatch(urlRegex);
+      if (course.link) {
+        expect(course.link).toMatch(urlRegex);
+      }
     }
   });
 

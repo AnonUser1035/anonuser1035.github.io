@@ -1,0 +1,120 @@
+/* ========================================
+   PUBLICATIONS PAGE
+   ======================================== */
+
+.publications-header {
+  margin-bottom: var(--spacing-12);
+}
+
+.publications-section {
+  margin-bottom: var(--spacing-12);
+}
+
+.publications-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg-bold);
+  padding-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.publication-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  counter-reset: publication;
+}
+
+.publication {
+  position: relative;
+  padding-left: var(--spacing-8);
+  line-height: 1.5;
+  color: var(--color-fg);
+}
+
+.publication::before {
+  counter-increment: publication;
+  content: counter(publication) '.';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-light);
+}
+
+.publication-authors {
+  color: var(--color-fg-light);
+}
+
+.publication-authors strong {
+  color: var(--color-fg-bold);
+  font-weight: var(--font-weight-semibold);
+}
+
+.publication-title {
+  color: var(--color-fg-bold);
+  font-weight: var(--font-weight-medium);
+}
+
+a.publication-title:hover {
+  color: var(--color-accent);
+}
+
+.publication-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-1);
+  font-size: var(--text-sm);
+}
+
+.publication-venue {
+  font-style: italic;
+  color: var(--color-fg-light);
+}
+
+.publication-year {
+  color: var(--color-fg-muted);
+}
+
+.publication-status,
+.publication-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.publication-status {
+  background: var(--color-surface-subtle);
+  color: var(--color-fg-light);
+  border: 1px solid var(--color-border);
+}
+
+.publication-badge {
+  background: var(--color-accent-subtle);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent-border);
+}
+
+.publication-doi {
+  display: inline-block;
+  margin-top: var(--spacing-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-fg-muted);
+}
+
+.publication-doi:hover {
+  color: var(--color-accent);
+}

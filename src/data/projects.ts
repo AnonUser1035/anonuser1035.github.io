@@ -2,7 +2,7 @@ export interface Project {
   title: string;
   subtitle?: string;
   link?: string;
-  image: string;
+  image?: string;
   date: string;
   desc: string;
   tech?: string[];
@@ -11,40 +11,50 @@ export interface Project {
 
 const data: Project[] = [
   {
-    title: 'Nearest Dollar',
-    subtitle: '2015 BVP Hackathon',
-    image: '/images/projects/nearestdollar.jpg',
-    date: '2015-11-20',
-    desc: 'Connected to bank accounts to round up purchases and donate spare change to charity.',
-    tech: ['React', 'Node.js', 'Plaid API', 'MongoDB'],
+    title: 'Vigilance Score',
+    subtitle: 'Neuro Safety Systems',
+    link: 'https://neurosafetysystems.com',
+    date: '2025-05-01',
+    desc: 'Real-time driver-fatigue platform that classifies vigilance states from in-ear EEG and triggers haptic feedback on-device within milliseconds. Outperforms camera-based fatigue detection by 40%.',
+    tech: ['Python', 'EEG', 'Machine Learning', 'On-device Inference'],
     featured: true,
   },
   {
-    title: 'Harvest',
-    subtitle: '3rd place at Techcrunch Disrupt SF',
-    link: 'https://devpost.com/software/harvest',
-    image: '/images/projects/harvest.jpg',
-    date: '2015-09-20',
-    desc: 'Low-cost crop monitoring to catch irrigation leaks and nutrient deficiencies.',
-    tech: ['Python', 'Arduino', 'Computer Vision', 'AWS'],
+    title: 'Closed-Loop Neuromodulation System',
+    subtitle: 'Thakor Lab — Honors Thesis',
+    date: '2025-01-01',
+    desc: 'Feedback-controlled epidural and focused-ultrasound stimulation that modulates mean arterial pressure in spinal-cord-injury models, using multi-modal physiological signals.',
+    tech: ['MATLAB / Simulink', 'Signal Processing', 'Arduino'],
     featured: true,
   },
   {
-    title: 'Space Potato',
-    subtitle: 'Kickstarter-funded weather balloon',
-    link: 'http://www.spacepotato.org',
-    image: '/images/projects/spacepotato.jpg',
-    date: '2015-06-28',
-    desc: 'Potato-powered weather balloon with cameras. Photos published in a coffee table book.',
-    tech: ['Hardware', 'GPS', 'Photography'],
+    title: 'Wearable AURIS Sensor',
+    subtitle: 'In-ear autonomic monitoring',
+    date: '2025-03-01',
+    desc: 'Custom PEDOT:PSS in-ear electrodes on flexible substrates plus a Python/MATLAB pipeline for R-peak detection and heart-rate-variability analysis, matching clinical gold-standard electrodes.',
+    tech: ['PEDOT:PSS', 'Python', 'MATLAB', 'Signal Processing'],
+    featured: true,
   },
   {
-    title: 'Cat Detector',
-    subtitle: 'CNN for cat breed classification',
-    image: '/images/projects/catdetector.jpg',
-    date: '2015-05-15',
-    desc: 'Classified 60,000+ cats across 80 breeds before server costs shut it down.',
-    tech: ['Python', 'TensorFlow', 'CNN', 'AWS'],
+    title: 'Attentional Circuit Model',
+    subtitle: 'Mysore Lab',
+    date: '2024-05-01',
+    desc: 'A Raspberry Pi simulation replicating the brain’s attentional-suppression pathways, built alongside two mentees who presented a companion build at a Young Engineers contest.',
+    tech: ['Python', 'Raspberry Pi', 'Computer Vision'],
+  },
+  {
+    title: 'Pharmacy Outreach Automation',
+    subtitle: 'St. Vincent de Paul Pharmacy',
+    date: '2025-02-01',
+    desc: 'An n8n workflow with an AI-powered FAQ and SMS interface that automated patient outreach and cut administrative load for a volunteer pharmacy.',
+    tech: ['n8n', 'OpenAI API', 'SMS'],
+  },
+  {
+    title: 'Surgical Tooling & Ultrasound Integration',
+    subtitle: 'Thakor Lab',
+    date: '2024-10-01',
+    desc: 'Custom surgical tools and ultrasound-integration devices designed and fabricated in SOLIDWORKS to improve neuromodulation experiments.',
+    tech: ['SOLIDWORKS', 'Hardware', 'Fabrication'],
   },
 ];
 

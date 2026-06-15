@@ -14,9 +14,11 @@ describe('Footer', () => {
   it('displays the name and role', () => {
     render(<Footer />);
 
-    expect(screen.getByText("Michael D'Angelo")).toBeInTheDocument();
+    expect(screen.getByText('Ryan Bohluli')).toBeInTheDocument();
     expect(
-      screen.getByText('Member of the Technical Staff at OpenAI'),
+      screen.getByText(
+        'Co-founder & Chief Research Officer at Neuro Safety Systems Inc.',
+      ),
     ).toBeInTheDocument();
   });
 

@@ -5,12 +5,16 @@ interface CourseProps {
 }
 
 export default function Course({ data }: CourseProps) {
+  const inner = (
+    <>
+      <h4 className="course-number">{data.number}:</h4>
+      <p className="course-name">{data.title}</p>
+    </>
+  );
+
   return (
     <li className="course-container">
-      <a href={data.link}>
-        <h4 className="course-number">{data.number}:</h4>
-        <p className="course-name">{data.title}</p>
-      </a>
+      {data.link ? <a href={data.link}>{inner}</a> : <div>{inner}</div>}
     </li>
   );
 }

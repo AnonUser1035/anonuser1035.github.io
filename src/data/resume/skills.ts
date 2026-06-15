@@ -12,115 +12,104 @@ export interface Category {
 }
 
 const skills: Skill[] = [
-  // Languages
+  // Programming
   {
     title: 'Python',
     competency: 5,
-    category: ['Languages', 'ML Engineering'],
+    category: ['Programming', 'ML & Data'],
   },
   {
-    title: 'TypeScript',
+    title: 'MATLAB / Simulink',
     competency: 5,
-    category: ['Languages', 'Web Development'],
+    category: ['Programming', 'Engineering & Design'],
   },
   {
-    title: 'SQL',
-    competency: 4,
-    category: ['Languages', 'Databases'],
-  },
-  // AI & LLM
-  {
-    title: 'AI Agents',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'LLM Evaluation',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'AI Red-teaming',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'LLM APIs',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'RAG',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Prompt Engineering',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Vector Databases',
-    competency: 4,
-    category: ['ML Engineering', 'Databases'],
-  },
-  {
-    title: 'PyTorch',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Pandas',
-    competency: 5,
-    category: ['ML Engineering', 'Data Engineering'],
-  },
-  // Web Development
-  {
-    title: 'Node.js',
-    competency: 5,
-    category: ['Web Development'],
-  },
-  {
-    title: 'FastAPI',
-    competency: 4,
-    category: ['Web Development'],
-  },
-  {
-    title: 'Next.js',
+    title: 'Java',
     competency: 3,
-    category: ['Web Development'],
-  },
-  // Databases
-  {
-    title: 'PostgreSQL',
-    competency: 4,
-    category: ['Databases'],
+    category: ['Programming'],
   },
   {
-    title: 'Redis',
+    title: 'C#',
     competency: 3,
-    category: ['Databases'],
+    category: ['Programming'],
   },
-  // Infrastructure
   {
-    title: 'AWS',
+    title: 'HTML / CSS',
     competency: 4,
-    category: ['Infrastructure'],
+    category: ['Programming'],
   },
   {
-    title: 'Docker',
-    competency: 4,
-    category: ['Infrastructure'],
-  },
-  {
-    title: 'Kubernetes',
+    title: 'Unix / Bash',
     competency: 3,
-    category: ['Infrastructure'],
+    category: ['Programming'],
+  },
+  // ML & Data
+  {
+    title: 'Signal Processing',
+    competency: 4,
+    category: ['ML & Data'],
   },
   {
-    title: 'Observability',
+    title: 'Machine Learning',
     competency: 4,
-    category: ['Infrastructure', 'ML Engineering'],
+    category: ['ML & Data'],
+  },
+  {
+    title: 'OpenAI API',
+    competency: 4,
+    category: ['ML & Data', 'Programming'],
+  },
+  {
+    title: 'n8n Automation',
+    competency: 4,
+    category: ['ML & Data'],
+  },
+  // Engineering & Design
+  {
+    title: 'SOLIDWORKS',
+    competency: 4,
+    category: ['Engineering & Design'],
+  },
+  {
+    title: 'Arduino',
+    competency: 4,
+    category: ['Engineering & Design'],
+  },
+  {
+    title: 'PEDOT:PSS Fabrication',
+    competency: 4,
+    category: ['Engineering & Design', 'Clinical & Lab'],
+  },
+  {
+    title: 'Blender',
+    competency: 3,
+    category: ['Engineering & Design'],
+  },
+  // Clinical & Lab
+  {
+    title: 'EMT-Basic / CPR-BLS',
+    competency: 5,
+    category: ['Clinical & Lab'],
+  },
+  {
+    title: 'EEG / Neuromonitoring',
+    competency: 4,
+    category: ['Clinical & Lab', 'ML & Data'],
+  },
+  {
+    title: 'Surgical Technique (Laminectomy)',
+    competency: 4,
+    category: ['Clinical & Lab'],
+  },
+  {
+    title: 'IACUC Animal Care & Use',
+    competency: 4,
+    category: ['Clinical & Lab'],
+  },
+  {
+    title: 'Canon Aplio Ultrasound',
+    competency: 3,
+    category: ['Clinical & Lab'],
   },
 ].map((skill) => ({ ...skill, category: skill.category.sort() }));
 

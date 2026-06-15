@@ -13,16 +13,30 @@ export default function Cell({ data }: CellProps) {
 
   const hasLink = Boolean(link);
 
+  // Derive up to two initials from the title for the image-less placeholder.
+  const initials = title
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+
   const cardContent = (
     <>
       <div className="project-card-image">
-        <Image
-          src={image}
-          alt={title}
-          width={PROJECT_IMAGE.width}
-          height={PROJECT_IMAGE.height}
-          sizes="(max-width: 600px) 100vw, 50vw"
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            width={PROJECT_IMAGE.width}
+            height={PROJECT_IMAGE.height}
+            sizes="(max-width: 600px) 100vw, 50vw"
+          />
+        ) : (
+          <div className="project-card-placeholder" aria-hidden="true">
+            <span>{initials}</span>
+          </div>
+        )}
         <div className="project-card-overlay" />
       </div>
 

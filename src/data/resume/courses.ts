@@ -1,88 +1,70 @@
 export interface Course {
   title: string;
   number: string;
-  link: string;
+  link?: string;
   university: string;
 }
 
 const courses: Course[] = [
   {
-    title: 'Convex Optimization',
-    number: 'EE 364a',
-    link: 'http://stanford.edu/class/ee364a/',
-    university: 'Stanford',
+    title: 'Neuroscience: Cellular & Systems I',
+    number: 'AS.080.305',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Machine Learning',
-    number: 'CS 229',
-    link: 'http://cs229.stanford.edu/',
-    university: 'Stanford',
+    title: 'Neuroscience: Cellular & Systems II',
+    number: 'AS.080.306',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Convolutional Neural Networks for Visual Recognition',
-    number: 'CS 231n',
-    link: 'http://cs231n.stanford.edu/',
-    university: 'Stanford',
+    title: 'Neuroscience: Cognitive',
+    number: 'AS.050.203',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Numerical Linear Algebra',
-    number: 'CME 302',
-    link: 'http://scpd.stanford.edu/search/publicCourseSearchDetails.do;jsessionid=561188A06434D7D97953C4706DE12831?method=load&courseId=11685',
-    university: 'Stanford',
+    title: 'Neuroeconomics',
+    number: 'AS.080.308',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Numerical Optimization',
-    number: 'CME 304',
-    link: 'http://web.stanford.edu/class/cme304/',
-    university: 'Stanford',
+    title: 'Foundations of Brain, Behavior & Cognition',
+    number: 'AS.200.141',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Discrete Mathematics and Algorithms',
-    number: 'CME 305',
-    link: 'http://stanford.edu/~rezab/discrete/',
-    university: 'Stanford',
+    title: 'Introduction to Computing',
+    number: 'AS.250.205',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Stochastic Methods in Engineering',
-    number: 'CME 306',
-    link: 'http://web.stanford.edu/class/cme306/',
-    university: 'Stanford',
+    title: 'Biochemistry',
+    number: 'AS.020.305',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Optimization',
-    number: 'CME 307',
-    link: 'http://stanford.edu/class/cme307/',
-    university: 'Stanford',
+    title: 'Linear Algebra',
+    number: 'AS.110.201',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Stochastic Processes',
-    number: 'CME 308',
-    link: 'http://web.stanford.edu/class/cme308/',
-    university: 'Stanford',
+    title: 'Calculus III',
+    number: 'AS.110.202',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Randomized Algorithms and Probabilistic Analysis',
-    number: 'CS 365',
-    link: 'http://web.stanford.edu/class/cs365/',
-    university: 'Stanford',
+    title: 'Organic Chemistry I & II',
+    number: 'AS.030.205/206',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Deep Learning for Natural Language Processing',
-    number: 'CS 224d',
-    link: 'http://cs224d.stanford.edu',
-    university: 'Stanford',
+    title: 'Scientific Communication and Mentoring',
+    number: 'AS.080.499',
+    university: 'Johns Hopkins',
   },
   {
-    title: 'Mining Massive Data Sets',
-    number: 'CS 246',
-    link: 'http://web.stanford.edu/class/cs246/',
-    university: 'Stanford',
-  },
-  {
-    title: 'Computer Vision: Foundations and Applications',
-    number: 'CS 131',
-    link: 'http://vision.stanford.edu/teaching/cs131_fall1415/index.html',
-    university: 'Stanford',
+    title: 'Culture, Religion and Politics in Iran',
+    number: 'AS.070.267',
+    university: 'Johns Hopkins',
   },
 ];
 

@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Courses from '@/components/Resume/Courses';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
-import References from '@/components/Resume/References';
 import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
@@ -16,7 +15,7 @@ import { createPageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = createPageMetadata({
   title: 'Resume',
   description:
-    "Michael D'Angelo's Resume. OpenAI, Promptfoo, Smile ID, Arthena, Matroid, Stanford ICME, YC alum.",
+    'Ryan Bohluli — Johns Hopkins computational neuroscience, Neuro Safety Systems, Thakor & Cho Labs, EMT, and research in closed-loop neuromodulation.',
   path: '/resume/',
 });
 
@@ -27,12 +26,12 @@ export default function ResumePage() {
         <header className="resume-header">
           <h1 className="resume-title">Resume</h1>
           <p className="resume-summary">
-            Engineering leader with 15+ years building products across AI,
-            security, and infrastructure. Currently Member of the Technical
-            Staff at OpenAI, where I work on Promptfoo and agent security.
-            Previously co-founded Promptfoo, built it into an AI security
-            platform, and sold it to OpenAI. Stanford MS, YC alum, previously VP
-            Engineering.
+            Computational neuroscience student at Johns Hopkins building
+            closed-loop neuromodulation systems and wearable neurotechnology.
+            Co-founder &amp; Chief Research Officer of Neuro Safety Systems,
+            researcher in the Thakor and Cho Labs, certified EMT, and aspiring
+            physician. Contributor to nine publications across Nature Biomedical
+            Engineering, Scientific Reports, and ASME.
           </p>
         </header>
 
@@ -53,10 +52,6 @@ export default function ResumePage() {
 
           <section id="courses" className="resume-section">
             <Courses data={courses} />
-          </section>
-
-          <section id="references" className="resume-section">
-            <References />
           </section>
         </div>
       </section>

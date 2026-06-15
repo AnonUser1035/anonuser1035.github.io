@@ -10,37 +10,27 @@ describe('about data', () => {
 
   it('contains the intro section', () => {
     expect(aboutMarkdown).toContain('# Intro');
-    expect(aboutMarkdown).toContain('OpenAI');
-    expect(aboutMarkdown).toContain('Promptfoo');
+    expect(aboutMarkdown).toContain('Johns Hopkins');
+    expect(aboutMarkdown).toContain('Neuro Safety Systems');
   });
 
-  it('contains the history section', () => {
-    expect(aboutMarkdown).toContain('# Some History');
-    expect(aboutMarkdown).toContain('MS-DOS');
+  it('contains the research section', () => {
+    expect(aboutMarkdown).toContain('# Research');
+    expect(aboutMarkdown).toContain('focused ultrasound');
   });
 
-  it('contains the likes section', () => {
-    expect(aboutMarkdown).toContain('# I Like');
-    expect(aboutMarkdown).toContain('Running');
-    expect(aboutMarkdown).toContain('Skiing');
+  it('contains the medicine & service section', () => {
+    expect(aboutMarkdown).toContain('# Medicine & Service');
+    expect(aboutMarkdown).toContain('EMT');
   });
 
-  it('contains the travel section', () => {
-    expect(aboutMarkdown).toContain('# Travel / Geography');
-    expect(aboutMarkdown).toContain('Buffalo, New York');
+  it('contains the community section', () => {
+    expect(aboutMarkdown).toContain('# Community');
+    expect(aboutMarkdown).toContain('Iranian Cultural Society');
   });
 
-  it('contains the fun facts section', () => {
-    expect(aboutMarkdown).toContain('# Fun Facts');
-  });
-
-  it('contains the dreams section', () => {
-    expect(aboutMarkdown).toContain('# I Dream Of');
-    expect(aboutMarkdown).toContain('Staying curious');
-  });
-
-  it('contains the admired websites section', () => {
-    expect(aboutMarkdown).toContain('# Websites from People I Admire');
+  it('contains the outside-the-lab section', () => {
+    expect(aboutMarkdown).toContain('# Outside the lab');
   });
 
   it('contains valid markdown links', () => {
@@ -49,7 +39,7 @@ describe('about data', () => {
     const links = aboutMarkdown.match(linkRegex);
 
     expect(links).not.toBeNull();
-    expect(links!.length).toBeGreaterThan(10);
+    expect(links!.length).toBeGreaterThan(4);
   });
 
   it('contains properly formatted headers', () => {

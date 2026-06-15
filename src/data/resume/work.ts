@@ -13,137 +13,111 @@ export interface Position {
 
 const work: Position[] = [
   {
-    name: 'OpenAI',
-    position: 'Member of the Technical Staff',
-    url: 'https://openai.com',
-    startDate: '2026-03-09',
-    summary: `Building evaluation, red-teaming, and hardening infrastructure for AI systems
-    at OpenAI, with a focus on Promptfoo and agent security.`,
-  },
-  {
-    name: 'Promptfoo',
-    position: 'Co-founder & CTO',
-    url: 'https://promptfoo.dev',
-    startDate: '2024-07-01',
-    endDate: '2026-03-09',
-    summary: `Promptfoo started as a developer-first eval tool and grew into a platform
-    for AI security, red-teaming, and compliance. We scaled it to more than 350,000 developers, 130,000
-    monthly active users, and teams at more than 25% of the Fortune 500 before selling the company to OpenAI.`,
+    name: 'Neuro Safety Systems Inc.',
+    position: 'Co-founder & Chief Research Officer',
+    url: 'https://neurosafetysystems.com',
+    startDate: '2025-05-01',
+    summary: `Co-founded a neurotechnology venture building EEG-powered fatigue detection for the
+    logistics industry. I direct research, the machine-learning pipeline, and academic and industry
+    partnerships. The company is valued at $5M with $100k in pre-seed funding.`,
     highlights: [
-      'Owned company-wide technical strategy and product roadmap across open-source adoption, commercial product, and research investments.',
-      'Co-led the company through its sale to OpenAI in March 2026.',
-      'Helped turn Promptfoo from an open-source eval tool into an enterprise AI security product used by large companies and frontier labs.',
-      'Built and scaled the company from founding to 23 people across engineering, GTM, and operations.',
-      'Led technical due diligence and fundraising through $23.4M in venture financing from Insight Partners and Andreessen Horowitz.',
-      'Led development of core evaluation framework, vulnerability scanning, static analysis, and automated red-teaming capabilities.',
+      'Architected real-time ML pipelines that classify driver vigilance states from in-ear EEG, producing a proprietary Vigilance Score that outperforms camera-based fatigue classification by 40%.',
+      'Built on-device inference models triggering haptic feedback within milliseconds, with encrypted local processing for data privacy.',
+      'Recruited and supervised two interns (an EE PhD candidate and a CS undergraduate); led IRB submission for human fatigue trials at JHU Bayview.',
+      'Co-authored a provisional patent on a DOT-compliant in-ear EEG headset; partnered with IDUN Technologies for consumer-grade hardware.',
+      'Secured pilots with Terminal Transportation and Old Dominion Freight Line and a research partnership with the U.S. Army Aeromedical Research Laboratory (USAARL).',
+      'Selected for Antler NYC and the JHU Pava Center Spark/Ignite/Fuel/Blaze accelerators; recognized at e-Fest, America 250, Telora, and the Carey Venture Showcase.',
     ],
   },
   {
-    name: 'Smile ID',
-    position: 'VP Engineering & Head of AI',
-    url: 'https://usesmileid.com',
-    startDate: '2022-01-01',
+    name: 'Thakor Laboratory, Johns Hopkins School of Medicine',
+    position: 'Undergraduate Research Assistant (PURA Fellow)',
+    url: 'https://thakorlab.jhu.edu',
+    startDate: '2024-08-01',
+    summary: `Independent and honors-thesis research on closed-loop neuromodulation for autonomic
+    control after spinal cord injury. Awarded the Provost's Undergraduate Research Award (PURA) and a
+    Neuroscience Departmental Summer Research Award.`,
+    highlights: [
+      'Engineered closed-loop epidural stimulation systems to modulate mean arterial pressure in post-spinal-cord-injury rats using multi-modal physiological signals.',
+      'Led an independent project comparing focused ultrasound (FUS) to invasive vagus nerve stimulation — now the basis of my honors thesis and a first-author publication.',
+      'Fabricated custom PEDOT:PSS in-ear sensors on PDMS substrates and built Python/MATLAB pipelines for R-peak detection and heart-rate-variability analysis matching clinical gold-standard electrodes.',
+      'Performed 30+ rat laminectomies and assisted in 10+ porcine surgeries; authored an approved IACUC amendment to launch autonomic dysreflexia research.',
+      'Contributed to 9 papers (2 first-author) and presented at the 2026 Design of Medical Devices Conference and Yale Bouchet Conference.',
+    ],
+  },
+  {
+    name: 'Cho Laboratory, Johns Hopkins School of Medicine',
+    position: 'Undergraduate Research Assistant',
+    url: 'https://www.hopkinsmedicine.org',
+    startDate: '2026-02-01',
+    summary: `Developing a clinical platform to characterize pain signals through in-ear EEG, validated
+    against a 64-lead EEG cap.`,
+    highlights: [
+      'Hand-soldering in-ear electrodes and building a clinical-trial-ready data-collection and stimulation interface.',
+      'Integrated an Arduino-based controlled pulse generator to synchronize recording software with the raw data stream.',
+      'Attending cardiovascular surgeries on porcine models to contextualize the physiological basis of pain signaling.',
+    ],
+  },
+  {
+    name: 'Lubelski Laboratory (Ceribell Project), Johns Hopkins School of Medicine',
+    position: 'Undergraduate Clinical Research Assistant',
+    url: 'https://www.hopkinsmedicine.org',
+    startDate: '2026-02-01',
+    endDate: '2026-05-01',
+    summary: `Clinical EEG research identifying early biomarkers of postoperative delirium in spine
+    surgery patients.`,
+    highlights: [
+      'Consent patients, administer pre-operative cognitive assessments, and apply the Ceribell rapid EEG headset with signal-quality verification before surgery.',
+      'Monitor and maintain EEG signal integrity intraoperatively while coordinating with surgical and nursing teams.',
+      'Assess patient alertness and comfort in the post-anesthesia care unit before final data collection.',
+    ],
+  },
+  {
+    name: 'Arbutus Volunteer Fire Department',
+    position: 'Volunteer EMT',
+    url: 'https://www.arbutusvfd.com',
+    startDate: '2025-11-01',
+    summary: `Pre-hospital patient care as a certified EMT-Basic on a Baltimore County BLS/ALS unit.`,
+    highlights: [
+      'Responded to 70+ calls across lower-income Baltimore County neighborhoods, serving patients in homelessness, substance-use, and mental-health crises.',
+      "Participate in Baltimore's Narcan leave-behind program, distributing naloxone at no cost.",
+      'Completed station-based field training, HAZMAT, CPR/BLS recertification, and fire-pole certification; help run firehouse community events.',
+    ],
+  },
+  {
+    name: 'Mysore Laboratory, Johns Hopkins University',
+    position: 'Undergraduate Research Assistant',
+    url: 'https://mysore.bme.jhu.edu',
+    startDate: '2023-09-01',
     endDate: '2024-07-01',
-    summary: `Smile Identity provides ML-powered identity verification APIs used by banks, fintechs, and
-    telcos across Africa. Promoted from Director to VP Engineering to VP Engineering & Head of AI within one year,
-    leading teams building APIs that now process hundreds of millions of identity checks.`,
+    summary: `Studied attentional suppression circuits in avian and rodent models.`,
     highlights: [
-      'Owned engineering org design, headcount planning, and hiring across backend and ML teams, growing to 20+ engineers.',
-      'Transformed engineering velocity from weekly releases to continuous deployment, migrating to TypeScript, adding tests in CI, and leading ceremonies.',
-      'Re-architected inference APIs on AWS Lambda, scaling from 1,000 to 1M+ users per day and cutting job time from 30+ seconds to 7 seconds.',
-      'Built computer vision pipelines for liveness detection certification.',
-      'Pitched, designed, and shipped a fraud detection product using 1-N facial recognition with embeddings and vector search.',
+      'Set up and tested experimental devices and mapped circuit-level dynamics from raw data.',
+      'Built a Raspberry Pi simulation replicating the brain’s attentional pathways.',
+      'Mentored two high-school students in Python, machine learning, and hardware toward a conference-ready Young Engineers demonstration.',
     ],
   },
   {
-    name: 'Skeptical Investments',
-    position: 'Co-founder',
-    url: 'http://skepticalinvestments.biz',
-    startDate: '2017-04-01',
-    summary: `Skeptical Investments is a micro-VC fund focused on early-stage technical founders,
-    with investments in ML, infrastructure, and space startups.`,
+    name: 'Abbott Laboratories, Neuromodulation Division',
+    position: 'Applied Research Assistant',
+    url: 'https://www.abbott.com',
+    startDate: '2022-06-01',
+    endDate: '2022-08-01',
     highlights: [
-      'Created InstaSafe, a tool that automates YC-standard investment documents.',
-      'Advise portfolio founders on ML, infrastructure, hiring, and fundraising strategy.',
+      'Contributed to an Abbott Invention Disclosure for gait analysis using a spine-implanted inertial measurement unit (IMU).',
+      'Initiated algorithm development for wearable-sensor data collection.',
+      'Supported data processing for the REALITY study analyzing long-term outcomes of 2,000+ neurostimulation patients.',
     ],
   },
   {
-    name: 'Arthena',
-    position: 'Co-founder & CTO',
-    url: 'https://arthena.com',
-    startDate: '2014-01-01',
-    endDate: '2022-01-01',
-    summary: `Arthena was a quantitative art investment platform backed by <a href='https://www.anthemis.com/'>Anthemis</a>,
-    <a href='https://foundationcapital.com'>Foundation Capital</a>, and <a href='https://ycombinator.com'>Y Combinator</a>.
-    Built Arthena from idea to acquisition by Masterworks in 2023.`,
+    name: 'Advanced Research in Thermo-Fluid Systems Lab, UT Dallas',
+    position: 'Research Assistant',
+    url: 'https://www.utdallas.edu',
+    startDate: '2022-06-01',
+    endDate: '2022-10-01',
     highlights: [
-      'Co-founded Arthena and led technical strategy; sat on board and led fundraising, including debt financing for a 9-figure investment vehicle in the auction guarantee market.',
-      'Built and managed a cross-functional team of 20 engineers, data scientists, and analysts.',
-      'Built data pipelines, quantitative research tools, and visualization systems to scale investment research and augment analyst decision-making.',
-      'Developed valuation models on irregularly-sampled time series using graph embeddings, probabilistic forecasting with calibrated prediction intervals, and online learning with walk-forward validation.',
-      'Designed micro-service architecture for data collection, feature engineering, backtesting, and reporting.',
-    ],
-  },
-  {
-    name: 'Matroid',
-    position: 'Co-founder',
-    url: 'https://matroid.com',
-    startDate: '2015-09-01',
-    endDate: '2016-06-01',
-    summary: `Matroid is a computer vision platform for creating and deploying detectors, now funded by
-    <a href='https://www.nea.com'>NEA</a> and <a href='https://www.accel.com'>Accel</a>. I co-founded
-    the company and built the initial product through our first fundraise.`,
-    highlights: [
-      'Defined company vision and product strategy.',
-      'Architected and built the initial detector platform for identifying objects, events, and patterns in video.',
-      'Led technical fundraising efforts for seed round.',
-    ],
-  },
-  {
-    name: 'Planet',
-    position: 'Avionics Intern',
-    url: 'https://planet.com',
-    startDate: '2014-06-01',
-    endDate: '2015-01-01',
-    highlights: [
-      'Built models for cloud detection and optimal exposure using Earth albedo, incorporating sensor physics, astronomy, and optics.',
-      'Worked with optics and camera hardware; developed satellite software in C++ and Python (OpenCV, NumPy, SciPy).',
-    ],
-  },
-  {
-    name: 'Planetary Resources',
-    position: 'Avionics Intern',
-    url: 'https://www.planetaryresources.com',
-    startDate: '2014-01-01',
-    endDate: '2014-05-01',
-    highlights: [
-      'Developed simulations for Attitude Determination and Control Subsystem.',
-      'Built flight hardware for Electrical Power Subsystem in clean room; performed thermal vacuum chamber testing.',
-    ],
-  },
-  {
-    name: 'Facebook',
-    position: 'Software Engineering Intern',
-    url: 'https://facebook.com',
-    startDate: '2013-06-01',
-    endDate: '2013-09-01',
-    highlights: [
-      "Worked on Facebook's first GPU compute team, benchmarking NVIDIA GPUs for initial data center deployment.",
-      'Built log collection software and performed statistical analysis in Python, Hack, R, and HQL.',
-    ],
-  },
-  {
-    name: 'UB Nanosatellite Program',
-    position: 'Program Manager',
-    url: 'https://ubnl.space/',
-    startDate: '2011-06-01',
-    endDate: '2012-05-01',
-    summary:
-      'Led a 60-person student team through the satellite development lifecycle for the AFRL University Nanosatellite Program.',
-    highlights: [
-      'Co-authored grant proposal to design and build a multi-spectral imaging satellite.',
-      'Established budget and schedule from initial concept through design reviews.',
-      'Designed ADCS and worked on sensor integration.',
+      'Researched early diagnosis for non-lactating mothers using machine learning.',
+      'Invited as a presenter at the BMES Annual Conference for a selective high-school poster competition.',
     ],
   },
 ];
