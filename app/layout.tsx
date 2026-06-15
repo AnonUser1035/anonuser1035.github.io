@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Raleway, Source_Sans_3 } from 'next/font/google';
+import { Source_Sans_3, Source_Serif_4 } from 'next/font/google';
 import Script from 'next/script';
 
 import GoogleAnalytics from '@/components/Template/GoogleAnalytics';
@@ -8,8 +8,9 @@ import ScrollToTop from '@/components/Template/ScrollToTop';
 import { AUTHOR_NAME, SITE_URL, TWITTER_HANDLE } from '@/lib/utils';
 import './tailwind.css';
 
+// Variable fonts: a single file covers every weight we use (400/600/700/800)
+// as true weights — no synthetic bolds — and is lighter than stacked statics.
 const sourceSans = Source_Sans_3({
-  weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-source-sans',
   display: 'swap',
@@ -17,12 +18,11 @@ const sourceSans = Source_Sans_3({
   adjustFontFallback: true,
 });
 
-const raleway = Raleway({
-  weight: ['400', '800'],
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
-  variable: '--font-raleway',
+  variable: '--font-source-serif',
   display: 'swap',
-  preload: true,
+  preload: false,
   adjustFontFallback: true,
 });
 
@@ -95,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSans.variable} ${raleway.variable}`}
+      className={`${sourceSans.variable} ${sourceSerif.variable}`}
       suppressHydrationWarning
     >
       <head>

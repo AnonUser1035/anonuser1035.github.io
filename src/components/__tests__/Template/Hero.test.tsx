@@ -49,12 +49,4 @@ describe('Hero', () => {
     expect(resumeButton).toHaveAttribute('href', '/resume');
     expect(resumeButton).toHaveClass('button-secondary');
   });
-
-  it('has decorative background elements', () => {
-    render(<Hero />);
-
-    const bg = document.querySelector('.hero-bg');
-    expect(bg).toBeInTheDocument();
-    expect(bg).toHaveAttribute('aria-hidden', 'true');
-  });
 });

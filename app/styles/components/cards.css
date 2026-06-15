@@ -181,7 +181,7 @@
 
 .project-card-title {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-black);
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 0.35rem;
 }
 
@@ -265,7 +265,7 @@
 
 .jobs-container header h4 {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-black);
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 0.35rem;
   line-height: 1.3;
 }

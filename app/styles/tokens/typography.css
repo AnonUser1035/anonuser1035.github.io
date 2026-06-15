@@ -8,8 +8,8 @@
      FONT FAMILIES
      =================== */
   --font-sans: var(--font-source-sans), 'Source Sans Pro', Helvetica, sans-serif;
-  --font-heading: var(--font-raleway), 'Raleway', Helvetica, sans-serif;
-  --font-mono: 'Courier New', monospace;
+  --font-heading: var(--font-source-serif), 'Source Serif 4', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
 
   /* ===================
      FONT WEIGHTS
