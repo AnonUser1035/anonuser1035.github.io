@@ -39,10 +39,12 @@ jobs:
           cache: "npm"
 
       - name: Setup Pages
+        # Note: no `static_site_generator: next` — this is a user/custom-domain
+        # site served at root, so we need an empty basePath. Letting
+        # configure-pages inject a Next config also clobbers our
+        # `trailingSlash: true`, which breaks directory-style URLs and the
+        # sitemap. Our own next.config.ts is authoritative.
         uses: actions/configure-pages@v5
-        with:
-          # Automatically inject basePath in Next.js config
-          static_site_generator: next
 
       - name: Cache dependencies
         uses: actions/cache@v4
