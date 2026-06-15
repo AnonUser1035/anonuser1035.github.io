@@ -82,6 +82,7 @@
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--color-fg-bold);
+  text-wrap: balance;
 }
 
 /* Tagline */
@@ -152,33 +153,6 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-/* Background */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  overflow: clip;
-  pointer-events: none;
-}
-
-.hero-gradient {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1200px;
-  height: 800px;
-  background: radial-gradient(
-    ellipse 100% 100% at 50% 50%,
-    var(--color-accent-light) 0%,
-    var(--color-accent-subtle) 15%,
-    color-mix(in srgb, var(--color-accent) 3%, transparent) 30%,
-    transparent 45%
-  );
-  filter: blur(100px);
-  opacity: 0.6;
 }
 
 /* Mobile */
@@ -387,10 +361,6 @@
 
 [data-theme='dark'] .hero-chip {
   background: var(--color-bg-offset);
-}
-
-[data-theme='dark'] .hero-gradient {
-  opacity: 0.3;
 }
 
 [data-theme='dark'] .home-section {

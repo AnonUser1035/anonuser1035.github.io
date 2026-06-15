@@ -44,10 +44,6 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-
-      <div className="hero-bg" aria-hidden="true">
-        <div className="hero-gradient" />
-      </div>
     </section>
   );
 }
