@@ -53,3 +53,7 @@ Thumbs.db
 .grunt/
 .lock-wscript
 nohup.out
+
+# Claude Code / impeccable
+.claude/
+.impeccable/
