@@ -11,6 +11,15 @@ export interface Project {
 
 const data: Project[] = [
   {
+    title: 'NSS Fleet Demo',
+    subtitle: 'Neuro Safety Systems',
+    link: 'https://demo.neurosafetysystems.com',
+    date: '2026-06-01',
+    desc: 'A fleet-management dashboard I built from scratch to demonstrate driver fatigue management and rerouting for truckers. Monitors live vigilance and shift hours across a fleet, escalates and nudges at-risk drivers, and surfaces recommended interventions before fatigue becomes a hazard.',
+    tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
+    featured: true,
+  },
+  {
     title: 'Vigilance Score',
     subtitle: 'Neuro Safety Systems',
     link: 'https://neurosafetysystems.com',
