@@ -96,16 +96,6 @@
 
 /* Resume nav - dark mode uses same styles, just inherits dark tokens */
 
-/* Job cards in dark mode */
-[data-theme='dark'] .jobs-container {
-  background: var(--color-surface-subtle);
-  border-color: var(--color-border);
-}
-
-[data-theme='dark'] .jobs-container:hover {
-  border-color: var(--color-border-alt);
-}
-
 /* Course cards */
 [data-theme='dark'] .course-container a {
   background: var(--color-surface-subtle);

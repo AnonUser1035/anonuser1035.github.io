@@ -220,30 +220,22 @@
 }
 
 /* ========================================
-   JOB CARDS
+   JOB ENTRIES
+   Flat record entries — not cards. The container isn't interactive
+   (only the company name links), so it carries no box or hover state;
+   entries are separated by whitespace and a hairline, ledger-style.
    ======================================== */
 
 .jobs-container {
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  position: relative;
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border-bg);
 }
 
-.jobs-container:hover {
-  border-color: var(--color-accent-border);
-  transform: translateY(var(--lift-sm));
-  box-shadow: var(--shadow-lg);
-}
-
-.jobs-container:last-child {
+.jobs-container:last-of-type {
   margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .jobs-container header h3 {
