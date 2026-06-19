@@ -35,6 +35,10 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-fg-bold);
   text-decoration: none;
+  /* Opt out of the global animated `a` underline (base/links.css); the
+     nav link carries its own ::after cobalt bar, so the global one would
+     render a second underline on hover/active. */
+  background-image: none;
   border-radius: var(--radius-sm);
   letter-spacing: 0.01em;
   transition:
