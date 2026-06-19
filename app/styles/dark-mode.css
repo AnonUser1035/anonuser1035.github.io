@@ -49,11 +49,8 @@
 }
 
 /* Dark mode component overrides using semantic tokens */
-[data-theme='dark'] .site-header {
-  background-color: color-mix(in srgb, var(--color-bg-alt) 90%, transparent);
-  border-bottom-color: var(--color-border);
-}
-
+/* .site-header needs no override: background (--color-bg-alt) and
+   border (--color-border) already resolve to dark tokens. */
 [data-theme='dark'] .nav-link:hover {
   background-color: var(--color-surface-active);
 }
