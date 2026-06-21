@@ -67,7 +67,6 @@ describe('Hamburger', () => {
     fireEvent.click(screen.getByRole('button'));
 
     // Check for navigation links
-    expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
     expect(
@@ -85,8 +84,8 @@ describe('Hamburger', () => {
     expect(button).toHaveAttribute('aria-expanded', 'true');
 
     // Click a link
-    const aboutLink = screen.getByRole('link', { name: /about/i });
-    fireEvent.click(aboutLink);
+    const resumeLink = screen.getByRole('link', { name: /resume/i });
+    fireEvent.click(resumeLink);
 
     // Menu should be closed
     expect(button).toHaveAttribute('aria-expanded', 'false');

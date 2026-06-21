@@ -21,11 +21,6 @@ const destinations = [
     label: 'Publications',
     desc: 'Nine peer-reviewed papers across Nature Biomedical Engineering, Scientific Reports, and ASME.',
   },
-  {
-    href: '/contact',
-    label: 'Contact',
-    desc: 'The fastest ways to reach me.',
-  },
 ];
 
 export default function HomePage() {

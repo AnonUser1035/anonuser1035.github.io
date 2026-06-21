@@ -1,14 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { aboutMarkdown } from '@/data/about';
 import { createHeadingId, createUniqueHeadingIds } from '../anchors';
-
-function getAboutSectionTitles(markdown: string): string[] {
-  return Array.from(
-    markdown.matchAll(/^# (.+)$/gm),
-    (match) => match[1],
-  ).filter((title) => title !== 'Intro');
-}
 
 describe('createHeadingId', () => {
   it.each([
@@ -23,15 +15,6 @@ describe('createHeadingId', () => {
 
   it('falls back when a heading has no anchor-safe characters', () => {
     expect(createHeadingId('!!!')).toBe('section');
-  });
-
-  it('keeps the real about section ids stable', () => {
-    expect(
-      getAboutSectionTitles(aboutMarkdown).map((title) => [
-        title,
-        createHeadingId(title),
-      ]),
-    ).toEqual([['Outside the lab', 'outside-the-lab']]);
   });
 });
 
@@ -52,8 +35,13 @@ describe('createUniqueHeadingIds', () => {
     ]);
   });
 
-  it('produces unique, non-empty ids for the real about headings', () => {
-    const ids = createUniqueHeadingIds(getAboutSectionTitles(aboutMarkdown));
+  it('produces unique, non-empty ids for a set of section headings', () => {
+    const ids = createUniqueHeadingIds([
+      'Experience',
+      'Education',
+      'Skills',
+      'Outside the lab',
+    ]);
 
     expect(ids.every((id) => id.length > 0)).toBe(true);
     expect(new Set(ids).size).toBe(ids.length);
