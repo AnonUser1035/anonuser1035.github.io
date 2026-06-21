@@ -111,10 +111,11 @@ Lead paragraph.
       <AboutContent markdown={aboutMarkdown} />,
     );
 
-    expect(html).toContain('href="#research"');
-    expect(html).toContain('id="research"');
-    expect(html).toContain('href="#community"');
-    expect(html).toContain('id="community"');
+    for (const title of getActualSectionTitles(aboutMarkdown)) {
+      const headingId = createHeadingId(title);
+      expect(html).toContain(`href="#${headingId}"`);
+      expect(html).toContain(`id="${headingId}"`);
+    }
   });
 
   it('supports same-page hash navigation from section links', async () => {
@@ -122,32 +123,31 @@ Lead paragraph.
 
     render(<AboutContent markdown={aboutMarkdown} />);
 
+    const [firstTitle] = getActualSectionTitles(aboutMarkdown);
+    const headingId = createHeadingId(firstTitle);
+
     const nav = screen.getByRole('navigation', { name: 'About sections' });
-    const navLink = within(nav).getByRole('link', {
-      name: 'Community',
-    });
+    const navLink = within(nav).getByRole('link', { name: firstTitle });
 
     navLink.click();
 
     await waitFor(() => {
-      expect(window.location.hash).toBe('#community');
+      expect(window.location.hash).toBe(`#${headingId}`);
     });
     expect(document.querySelector(window.location.hash)).toHaveTextContent(
-      'Community',
+      firstTitle,
     );
 
-    const heading = screen.getByRole('heading', { name: 'Research' });
-    const permalink = within(heading).getByRole('link', {
-      name: 'Research',
-    });
+    const heading = screen.getByRole('heading', { name: firstTitle });
+    const permalink = within(heading).getByRole('link', { name: firstTitle });
 
     permalink.click();
 
     await waitFor(() => {
-      expect(window.location.hash).toBe('#research');
+      expect(window.location.hash).toBe(`#${headingId}`);
     });
     expect(document.querySelector(window.location.hash)).toHaveTextContent(
-      'Research',
+      firstTitle,
     );
   });
 });

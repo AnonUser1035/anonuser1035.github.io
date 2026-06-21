@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
 
-import Courses from '@/components/Resume/Courses';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
 import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
-import courses from '@/data/resume/courses';
 import degrees from '@/data/resume/degrees';
 import { categories, skills } from '@/data/resume/skills';
 import work from '@/data/resume/work';
@@ -26,12 +24,13 @@ export default function ResumePage() {
         <header className="resume-header">
           <h1 className="resume-title">Resume</h1>
           <p className="resume-summary">
-            Computational neuroscience student at Johns Hopkins building
-            closed-loop neuromodulation systems and wearable neurotechnology.
-            Co-founder &amp; Chief Research Officer of Neuro Safety Systems,
-            researcher in the Thakor and Cho Labs, certified EMT, and aspiring
-            physician. Contributor to nine publications across Nature Biomedical
-            Engineering, Scientific Reports, and ASME.
+            Researcher in closed-loop neuromodulation and wearable
+            neurotechnology across the Thakor and Cho Labs at Johns Hopkins, an
+            independent honors thesis on focused-ultrasound vagus nerve
+            stimulation, and the R&amp;D organization I built as co-founder and
+            Chief Research Officer of Neuro Safety Systems. Nine publications
+            across Nature Biomedical Engineering, Scientific Reports, and ASME.
+            Certified EMT and aspiring physician.
           </p>
         </header>
 
@@ -48,10 +47,6 @@ export default function ResumePage() {
 
           <section id="skills" className="resume-section">
             <Skills skills={skills} categories={categories} />
-          </section>
-
-          <section id="courses" className="resume-section">
-            <Courses data={courses} />
           </section>
         </div>
       </section>

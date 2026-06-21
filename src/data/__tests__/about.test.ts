@@ -14,23 +14,19 @@ describe('about data', () => {
     expect(aboutMarkdown).toContain('Neuro Safety Systems');
   });
 
-  it('contains the research section', () => {
-    expect(aboutMarkdown).toContain('# Research');
+  it('keeps the focused-ultrasound throughline in the intro', () => {
     expect(aboutMarkdown).toContain('focused ultrasound');
-  });
-
-  it('contains the medicine & service section', () => {
-    expect(aboutMarkdown).toContain('# Medicine & Service');
     expect(aboutMarkdown).toContain('EMT');
   });
 
-  it('contains the community section', () => {
-    expect(aboutMarkdown).toContain('# Community');
-    expect(aboutMarkdown).toContain('Iranian Cultural Society');
+  it('points to the resume and publications for the full record', () => {
+    expect(aboutMarkdown).toContain('(/resume)');
+    expect(aboutMarkdown).toContain('(/publications)');
   });
 
   it('contains the outside-the-lab section', () => {
     expect(aboutMarkdown).toContain('# Outside the lab');
+    expect(aboutMarkdown).toContain('Iranian Cultural Society');
   });
 
   it('contains valid markdown links', () => {
@@ -48,6 +44,6 @@ describe('about data', () => {
     const headers = aboutMarkdown.match(headerRegex);
 
     expect(headers).not.toBeNull();
-    expect(headers!.length).toBeGreaterThan(5);
+    expect(headers!.length).toBeGreaterThanOrEqual(2);
   });
 });
