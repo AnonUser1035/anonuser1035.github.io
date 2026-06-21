@@ -41,12 +41,12 @@ describe('Hero', () => {
   it('renders CTA buttons with correct links', () => {
     render(<Hero />);
 
-    const aboutButton = screen.getByRole('link', { name: /about me/i });
-    expect(aboutButton).toHaveAttribute('href', '/about');
-    expect(aboutButton).toHaveClass('button-primary');
-
     const resumeButton = screen.getByRole('link', { name: /view resume/i });
     expect(resumeButton).toHaveAttribute('href', '/resume');
-    expect(resumeButton).toHaveClass('button-secondary');
+    expect(resumeButton).toHaveClass('button-primary');
+
+    const contactButton = screen.getByRole('link', { name: /get in touch/i });
+    expect(contactButton).toHaveAttribute('href', '/contact');
+    expect(contactButton).toHaveClass('button-secondary');
   });
 });

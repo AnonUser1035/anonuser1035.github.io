@@ -11,10 +11,6 @@ const routes: Route[] = [
     path: '/',
   },
   {
-    label: 'About',
-    path: '/about',
-  },
-  {
     label: 'Resume',
     path: '/resume',
   },
