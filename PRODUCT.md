@@ -21,7 +21,7 @@ A single, authoritative home for Ryan's professional identity — work, publicat
 
 ## Brand Personality
 
-**Rigorous, credible, understated.** The voice is precise and earned — it states what was done and lets the work carry the weight. Confidence comes from substance, not volume. Warmth is present but quiet (the EMT-and-mentor throughline), never performed. Three words: *rigorous, grounded, clear.* The site should feel like reading a well-edited CV that happens to be beautiful — trust through restraint, not persuasion through flash.
+**Rigorous, credible, understated.** The voice is precise and earned — it states what was done and lets the work carry the weight. Confidence comes from substance, not volume. Warmth is present but quiet (the EMT-and-mentor throughline), never performed. Three words: _rigorous, grounded, clear._ The site should feel like reading a well-edited CV that happens to be beautiful — trust through restraint, not persuasion through flash.
 
 ## Anti-references
 
