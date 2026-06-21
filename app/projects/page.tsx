@@ -15,6 +15,10 @@ export const metadata: Metadata = createPageMetadata({
 export default function ProjectsPage() {
   const featuredProjects = data.filter((p) => p.featured);
   const otherProjects = data.filter((p) => !p.featured);
+  // Only label the two groups when both exist; a lone group reads as the page
+  // itself, not a sub-section. Scales up cleanly as more projects are added.
+  const showGroupLabels =
+    featuredProjects.length > 0 && otherProjects.length > 0;
 
   return (
     <PageWrapper>
@@ -29,7 +33,9 @@ export default function ProjectsPage() {
 
         {featuredProjects.length > 0 && (
           <section className="projects-featured">
-            <h2 className="projects-section-title">Selected Work</h2>
+            {showGroupLabels && (
+              <h2 className="projects-section-title">Selected Work</h2>
+            )}
             <div className="projects-grid projects-grid--featured">
               {featuredProjects.map((project) => (
                 <Cell data={project} key={project.title} />
@@ -40,7 +46,9 @@ export default function ProjectsPage() {
 
         {otherProjects.length > 0 && (
           <section className="projects-other">
-            <h2 className="projects-section-title">More Projects</h2>
+            {showGroupLabels && (
+              <h2 className="projects-section-title">More Projects</h2>
+            )}
             <div className="projects-grid">
               {otherProjects.map((project) => (
                 <Cell data={project} key={project.title} />

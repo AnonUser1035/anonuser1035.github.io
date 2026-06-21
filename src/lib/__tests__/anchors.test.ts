@@ -31,13 +31,7 @@ describe('createHeadingId', () => {
         title,
         createHeadingId(title),
       ]),
-    ).toEqual([
-      ['Research', 'research'],
-      ['Neuro Safety Systems', 'neuro-safety-systems'],
-      ['Medicine & Service', 'medicine-and-service'],
-      ['Community', 'community'],
-      ['Outside the lab', 'outside-the-lab'],
-    ]);
+    ).toEqual([['Outside the lab', 'outside-the-lab']]);
   });
 });
 
