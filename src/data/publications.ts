@@ -22,7 +22,7 @@ export const publications: Publication[] = [
   {
     authors: 'Bohluli, R.S., et al.',
     title:
-      'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone',
+      'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone for Non-Invasive Neuromodulation',
     venue: 'ASME Digital Collection',
     year: '2026',
     status: 'In Press',
@@ -32,7 +32,7 @@ export const publications: Publication[] = [
   {
     authors: 'Bohluli, R.S., et al.',
     title:
-      'Monitoring Autonomic Tone During Spinal Cord Neuromodulation Using a Wearable AURIS Sensor',
+      'Monitoring Autonomic Tone During Spinal Cord Neuromodulation Using Wearable AURIS Sensor',
     venue: 'bioRxiv',
     year: '2026',
     doi: '10.64898/2026.03.07.709943',
@@ -49,7 +49,7 @@ export const publications: Publication[] = [
   {
     authors: 'Lopez, A.F., … Bohluli, R.S., et al.',
     title:
-      'Spinal Cord Neuromodulation for Blood Pressure Control Using Focused Ultrasound',
+      'Spinal Cord Neuromodulation for Blood Pressure Control Using Low-Intensity Focused Ultrasound',
     venue: 'Nature Scientific Reports',
     year: '2025',
     doi: '10.1038/s41598-025-25330-8',
@@ -62,7 +62,8 @@ export const publications: Publication[] = [
   },
   {
     authors: 'Griffith, K.M., … Bohluli, R.S., et al.',
-    title: 'From Invasive to Non-Invasive: Focused Ultrasound Neuromodulation',
+    title:
+      'From Invasive to Non-Invasive: Focused Ultrasound Neuromodulation of the Spinal Cord',
     venue: 'ASME Digital Collection',
     status: 'Accepted, In Press',
     doi: '10.1115/DMD2026-1008',
