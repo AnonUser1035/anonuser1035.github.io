@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import BackToProjects from '@/components/Projects/BackToProjects';
 import PageWrapper from '@/components/Template/PageWrapper';
 import WorkoutTracker from '@/components/Workouts/WorkoutTracker';
 import { createPageMetadata } from '@/lib/metadata';
@@ -15,6 +16,7 @@ export default function WorkoutsPage() {
   return (
     <PageWrapper>
       <section className="workouts-page">
+        <BackToProjects />
         <header className="workouts-header">
           <h1 className="workouts-title">Workouts</h1>
           <p className="workouts-summary">

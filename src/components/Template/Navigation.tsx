@@ -3,17 +3,25 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { projectAppRoutes } from '@/data/projects';
 import routes from '@/data/routes';
 
 import Hamburger from './Hamburger';
 import ThemeToggle from './ThemeToggle';
+
+const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
 
 export default function Navigation() {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
-    return pathname?.startsWith(path);
+    if (pathname?.startsWith(path)) return true;
+    // Internal project apps (e.g. /workouts) keep the Projects tab selected.
+    return (
+      path === '/projects' &&
+      projectAppRoutes.includes(normalizePath(pathname ?? ''))
+    );
   };
 
   return (
