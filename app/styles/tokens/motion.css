@@ -37,4 +37,5 @@
   --z-header: 10000;
   --z-overlay: 10001;
   --z-menu: 10002;
+  --z-tooltip: 10003; /* Cursor-following previews, tooltips — above all chrome */
 }

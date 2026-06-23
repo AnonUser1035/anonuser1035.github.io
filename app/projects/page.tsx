@@ -13,8 +13,11 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ProjectsPage() {
-  const featuredProjects = data.filter((p) => p.featured);
-  const otherProjects = data.filter((p) => !p.featured);
+  // Newest first within each group.
+  const byDateDesc = (a: (typeof data)[number], b: (typeof data)[number]) =>
+    b.date.localeCompare(a.date);
+  const featuredProjects = data.filter((p) => p.featured).sort(byDateDesc);
+  const otherProjects = data.filter((p) => !p.featured).sort(byDateDesc);
   // Only label the two groups when both exist; a lone group reads as the page
   // itself, not a sub-section. Scales up cleanly as more projects are added.
   const showGroupLabels =
@@ -36,7 +39,7 @@ export default function ProjectsPage() {
             {showGroupLabels && (
               <h2 className="projects-section-title">Selected Work</h2>
             )}
-            <div className="projects-grid projects-grid--featured">
+            <div className="projects-grid">
               {featuredProjects.map((project) => (
                 <Cell data={project} key={project.title} />
               ))}

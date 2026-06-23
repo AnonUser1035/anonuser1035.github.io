@@ -18,7 +18,10 @@
 }
 
 /* ========================================
-   PROJECT CARDS - Bento Grid
+   PROJECT RECORDS — Clinical-Record ledger
+   Flat, hairline-separated entries in the résumé language. No card box; the
+   whole entry is the link. A pointer-only screenshot preview follows the
+   cursor on hover (see .project-preview).
    ======================================== */
 
 .projects-page {
@@ -36,187 +39,169 @@
   color: var(--color-fg-light);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .projects-featured {
-  margin-bottom: 4rem;
-  position: relative;
-}
-
-.projects-featured::before {
-  content: none;
+  margin-bottom: 3.5rem;
 }
 
 .projects-grid {
-  display: grid;
-  gap: 1.75rem;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
 }
 
-@media screen and (min-width: 600px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.projects-grid--featured .project-card {
-  grid-column: 1 / -1;
-  box-shadow:
-    var(--shadow-lg),
-    0 0 0 2px var(--color-accent-light);
-}
-
-@media screen and (min-width: 600px) {
-  .projects-grid--featured {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .projects-grid--featured .project-card {
-    grid-column: auto;
-  }
-}
-
-.project-card {
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border-bg);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-normal) var(--ease-out);
-}
-
-.project-card:hover {
-  transform: translateY(var(--lift-md));
-  border-color: var(--color-accent-border);
-  box-shadow:
-    var(--shadow-xl),
-    0 0 0 1px var(--color-accent-border);
-}
-
-/* Full card link wrapper */
-.project-card-link {
+.project-record {
   display: block;
+  position: relative;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--color-border-bg);
   text-decoration: none;
   color: inherit;
 }
 
-.project-card-link:focus-visible {
-  outline: none;
+.projects-grid .project-record:last-child {
+  border-bottom: none;
+  padding-bottom: 0.5rem;
 }
 
-.project-card:has(.project-card-link:focus-visible) {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* Static (non-linked) project cards */
-.project-card--static {
-  cursor: default;
-}
-
-.project-card--static:hover {
-  transform: none;
-  box-shadow: var(--shadow-md);
-}
-
-.project-card-static {
-  display: block;
-}
-
-.project-card-image {
-  position: relative;
-  display: block;
-  aspect-ratio: 16/10;
-  overflow: hidden;
-}
-
-.project-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.project-card:hover .project-card-image img {
-  transform: scale(var(--scale-sm));
-}
-
-.project-card-placeholder {
+.project-record-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--color-accent-muted), var(--color-bg-offset));
-  transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.project-card-placeholder span {
-  font-family: var(--font-heading);
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-black);
-  color: var(--color-accent);
-  letter-spacing: 0.05em;
-}
-
-.project-card:hover .project-card-placeholder {
-  transform: scale(var(--scale-sm));
-}
-
-.project-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--color-overlay-darker) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.project-card-content {
-  padding: 1.5rem;
-}
-
-.project-card-header {
-  margin-bottom: 0.875rem;
-}
-
-.project-card-title {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-semibold);
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
   margin-bottom: 0.35rem;
 }
 
-.project-card-title a {
+.project-record-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-tight);
   color: var(--color-fg-bold);
-  text-decoration: none;
+  text-wrap: balance;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-.project-card-title a:hover {
+.project-record--link:hover .project-record-title,
+.project-record--link:focus-visible .project-record-title {
   color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
-.project-card-subtitle {
+.project-record-date {
+  flex-shrink: 0;
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
+  letter-spacing: var(--tracking-tight);
   color: var(--color-fg-light);
+}
+
+.project-record-subtitle {
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
+  color: var(--color-fg-light);
+  margin-bottom: 0.85rem;
 }
 
-.project-card-desc {
+.project-record-desc {
+  max-width: 70ch;
   font-size: var(--text-base);
-  color: var(--color-fg);
-  margin-bottom: 1.25rem;
   line-height: var(--leading-normal);
+  color: var(--color-fg);
+  text-wrap: pretty;
+  margin-bottom: 1.1rem;
 }
 
-.project-card-tech {
+.project-record-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.project-record-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.625rem;
-  margin-bottom: 1.25rem;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.project-card-date {
-  font-size: var(--text-xs);
-  color: var(--color-fg-light);
+.project-record-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.project-record-arrow {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.project-record--link:hover .project-record-arrow,
+.project-record--link:focus-visible .project-record-arrow {
+  transform: translateX(2px);
+}
+
+.project-record--link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* Cursor-following screenshot preview (pointer devices only; toggled by JS) */
+.project-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-tooltip);
+  width: clamp(220px, 22vw, 300px);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-offset);
+  box-shadow: var(--shadow-xl);
+  pointer-events: none;
+  opacity: 0;
+  /* Parked off-screen until the first pointer event positions it, so it never
+     flashes in the top-left corner. */
+  transform: translate(-100vw, 0);
+  transition: opacity var(--duration-fast) var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.project-preview.is-visible {
+  opacity: 1;
+}
+
+.project-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-record-title,
+  .project-record-arrow,
+  .project-preview {
+    transition: none;
+  }
+
+  .project-record--link:hover .project-record-arrow,
+  .project-record--link:focus-visible .project-record-arrow {
+    transform: none;
+  }
 }
 
 /* ========================================
