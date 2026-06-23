@@ -110,7 +110,8 @@
     border-color var(--duration-fast) var(--ease-out);
 }
 
-.project-card:hover .tech-tag {
+.project-record--link:hover .tech-tag,
+.project-record--link:focus-visible .tech-tag {
   background: var(--color-accent-subtle);
   border-color: var(--color-accent);
 }

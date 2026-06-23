@@ -2,7 +2,17 @@ export interface Project {
   title: string;
   subtitle?: string;
   link?: string;
-  image?: string;
+  /**
+   * Screenshot shown as a cursor-following preview when hovering a linked
+   * entry on a pointer device. Optional — entries without one simply show
+   * no preview.
+   */
+  preview?: string;
+  /**
+   * Verb for the link affordance. Defaults to "Open" for internal routes and
+   * "Visit" for external links.
+   */
+  linkLabel?: string;
   date: string;
   desc: string;
   tech?: string[];
@@ -14,7 +24,8 @@ const data: Project[] = [
     title: 'NSS Fleet Demo',
     subtitle: 'Neuro Safety Systems',
     link: 'https://demo.neurosafetysystems.com',
-    image: '/images/projects/nss-fleet-demo.png',
+    preview: '/images/projects/nss-fleet-demo.png',
+    linkLabel: 'View demo',
     date: '2026-06-01',
     desc: 'A fleet-management dashboard I built from scratch to demonstrate driver fatigue management and rerouting for truckers. Monitors live vigilance and shift hours across a fleet, escalates and nudges at-risk drivers, and surfaces recommended interventions before fatigue becomes a hazard.',
     tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
@@ -24,6 +35,8 @@ const data: Project[] = [
     title: 'Workout Tracker',
     subtitle: 'Personal tool',
     link: '/workouts/',
+    preview: '/images/projects/workout-tracker.png',
+    linkLabel: 'Open tracker',
     date: '2026-06-20',
     desc: "An interactive weekly training tracker that lays out each day's split, lets me check off sets as I go, and persists progress in the browser — resetting automatically each day.",
     tech: ['TypeScript', 'React', 'localStorage'],

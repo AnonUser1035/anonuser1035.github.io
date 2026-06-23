@@ -32,10 +32,10 @@ describe('projects data', () => {
     }
   });
 
-  it('image paths start with / when present', () => {
+  it('preview paths start with / when present', () => {
     for (const project of projects) {
-      if (project.image) {
-        expect(project.image.startsWith('/')).toBe(true);
+      if (project.preview) {
+        expect(project.preview.startsWith('/')).toBe(true);
       }
     }
   });
