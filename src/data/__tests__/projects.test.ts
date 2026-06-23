@@ -47,12 +47,14 @@ describe('projects data', () => {
     }
   });
 
-  it('links are valid URLs when present', () => {
-    const urlRegex = /^https?:\/\/.+/;
+  it('links are valid URLs or internal routes when present', () => {
+    // External demos use absolute http(s) URLs; internal projects link to a
+    // site route beginning with "/".
+    const linkRegex = /^(https?:\/\/.+|\/.*)$/;
 
     for (const project of projects) {
       if (project.link) {
-        expect(project.link).toMatch(urlRegex);
+        expect(project.link).toMatch(linkRegex);
       }
     }
   });

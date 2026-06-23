@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import type { Project } from '@/data/projects';
 import { PROJECT_IMAGE } from '@/lib/utils';
@@ -12,6 +13,8 @@ export default function Cell({ data }: CellProps) {
   const { title, subtitle, link, image, date, desc, tech, featured } = data;
 
   const hasLink = Boolean(link);
+  // Internal routes navigate client-side via <Link>; external demos use <a>.
+  const isInternal = Boolean(link?.startsWith('/'));
 
   // Derive up to two initials from the title for the image-less placeholder.
   const initials = title
@@ -69,10 +72,16 @@ export default function Cell({ data }: CellProps) {
     <article
       className={`project-card ${featured ? 'project-card--featured' : ''} ${!hasLink ? 'project-card--static' : ''}`}
     >
-      {hasLink ? (
-        <a href={link} className="project-card-link">
-          {cardContent}
-        </a>
+      {hasLink && link ? (
+        isInternal ? (
+          <Link href={link} className="project-card-link">
+            {cardContent}
+          </Link>
+        ) : (
+          <a href={link} className="project-card-link">
+            {cardContent}
+          </a>
+        )
       ) : (
         <div className="project-card-static">{cardContent}</div>
       )}
