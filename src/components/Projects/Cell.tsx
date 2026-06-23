@@ -12,6 +12,8 @@ interface CellProps {
 
 // Gap between the cursor and the floating preview thumbnail.
 const PREVIEW_OFFSET = 20;
+// How long the cursor must rest on an entry before the preview appears.
+const DWELL_MS = 450;
 
 export default function Cell({ data }: CellProps) {
   const { title, subtitle, link, preview, linkLabel, date, desc, tech } = data;
@@ -25,62 +27,99 @@ export default function Cell({ data }: CellProps) {
   const actionLabel = linkLabel ?? (isInternal ? 'Open' : 'Visit');
   const arrow = isInternal ? '→' : '↗';
 
+  const rootRef = useRef<HTMLElement | null>(null);
   const previewRef = useRef<HTMLDivElement | null>(null);
-  const frameRef = useRef<number | null>(null);
-  // Pointer-only flourish; following is disabled under reduced-motion.
-  const canHover = useRef(false);
-  const follows = useRef(true);
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [previewVisible, setPreviewVisible] = useState(false);
+  // Mirror visibility into a ref so the native move listener reads it live.
+  const visibleRef = useRef(false);
+  visibleRef.current = previewVisible;
 
+  const setRoot = useCallback((node: HTMLElement | null) => {
+    rootRef.current = node;
+  }, []);
+
+  // Native pointer listeners (rather than React's synthetic onPointerMove) so
+  // high-frequency moves reliably restart the dwell timer and the follow loop
+  // stays off the React render path. Pointer-only; touch devices just navigate.
   useEffect(() => {
-    if (typeof window.matchMedia === 'function') {
-      canHover.current = window.matchMedia(
-        '(hover: hover) and (pointer: fine)',
-      ).matches;
-      follows.current = !window.matchMedia('(prefers-reduced-motion: reduce)')
-        .matches;
-    }
-    return () => {
-      if (frameRef.current != null) cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
+    if (!canPreview || typeof window.matchMedia !== 'function') return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+      return;
+    const follows = !window.matchMedia('(prefers-reduced-motion: reduce)')
+      .matches;
 
-  const positionPreview = useCallback((clientX: number, clientY: number) => {
-    const el = previewRef.current;
+    const el = rootRef.current;
     if (!el) return;
-    const width = el.offsetWidth;
-    // Flip to the left of the cursor near the right edge so it never clips.
-    const flip = clientX + PREVIEW_OFFSET + width > window.innerWidth;
-    const x = flip
-      ? clientX - PREVIEW_OFFSET - width
-      : clientX + PREVIEW_OFFSET;
-    el.style.transform = `translate(${x}px, ${clientY + PREVIEW_OFFSET}px)`;
-  }, []);
 
-  const handleEnter = useCallback(
-    (e: React.PointerEvent) => {
-      if (!canPreview || !canHover.current) return;
+    const last = { x: 0, y: 0 };
+    let frame: number | null = null;
+    let dwell: number | null = null;
+
+    const position = () => {
+      const node = previewRef.current;
+      if (!node) return;
+      const width = node.offsetWidth;
+      // Flip to the left of the cursor near the right edge so it never clips.
+      const flip = last.x + PREVIEW_OFFSET + width > window.innerWidth;
+      const x = flip
+        ? last.x - PREVIEW_OFFSET - width
+        : last.x + PREVIEW_OFFSET;
+      node.style.transform = `translate(${x}px, ${last.y + PREVIEW_OFFSET}px)`;
+    };
+
+    const clearDwell = () => {
+      if (dwell != null) {
+        clearTimeout(dwell);
+        dwell = null;
+      }
+    };
+
+    const scheduleDwell = () => {
+      clearDwell();
+      dwell = window.setTimeout(() => {
+        position();
+        setPreviewVisible(true);
+      }, DWELL_MS);
+    };
+
+    const onEnter = (e: PointerEvent) => {
       if (preview) setPreviewSrc((src) => src ?? preview); // load on first intent
-      positionPreview(e.clientX, e.clientY);
-      setPreviewVisible(true);
-    },
-    [canPreview, preview, positionPreview],
-  );
+      last.x = e.clientX;
+      last.y = e.clientY;
+      scheduleDwell();
+    };
 
-  const handleMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (!previewVisible || !follows.current) return;
-      const { clientX, clientY } = e;
-      if (frameRef.current != null) cancelAnimationFrame(frameRef.current);
-      frameRef.current = requestAnimationFrame(() =>
-        positionPreview(clientX, clientY),
-      );
-    },
-    [previewVisible, positionPreview],
-  );
+    const onMove = (e: PointerEvent) => {
+      last.x = e.clientX;
+      last.y = e.clientY;
+      if (visibleRef.current) {
+        if (!follows) return;
+        if (frame != null) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(position);
+      } else {
+        // Still moving — restart the dwell timer so the peek waits for a pause.
+        scheduleDwell();
+      }
+    };
 
-  const handleLeave = useCallback(() => setPreviewVisible(false), []);
+    const onLeave = () => {
+      clearDwell();
+      if (frame != null) cancelAnimationFrame(frame);
+      setPreviewVisible(false);
+    };
+
+    el.addEventListener('pointerenter', onEnter);
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', onLeave);
+    return () => {
+      el.removeEventListener('pointerenter', onEnter);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerleave', onLeave);
+      clearDwell();
+      if (frame != null) cancelAnimationFrame(frame);
+    };
+  }, [canPreview, preview]);
 
   const ariaLabel = isInternal
     ? `${title}${subtitle ? `, ${subtitle}` : ''}`
@@ -137,12 +176,10 @@ export default function Cell({ data }: CellProps) {
   if (link && isInternal) {
     return (
       <Link
+        ref={setRoot}
         href={link}
         aria-label={ariaLabel}
         className="project-record project-record--link"
-        onPointerEnter={handleEnter}
-        onPointerMove={handleMove}
-        onPointerLeave={handleLeave}
       >
         {body}
         {previewNode}
@@ -153,14 +190,12 @@ export default function Cell({ data }: CellProps) {
   if (link) {
     return (
       <a
+        ref={setRoot}
         href={link}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={ariaLabel}
         className="project-record project-record--link"
-        onPointerEnter={handleEnter}
-        onPointerMove={handleMove}
-        onPointerLeave={handleLeave}
       >
         {body}
         {previewNode}

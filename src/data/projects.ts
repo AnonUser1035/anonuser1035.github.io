@@ -44,4 +44,15 @@ const data: Project[] = [
   },
 ];
 
+/**
+ * Internal site routes that are project "apps" — their link is an in-site
+ * route rather than an external URL. Used so the Projects nav item stays
+ * selected while you're inside one of these apps (trailing slash normalized).
+ */
+export const projectAppRoutes: string[] = data
+  .filter((p): p is Project & { link: string } =>
+    Boolean(p.link?.startsWith('/')),
+  )
+  .map((p) => p.link.replace(/\/+$/, '') || '/');
+
 export default data;

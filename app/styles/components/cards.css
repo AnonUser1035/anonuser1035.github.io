@@ -191,15 +191,45 @@
   object-fit: cover;
 }
 
+/* Back affordance for in-site project apps (e.g. the workout tracker). */
+.back-to-projects {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-light);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.back-to-projects:hover,
+.back-to-projects:focus-visible {
+  color: var(--color-accent);
+}
+
+.back-to-projects-arrow {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.back-to-projects:hover .back-to-projects-arrow,
+.back-to-projects:focus-visible .back-to-projects-arrow {
+  transform: translateX(-2px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .project-record-title,
   .project-record-arrow,
-  .project-preview {
+  .project-preview,
+  .back-to-projects-arrow {
     transition: none;
   }
 
   .project-record--link:hover .project-record-arrow,
-  .project-record--link:focus-visible .project-record-arrow {
+  .project-record--link:focus-visible .project-record-arrow,
+  .back-to-projects:hover .back-to-projects-arrow,
+  .back-to-projects:focus-visible .back-to-projects-arrow {
     transform: none;
   }
 }
