@@ -31,17 +31,18 @@ const data: Project[] = [
     tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
     featured: true,
   },
-  {
-    title: 'Workout Tracker',
-    subtitle: 'Personal tool',
-    link: '/workouts/',
-    preview: '/images/projects/workout-tracker.png',
-    linkLabel: 'Open tracker',
-    date: '2026-06-20',
-    desc: "An interactive weekly training tracker that lays out each day's split, lets me check off sets as I go, and persists progress in the browser — resetting automatically each day.",
-    tech: ['TypeScript', 'React', 'localStorage'],
-    featured: true,
-  },
+  // Temporarily hidden while under revision — re-add to show on /projects.
+  // {
+  //   title: 'Workout Tracker',
+  //   subtitle: 'Personal tool',
+  //   link: '/workouts/',
+  //   preview: '/images/projects/workout-tracker.png',
+  //   linkLabel: 'Open tracker',
+  //   date: '2026-06-20',
+  //   desc: "An interactive weekly training tracker that lays out each day's split, lets me check off sets as I go, and persists progress in the browser — resetting automatically each day.",
+  //   tech: ['TypeScript', 'React', 'localStorage'],
+  //   featured: true,
+  // },
 ];
 
 /**
