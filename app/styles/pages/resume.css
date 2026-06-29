@@ -160,13 +160,6 @@
 
 .resume-section {
   scroll-margin-top: calc(var(--header-height) + var(--scroll-offset-resume));
-  padding-top: var(--spacing-10);
-  border-top: 2px solid var(--color-border);
-}
-
-.resume-section:first-child {
-  border-top: none;
-  padding-top: 0;
 }
 
 /* ========================================

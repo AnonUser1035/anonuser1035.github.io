@@ -21,12 +21,17 @@ describe('Job', () => {
     expect(link).toHaveAttribute('href', 'https://acme.com');
   });
 
-  it('renders position title', () => {
+  it('renders the company as the heading and the position as a separate line', () => {
     render(<Job data={mockJob} />);
 
+    // Heading is the company; the role sits outside it for clear hierarchy
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'Acme Corp',
+    );
+    expect(screen.getByRole('heading', { level: 3 })).not.toHaveTextContent(
       'Senior Engineer',
     );
+    expect(screen.getByText('Senior Engineer')).toBeInTheDocument();
   });
 
   it('formats date range correctly', () => {

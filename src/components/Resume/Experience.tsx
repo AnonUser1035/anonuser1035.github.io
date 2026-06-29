@@ -13,7 +13,6 @@ export default function Experience({ data }: ExperienceProps) {
 
   return (
     <div className="experience">
-      <div className="link-to" id="experience" />
       <div className="title">
         <h2>Experience</h2>
       </div>

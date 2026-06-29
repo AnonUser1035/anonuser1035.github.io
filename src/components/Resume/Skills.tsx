@@ -19,7 +19,6 @@ export default function Skills({ skills, categories }: SkillsProps) {
 
   return (
     <div className="skills">
-      <div className="link-to" id="skills" />
       <div className="title">
         <h2>Skills</h2>
       </div>

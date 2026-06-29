@@ -13,22 +13,26 @@ export default function Job({ data }: JobProps) {
 
   return (
     <article className="jobs-container">
-      <header>
-        <h3>
-          <a href={url}>{name}</a> - {position}
-        </h3>
-        <p className="daterange">
-          {' '}
-          <time dateTime={startDate}>
-            {dayjs(startDate).format('MMMM YYYY')}
-          </time>{' '}
-          -{' '}
-          {endDate ? (
-            <time dateTime={endDate}>{dayjs(endDate).format('MMMM YYYY')}</time>
-          ) : (
-            'Present'
-          )}
-        </p>
+      <header className="jobs-header">
+        <div className="jobs-headline">
+          <h3>
+            <a href={url}>{name}</a>
+          </h3>
+          <p className="daterange">
+            <time dateTime={startDate}>
+              {dayjs(startDate).format('MMMM YYYY')}
+            </time>
+            {' – '}
+            {endDate ? (
+              <time dateTime={endDate}>
+                {dayjs(endDate).format('MMMM YYYY')}
+              </time>
+            ) : (
+              'Present'
+            )}
+          </p>
+        </div>
+        <p className="role">{position}</p>
       </header>
       {summary ? <JobSummary summary={summary} /> : null}
       {highlights ? (
