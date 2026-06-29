@@ -75,4 +75,40 @@ describe('Experience', () => {
     const articles = document.querySelectorAll('.jobs-container');
     expect(articles.length).toBe(0);
   });
+
+  it('renders condensed roles as compact ledger rows under an Earlier label', () => {
+    const jobs = [
+      ...mockJobs,
+      {
+        name: 'Old Lab',
+        position: 'Intern',
+        url: 'https://oldlab.com',
+        startDate: '2019-06-01',
+        endDate: '2019-08-01',
+        summary: 'Did intern things.',
+        highlights: ['A thing'],
+        condensed: true,
+      },
+    ];
+
+    render(<Experience data={jobs} />);
+
+    expect(screen.getByText('Earlier experience')).toBeInTheDocument();
+
+    // Full jobs render as .jobs-container; condensed ones as .job-condensed
+    expect(document.querySelectorAll('.jobs-container').length).toBe(2);
+    const condensed = document.querySelectorAll('.job-condensed');
+    expect(condensed.length).toBe(1);
+
+    // Condensed entry shows org + role but not its summary/highlights
+    expect(screen.getByText('Old Lab')).toBeInTheDocument();
+    expect(screen.queryByText('Did intern things.')).not.toBeInTheDocument();
+    expect(screen.queryByText('A thing')).not.toBeInTheDocument();
+  });
+
+  it('omits the Earlier label when no roles are condensed', () => {
+    render(<Experience data={mockJobs} />);
+
+    expect(screen.queryByText('Earlier experience')).not.toBeInTheDocument();
+  });
 });

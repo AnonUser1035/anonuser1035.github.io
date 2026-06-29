@@ -23,15 +23,6 @@ export default function ResumePage() {
       <section className="resume-page">
         <header className="resume-header">
           <h1 className="resume-title">Resume</h1>
-          <p className="resume-summary">
-            Researcher in closed-loop neuromodulation and wearable
-            neurotechnology across the Thakor and Cho Labs at Johns Hopkins, an
-            independent honors thesis on focused-ultrasound vagus nerve
-            stimulation, and the R&amp;D organization I built as co-founder and
-            Chief Research Officer of Neuro Safety Systems. Nine publications
-            across Nature Biomedical Engineering, Scientific Reports, and ASME.
-            Certified EMT and aspiring physician.
-          </p>
         </header>
 
         <ResumeNav />

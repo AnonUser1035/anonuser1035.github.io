@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import Skills from '../../Resume/Skills';
@@ -34,25 +34,16 @@ describe('Skills', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders category filter buttons including All', () => {
+  it('renders no filter buttons (flattened, always-on view)', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
-    expect(screen.getByRole('button', { name: 'All' })).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Languages' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'ML Engineering' }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Web Development' }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
-  it('shows all skills by default', () => {
+  it('shows every skill, grouped by category', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
-    // Skills may appear in multiple groups if they belong to multiple categories
+    // Skills appear once per category they belong to
     expect(screen.getAllByText('Python').length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText('TypeScript').length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText('JavaScript').length).toBeGreaterThanOrEqual(1);
@@ -60,62 +51,27 @@ describe('Skills', () => {
     expect(screen.getAllByText('React').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('filters skills when category button is clicked', () => {
+  it('renders a group title per non-empty category', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
-    const mlButton = screen.getByRole('button', { name: 'ML Engineering' });
-    fireEvent.click(mlButton);
-
-    // Should show ML Engineering skills
-    expect(screen.getByText('Python')).toBeInTheDocument();
-    expect(screen.getByText('PyTorch')).toBeInTheDocument();
-
-    // Should not show non-ML skills
-    expect(screen.queryByText('React')).not.toBeInTheDocument();
-  });
-
-  it('shows all skills when clicking category again (toggle off)', () => {
-    render(<Skills skills={mockSkills} categories={mockCategories} />);
-
-    const mlButton = screen.getByRole('button', { name: 'ML Engineering' });
-    fireEvent.click(mlButton);
-    fireEvent.click(mlButton);
-
-    // All skills should be visible again (may appear in multiple groups)
-    expect(screen.getAllByText('Python').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('React').length).toBeGreaterThanOrEqual(1);
-  });
-
-  it('sets aria-pressed on active category button', () => {
-    render(<Skills skills={mockSkills} categories={mockCategories} />);
-
-    const languagesButton = screen.getByRole('button', { name: 'Languages' });
-    expect(languagesButton).toHaveAttribute('aria-pressed', 'false');
-
-    fireEvent.click(languagesButton);
-    expect(languagesButton).toHaveAttribute('aria-pressed', 'true');
-  });
-
-  it('displays skills grouped by category', () => {
-    render(<Skills skills={mockSkills} categories={mockCategories} />);
-
-    // Should have group titles
     const groupTitles = document.querySelectorAll('.skill-group-title');
-    expect(groupTitles.length).toBeGreaterThan(0);
+    expect(groupTitles.length).toBe(3);
   });
 
-  it('sorts skills by competency (highest first)', () => {
+  it('sorts skills within a group by competency (highest first)', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
-    // Filter to Languages to check sorting
-    fireEvent.click(screen.getByRole('button', { name: 'Languages' }));
+    // Within "Languages": Python (5) and TypeScript (5) before JavaScript (4)
+    const languagesGroup = Array.from(
+      document.querySelectorAll('.skill-group'),
+    ).find(
+      (g) => g.querySelector('.skill-group-title')?.textContent === 'Languages',
+    );
 
-    const skillTags = document.querySelectorAll('.skill-tag-name');
-    const skillNames = Array.from(skillTags).map((el) => el.textContent);
+    const names = Array.from(
+      languagesGroup?.querySelectorAll('.skill-tag-name') ?? [],
+    ).map((el) => el.textContent);
 
-    // Python (5) and TypeScript (5) should come before JavaScript (4)
-    const jsIndex = skillNames.indexOf('JavaScript');
-    const pythonIndex = skillNames.indexOf('Python');
-    expect(pythonIndex).toBeLessThan(jsIndex);
+    expect(names.indexOf('Python')).toBeLessThan(names.indexOf('JavaScript'));
   });
 });

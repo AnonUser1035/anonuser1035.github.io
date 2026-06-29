@@ -86,16 +86,8 @@
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: var(--font-weight-bold);
   letter-spacing: -0.015em;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
   color: var(--color-fg-bold);
-}
-
-.resume-summary {
-  font-size: var(--text-lg);
-  line-height: 1.7;
-  color: var(--color-fg);
-  max-width: 640px;
-  margin: 0 auto;
 }
 
 .resume-nav {
@@ -175,4 +167,73 @@
 .resume-section:first-child {
   border-top: none;
   padding-top: 0;
+}
+
+/* ========================================
+   EARLIER EXPERIENCE — condensed ledger rows
+   Older/minor roles collapse to a single line so the lead roles carry the
+   weight. One deliberate grouping label, not section scaffolding.
+   ======================================== */
+
+.experience-earlier {
+  margin-top: 2.75rem;
+}
+
+.experience-earlier-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-fg-light);
+  margin-bottom: 1rem;
+}
+
+.job-condensed {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-border-bg);
+}
+
+.job-condensed:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.job-condensed-heading {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  color: var(--color-fg-bold);
+}
+
+.job-condensed-heading a {
+  color: var(--color-fg-bold);
+  text-decoration: none;
+}
+
+.job-condensed-heading a:hover {
+  color: var(--color-accent);
+}
+
+.job-condensed-role {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-fg-light);
+}
+
+.job-condensed-role::before {
+  content: '—';
+  margin: 0 0.45em;
+  color: var(--color-fg-light);
+}
+
+.job-condensed-date {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg-light);
+  white-space: nowrap;
 }

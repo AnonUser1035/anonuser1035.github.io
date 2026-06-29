@@ -104,14 +104,12 @@
   border-color: var(--color-border-alt);
 }
 
-/* Skill buttons/tags */
-[data-theme='dark'] .skillbutton,
+/* Skill tags */
 [data-theme='dark'] .skill-tag {
   background: var(--color-surface-subtle);
   border-color: var(--color-border);
 }
 
-[data-theme='dark'] .skillbutton:hover,
 [data-theme='dark'] .skill-tag:hover {
   background: var(--color-surface-hover);
 }
