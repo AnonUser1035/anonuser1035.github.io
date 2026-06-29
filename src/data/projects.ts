@@ -31,6 +31,16 @@ const data: Project[] = [
     tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
     featured: true,
   },
+  {
+    title: 'ankibot',
+    subtitle: 'Personal project',
+    link: 'https://ankibot.ryanbohluli.com',
+    linkLabel: 'Try it',
+    date: '2026-06-29',
+    desc: 'A flashcard study app I am building toward an AI-assisted Anki-style tutor. It imports existing Anki decks entirely in the browser, schedules reviews with a spaced-repetition engine, and runs a focused study session UI, all client-side with no backend.',
+    tech: ['TypeScript', 'React', 'Vite', 'Spaced Repetition'],
+    featured: true,
+  },
   // Temporarily hidden while under revision — re-add to show on /projects.
   // {
   //   title: 'Workout Tracker',
