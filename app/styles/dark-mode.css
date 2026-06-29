@@ -55,8 +55,12 @@
   background-color: var(--color-surface-active);
 }
 
+/* Active tab is accent-colored text on a faint accent wash (parallels the
+   light theme). The previous --color-accent-hover background was a near-solid
+   #93c5fd behind same-hue #60a5fa text — ~1.4:1, well below AA. The faint tint
+   clears AA (~5:1) while the underline bar and bold weight carry "selected". */
 [data-theme='dark'] .nav-link.active {
-  background-color: var(--color-accent-hover);
+  background-color: var(--color-accent-light);
 }
 
 [data-theme='dark'] .site-footer-new {
