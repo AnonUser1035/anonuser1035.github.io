@@ -1,6 +1,6 @@
 /* ========================================
-   WORKOUTS PAGE
-   Interactive weekly training tracker.
+   DAVID ROSEN'S EMOMs
+   Interval timer for EMOM workouts.
    ======================================== */
 
 .workouts-page {
@@ -30,43 +30,25 @@
   line-height: var(--leading-normal);
 }
 
-/* ── Sticky day selector ─────────────────────────── */
-.workout-topbar {
-  position: sticky;
-  top: var(--header-height);
-  z-index: var(--z-sticky);
-  background: var(--color-bg);
-  padding: var(--spacing-3) 0 var(--spacing-4);
-  margin-bottom: var(--spacing-2);
-}
-
-.workout-date {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  margin-bottom: var(--spacing-2);
-  min-height: 1em;
-}
-
-.workout-tabs {
+/* ── Workout picker ──────────────────────────────── */
+.emom-picker {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-1);
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border-bg);
   border-radius: var(--radius-lg);
   padding: var(--spacing-1);
+  margin-bottom: var(--spacing-6);
 }
 
-.workout-tab {
+.emom-picker-tab {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  padding: var(--spacing-2) 0;
+  padding: var(--spacing-2) var(--spacing-3);
   border: none;
   background: transparent;
   border-radius: var(--radius-md);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-muted);
   cursor: pointer;
@@ -75,223 +57,117 @@
     color var(--duration-fast) var(--ease-out);
 }
 
-.workout-tab:hover {
+.emom-picker-tab:hover {
   background: var(--color-surface-hover);
   color: var(--color-fg);
 }
 
-.workout-tab.is-active {
+.emom-picker-tab.is-active {
   background: var(--color-fg-bold);
   color: var(--color-bg);
 }
 
-.workout-tab-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: var(--radius-full);
-  background: transparent;
-}
-
-.workout-tab-dot.is-today {
-  background: var(--color-accent);
-}
-
-.workout-tab.is-active .workout-tab-dot.is-today {
-  background: var(--color-bg);
-}
-
-/* ── Day body ────────────────────────────────────── */
-.workout-loading {
-  min-height: 50vh;
-}
-
-.workout-day-head {
-  padding: var(--spacing-4) 0 var(--spacing-3);
-}
-
-.workout-day-name {
+/* ── Overview (idle) ─────────────────────────────── */
+.emom-overview-title {
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-fg-bold);
   letter-spacing: var(--tracking-tight);
 }
 
-.workout-day-duration {
-  margin-top: 0.1rem;
+.emom-overview-summary {
+  margin-top: 0.25rem;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+  line-height: var(--leading-normal);
 }
 
-.workout-sections {
+.emom-block-list {
+  list-style: none;
+  margin: var(--spacing-6) 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
-  padding-bottom: var(--spacing-10);
+  gap: var(--spacing-3);
 }
 
-/* ── Section card ────────────────────────────────── */
-.workout-card {
+.emom-block {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
-.workout-exercise-wrap {
-  padding: var(--spacing-4);
-}
-
-.workout-superset-head {
+.emom-block-head {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  padding: var(--spacing-4) var(--spacing-4) var(--spacing-1);
-}
-
-.workout-superset-label {
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.workout-superset-focus {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.workout-no-rest {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-4);
-  padding: var(--spacing-2) var(--spacing-4) var(--spacing-4);
-}
-
-.workout-no-rest::before,
-.workout-no-rest::after {
-  content: '';
-  flex: 1;
-  border-top: 1px solid var(--color-border);
-}
-
-.workout-no-rest span {
-  font-size: var(--text-2xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-}
-
-/* ── Grouped sections (finisher / abs) ───────────── */
-.workout-group-head {
-  padding: var(--spacing-4) var(--spacing-4) var(--spacing-1);
-}
-
-.workout-group-label {
-  font-size: var(--text-2xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-}
-
-.workout-group-label--finisher {
-  color: var(--color-skill-5);
-}
-
-.workout-group-label--abs {
-  color: var(--color-text-muted);
-}
-
-.workout-group-item {
-  padding: var(--spacing-4);
-  border-top: 1px solid var(--color-border-bg);
-}
-
-/* ── Exercise ────────────────────────────────────── */
-.workout-exercise-head {
-  display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: space-between;
   gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-bg);
 }
 
-.workout-exercise-name {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-fg);
-  line-height: var(--leading-tight);
-}
-
-.workout-exercise-label {
+.emom-block-label {
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
   color: var(--color-accent);
 }
 
-.workout-exercise-meta {
-  margin-top: 0.2rem;
-  font-size: var(--text-sm);
+.emom-block-meta {
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 
-.workout-exercise-done {
-  flex-shrink: 0;
-  color: var(--color-accent);
-  opacity: 0;
-  transform: scale(0.6);
-  transition:
-    opacity var(--duration-normal) var(--ease-spring),
-    transform var(--duration-normal) var(--ease-spring);
-}
-
-.workout-exercise-done.is-done {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.workout-check-svg {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-/* ── Set tracker dots ────────────────────────────── */
-.set-tracker {
-  margin-top: var(--spacing-3);
-}
-
-.set-tracker-dots {
-  display: flex;
-  gap: var(--spacing-2);
-}
-
-.set-tracker--unilateral {
+.emom-station-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-3);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: 0.35rem;
 }
 
-.set-tracker-row {
+.emom-station-row {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  font-size: var(--text-sm);
 }
 
-.set-tracker-side {
-  width: 1rem;
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dim);
+.emom-station-name {
+  color: var(--color-fg);
+  font-weight: var(--font-weight-medium);
 }
 
-.set-dot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius-full);
-  border: 2px solid var(--color-border-alt);
-  background: transparent;
-  color: transparent;
+.emom-station-measure {
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.emom-station-row.is-trailing {
+  padding-top: 0.35rem;
+  border-top: 1px dashed var(--color-border);
+  margin-top: 0.15rem;
+}
+
+.emom-station-row.is-trailing .emom-station-name {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.emom-btn {
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-alt);
+  background: var(--color-bg-alt);
+  color: var(--color-fg);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition:
     background-color var(--duration-fast) var(--ease-out),
@@ -299,70 +175,155 @@
     transform var(--duration-instant) var(--ease-out);
 }
 
-.set-dot:active {
-  transform: scale(0.95);
+.emom-btn:hover {
+  background: var(--color-surface-hover);
 }
 
-.set-dot--done {
+.emom-btn:active {
+  transform: scale(0.98);
+}
+
+.emom-btn--go {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-white);
 }
 
-/* ── Rest cues ───────────────────────────────────── */
-.workout-rest {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--color-accent);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
+.emom-btn--go:hover {
+  background: var(--color-accent-hover);
 }
 
-.workout-rest--inline {
-  margin-top: var(--spacing-3);
+.emom-btn--ghost {
+  background: transparent;
 }
 
-.workout-rest--footer {
-  padding: var(--spacing-3) var(--spacing-4);
-  border-top: 1px solid var(--color-border-bg);
+.emom > .emom-btn--go {
+  display: block;
+  width: 100%;
 }
 
-.workout-clock-svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  flex-shrink: 0;
-}
-
-/* ── Rest day ────────────────────────────────────── */
-.workout-rest-day {
+/* ── Live player ─────────────────────────────────── */
+.emom--live {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  gap: var(--spacing-3);
-  padding: var(--spacing-24) var(--spacing-8);
+  gap: var(--spacing-4);
+  padding: var(--spacing-8) var(--spacing-4);
+  border: 2px solid var(--color-border-bg);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  transition: border-color var(--duration-normal) var(--ease-out);
 }
 
-.workout-rest-emoji {
+.emom--live.emom--work {
+  border-color: var(--color-accent);
+}
+
+.emom--live.emom--break {
+  border-color: var(--color-border-alt);
+  background: var(--color-surface-subtle);
+}
+
+.emom--live.emom--hold {
+  border-color: var(--color-accent-secondary);
+}
+
+.emom-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: var(--text-xs);
+}
+
+.emom-status-phase {
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.emom-status-progress {
+  color: var(--color-text-muted);
+}
+
+.emom-countdown {
+  font-size: clamp(4.5rem, 22vw, 8rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.emom-now-movement {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg-bold);
+  line-height: var(--leading-tight);
+}
+
+.emom-now-measure {
+  margin-top: 0.2rem;
+  font-size: var(--text-lg);
+  color: var(--color-fg);
+}
+
+.emom-now-pace {
+  margin-top: var(--spacing-2);
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-subtle);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.emom-next {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.emom-next strong {
+  color: var(--color-fg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.emom-controls {
+  display: flex;
+  gap: var(--spacing-3);
+  width: 100%;
+  max-width: 20rem;
+}
+
+.emom-controls .emom-btn {
+  flex: 1;
+}
+
+/* ── Done ────────────────────────────────────────── */
+.emom--done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-16) var(--spacing-8);
+}
+
+.emom-done-emoji {
   font-size: 3rem;
 }
 
-.workout-rest-title {
+.emom-done-title {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-fg-bold);
 }
 
-.workout-rest-message {
+.emom-done-meta {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-  max-width: 22rem;
-}
-
-@media (max-width: 736px) {
-  .workout-topbar {
-    top: var(--header-height-mobile);
-  }
+  margin-bottom: var(--spacing-3);
 }

@@ -1,501 +1,166 @@
-// Weekly workout plan, keyed by JS day-of-week (0 = Sunday … 6 = Saturday).
+// EMOM workout library for "David Rosen's EMOMs".
 //
-// This drives the interactive tracker at /workouts. Edit the plan here to make
-// it your own — the UI renders whatever sections you define and persists each
-// day's checked-off sets to localStorage (keyed by calendar date).
+// A workout is authored the way it's written on paper: an ordered list of
+// blocks, each a rotation of stations played one per interval, with optional
+// trailing breaks/holds. A pure `expand()` (see components/Workouts/expand.ts)
+// flattens this into a flat Segment[] timeline that the timer plays — so
+// adding a new workout is a data-only change here.
 
-export interface WorkoutExercise {
-  name: string;
-  sets: number;
-  /** Free-form rep target, e.g. "8–12" or "10–12 each". Include "each" for unilateral lifts to split L/R tracking. */
-  reps: string;
-  weight?: string;
+/** How a station's work is measured. Exactly one kind per station. */
+export type Measure =
+  | { kind: 'reps'; count: number }
+  /** Unilateral, performed on each side — "10/10". */
+  | { kind: 'perSide'; count: number }
+  /** Machine calories, optionally with an equivalent distance in metres. */
+  | { kind: 'cal'; count: number; meters?: number }
+  /** Static hold, e.g. a 50-second plank. */
+  | { kind: 'hold'; seconds: number };
+
+/** Optional pacing target, always expressed per 60 seconds. */
+export interface Pace {
+  /** Target machine rate for erg stations, e.g. 18 → "hold ≥ 18 cal/min". */
+  calPerMin?: number;
+}
+
+export interface Station {
+  movement: string;
+  measure: Measure;
+  /** Load cue shown inline, e.g. "45 lb". */
+  load?: string;
+  /** Override the block's default interval (seconds) for this station only. */
+  interval?: number;
+  /** Per-minute pacing target (erg stations). Omitted → no pace line shown. */
+  pace?: Pace;
   notes?: string;
-  /** Rest cue shown inline beneath the exercise. */
-  rest?: string;
-  /** Position label within a superset, e.g. "A" / "B". */
+}
+
+/** A segment appended after a block's rotation, in authoring order. */
+export type Trailing =
+  | { kind: 'break'; seconds: number }
+  /** A one-off station played once (not rotated), e.g. a finisher plank. */
+  | { kind: 'station'; station: Station };
+
+export interface Block {
+  /** Optional heading, e.g. "Block 1". */
   label?: string;
-  /** Optional image path under /public; omitted entries simply render no image. */
-  image?: string;
+  /** Block length in minutes — drives run-to-the-clock expansion. */
+  durationMin: number;
+  /** Default seconds per station turn (usually 60). */
+  intervalSec: number;
+  /** Stations rotated one per interval. */
+  stations: Station[];
+  /** Breaks / one-off stations appended after the rotation. */
+  then?: Trailing[];
 }
 
-export type WorkoutSection =
-  | {
-      kind: 'superset';
-      /** Superset label, e.g. "A". */
-      label: string;
-      /** Short description of the pairing. */
-      focus: string;
-      rest: string;
-      exercises: WorkoutExercise[];
-    }
-  | {
-      kind: 'standalone';
-      name: string;
-      sets: number;
-      reps: string;
-      weight?: string;
-      notes?: string;
-      rest?: string;
-      image?: string;
-    }
-  | { kind: 'finisher'; exercises: WorkoutExercise[] }
-  | { kind: 'abs'; exercises: WorkoutExercise[] };
-
-export interface WorkoutDay {
-  day: string;
-  type: 'workout' | 'rest';
-  name: string;
-  duration?: string;
-  /** Shown on rest days. */
-  message?: string;
-  sections?: WorkoutSection[];
+export interface Workout {
+  slug: string;
+  title: string;
+  summary: string;
+  blocks: Block[];
 }
 
-export type WeeklyPlan = Record<number, WorkoutDay>;
+// ── Runtime timeline (produced by expand()) ──────────────────────────────
+// The timer knows nothing about blocks or rotations — it just plays segments.
 
-/** Sunday-first tab order matching the day-of-week keys. */
-export const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0] as const;
-export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export type Segment =
+  | {
+      type: 'work';
+      durationSec: number;
+      station: Station;
+      blockIndex: number;
+      blockLabel?: string;
+      /** 1-based round number within the block. */
+      round: number;
+    }
+  | { type: 'break'; durationSec: number; blockIndex: number }
+  | {
+      type: 'hold';
+      durationSec: number;
+      station: Station;
+      blockIndex: number;
+    };
 
-const plan: WeeklyPlan = {
-  1: {
-    day: 'Monday',
-    type: 'workout',
-    name: 'Push',
-    duration: '55–65 mins',
-    sections: [
-      {
-        kind: 'superset',
-        label: 'A',
-        focus: 'chest + rear delt',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB Floor Press / Bench Press',
-            sets: 4,
-            reps: '6–10',
-            weight: '40–45 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Rear Delt Raise (face-down)',
-            sets: 4,
-            reps: '15–20',
-            weight: '10 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'B',
-        focus: 'incline press + lateral raise',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Incline DB Press',
-            sets: 3,
-            reps: '8–12',
-            weight: '25–35 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Lateral Raises',
-            sets: 3,
-            reps: '15–20',
-            weight: '10–12.5 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'C',
-        focus: 'squeeze press + overhead press',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB Squeeze Press',
-            sets: 3,
-            reps: '10–15',
-            weight: '35–40 lbs',
-          },
-          {
-            label: 'B',
-            name: 'DB Overhead Press',
-            sets: 3,
-            reps: '8–10',
-            weight: '20–25 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'standalone',
-        name: 'DB Overhead Tricep Extension',
-        sets: 3,
-        reps: '10–15',
-        weight: '25 lbs',
-        rest: '75 sec rest',
-      },
-      {
-        kind: 'finisher',
-        exercises: [
-          {
-            name: 'Feet-elevated push-ups',
-            sets: 2,
-            reps: 'max',
-            rest: '60 sec',
-          },
-        ],
-      },
-    ],
-  },
+// ── Library ───────────────────────────────────────────────────────────────
+// Pace targets on erg stations are starting estimates — tune to taste.
 
-  2: {
-    day: 'Tuesday',
-    type: 'rest',
-    name: 'Rest Day',
-    message: 'Hit your calories. Light walk if you feel like it.',
-  },
-
-  3: {
-    day: 'Wednesday',
-    type: 'workout',
-    name: 'Legs + Biceps',
-    duration: '55–65 mins',
-    sections: [
-      {
-        kind: 'standalone',
-        name: 'Goblet Squat',
-        sets: 4,
-        reps: '8–12',
-        weight: '40–45 lbs',
-        notes: 'Slow eccentric',
-        rest: '2 min rest',
-      },
-      {
-        kind: 'standalone',
-        name: 'DB Romanian Deadlift',
-        sets: 4,
-        reps: '8–10',
-        weight: '40–45 lbs',
-        rest: '90 sec rest',
-      },
-      {
-        kind: 'superset',
-        label: 'A',
-        focus: 'split squat + calf raise',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Bulgarian Split Squat',
-            sets: 3,
-            reps: '8–10 each',
-            weight: '20–25 lbs',
+const emom30: Workout = {
+  slug: 'emom-30',
+  title: 'EMOM 30',
+  summary:
+    'Three 10-minute blocks, one movement every minute, with a break and a plank between rounds.',
+  blocks: [
+    {
+      label: 'Block 1',
+      durationMin: 10,
+      intervalSec: 60,
+      stations: [
+        {
+          movement: 'Front squat',
+          measure: { kind: 'reps', count: 10 },
+          load: '45 lb',
+        },
+        {
+          movement: 'Row',
+          measure: { kind: 'cal', count: 12, meters: 200 },
+          pace: { calPerMin: 18 },
+        },
+      ],
+      then: [
+        { kind: 'break', seconds: 60 },
+        {
+          kind: 'station',
+          station: {
+            movement: 'Plank',
+            measure: { kind: 'hold', seconds: 50 },
           },
-          {
-            label: 'B',
-            name: 'Calf Raises',
-            sets: 3,
-            reps: '15–20',
-            weight: '30–40 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'B',
-        focus: 'curl + hammer curl',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB Curl (supinating)',
-            sets: 3,
-            reps: '8–12',
-            weight: '25–30 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Hammer Curl',
-            sets: 3,
-            reps: '10–12',
-            weight: '25 lbs',
-          },
-        ],
-      },
-    ],
-  },
-
-  4: {
-    day: 'Thursday',
-    type: 'rest',
-    name: 'Rest Day',
-    message: 'Hit your calories. Light walk if you feel like it.',
-  },
-
-  5: {
-    day: 'Friday',
-    type: 'workout',
-    name: 'Pull + Chest',
-    duration: '55–65 mins',
-    sections: [
-      {
-        kind: 'standalone',
-        name: 'Pull-ups (or band-assisted)',
-        sets: 4,
-        reps: '6–10',
-        notes: 'Stop 1–2 reps short of failure',
-        rest: '2 min rest',
-      },
-      {
-        kind: 'superset',
-        label: 'A',
-        focus: 'row + curl',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: '1-Arm DB Row',
-            sets: 3,
-            reps: '8–12 each',
-            weight: '45–50 lbs',
-          },
-          {
-            label: 'B',
-            name: 'DB Curl (supinating)',
-            sets: 3,
-            reps: '8–12',
-            weight: '25–30 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'B',
-        focus: 'chest-supported row + incline curl',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Chest-Supported DB Row',
-            sets: 3,
-            reps: '10–15',
-            weight: '35 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Incline DB Curl',
-            sets: 3,
-            reps: '10–15',
-            weight: '20–25 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'C',
-        focus: 'pullover + hammer curl',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB Pullover',
-            sets: 2,
-            reps: '12–15',
-            weight: '30–35 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Hammer Curl',
-            sets: 2,
-            reps: '10–12',
-            weight: '25 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'finisher',
-        exercises: [
-          {
-            name: 'DB Floor Press (heavier)',
-            sets: 3,
-            reps: '8–12',
-            weight: '40–45 lbs',
-            rest: '90 sec',
-          },
-        ],
-      },
-    ],
-  },
-
-  6: {
-    day: 'Saturday',
-    type: 'workout',
-    name: 'Legs + Abs',
-    duration: '45–55 mins',
-    sections: [
-      {
-        kind: 'superset',
-        label: 'A',
-        focus: 'squat + calf',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Goblet Squat',
-            sets: 3,
-            reps: '12–15',
-            weight: '40 lbs',
-            notes: 'Slow pace',
-          },
-          {
-            label: 'B',
-            name: 'Calf Raises',
-            sets: 3,
-            reps: '15–20',
-            weight: '30 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'B',
-        focus: 'RDL + split squat',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB RDL',
-            sets: 3,
-            reps: '12–15',
-            weight: '30–35 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Bulgarian Split Squat',
-            sets: 3,
-            reps: '10–12 each',
-            weight: '20 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'abs',
-        exercises: [
-          {
-            name: 'Weighted Crunches or Decline Situps',
-            sets: 3,
-            reps: '12–15',
-            weight: '10–25 lbs',
-            rest: '60 sec',
-          },
-          { name: 'Plank', sets: 2, reps: '30–45 sec' },
-          { name: 'Leg Raises', sets: 2, reps: '12–15', rest: '45 sec' },
-        ],
-      },
-    ],
-  },
-
-  0: {
-    day: 'Sunday',
-    type: 'workout',
-    name: 'Shoulders + Arms + Chest',
-    duration: '55–65 mins',
-    sections: [
-      {
-        kind: 'superset',
-        label: 'A',
-        focus: 'overhead press + lateral raise',
-        rest: '75 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'DB Overhead Press',
-            sets: 4,
-            reps: '8–10',
-            weight: '20–25 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Lateral Raises',
-            sets: 4,
-            reps: '15–20',
-            weight: '10–12.5 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'B',
-        focus: 'rear delt + arnold press',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Rear Delt Raise',
-            sets: 3,
-            reps: '15–20',
-            weight: '10 lbs',
-          },
-          {
-            label: 'B',
-            name: 'Arnold Press',
-            sets: 3,
-            reps: '10–12',
-            weight: '15–20 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'C',
-        focus: 'concentration curl + tricep extension',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Concentration Curl',
-            sets: 3,
-            reps: '12–15 each',
-            weight: '20–25 lbs',
-          },
-          {
-            label: 'B',
-            name: 'DB Overhead Tricep Extension',
-            sets: 3,
-            reps: '10–15',
-            weight: '25 lbs',
-          },
-        ],
-      },
-      {
-        kind: 'superset',
-        label: 'D',
-        focus: 'reverse curl + floor press',
-        rest: '60 sec after each pair',
-        exercises: [
-          {
-            label: 'A',
-            name: 'Reverse Curl',
-            sets: 2,
-            reps: '12–15',
-            weight: '20 lbs',
-          },
-          {
-            label: 'B',
-            name: 'DB Floor Press (pump)',
-            sets: 3,
-            reps: '12–15',
-            weight: '35–40 lbs',
-          },
-        ],
-      },
-    ],
-  },
+        },
+      ],
+    },
+    {
+      label: 'Block 2',
+      durationMin: 10,
+      intervalSec: 60,
+      stations: [
+        {
+          movement: 'Single-arm bent-over row',
+          measure: { kind: 'perSide', count: 10 },
+          load: '60 lb',
+        },
+        {
+          movement: 'Ski erg',
+          measure: { kind: 'cal', count: 12, meters: 180 },
+          pace: { calPerMin: 18 },
+        },
+        { movement: 'Butterfly sit-ups', measure: { kind: 'reps', count: 20 } },
+      ],
+      then: [{ kind: 'break', seconds: 60 }],
+    },
+    {
+      label: 'Block 3',
+      durationMin: 10,
+      intervalSec: 60,
+      stations: [
+        {
+          movement: 'Kneeling shoulder press',
+          measure: { kind: 'perSide', count: 8 },
+          load: '45 lb',
+        },
+        {
+          movement: 'Assault bike',
+          measure: { kind: 'cal', count: 12 },
+          pace: { calPerMin: 15 },
+        },
+        { movement: 'Mountain climbers', measure: { kind: 'reps', count: 30 } },
+      ],
+    },
+  ],
 };
 
-export default plan;
+const workouts: Workout[] = [emom30];
+
+export function getWorkout(slug: string): Workout | undefined {
+  return workouts.find((w) => w.slug === slug);
+}
+
+export default workouts;

@@ -5,6 +5,7 @@
 EMOM training is fundamentally time-driven: a clock runs, and at the top of each interval you begin a prescribed movement; the leftover time is rest. The owner's workouts rotate one movement per interval, use a usually-but-not-always-60-second interval, mix movement types (reps, per-side reps, machine calories, static holds), and interleave breaks and holds between rotation blocks. This is a different paradigm than the checklist, so we replace rather than extend.
 
 Constraints:
+
 - Static export (`output: 'export'`) — the whole feature is client-side; no server, no new backend.
 - Existing design system (CSS custom properties in `app/styles/`, `PageWrapper`, theming) must be reused.
 - The owner will keep adding workouts, so authoring must be pure data.
@@ -12,6 +13,7 @@ Constraints:
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Model EMOM workouts as compact, human-authored data that mirrors how the owner writes them on paper.
 - Isolate all EMOM-specific logic in a pure `expand()` compiler so the runtime timer stays a dumb segment player.
 - Deliver a gym-usable timer: glanceable, audible, screen stays awake.
@@ -19,6 +21,7 @@ Constraints:
 - Ship "David Rosen's EMOMs" seeded with the owner's EMOM 30.
 
 **Non-Goals:**
+
 - No workout history, accounts, or cross-device sync (would trigger a backend and possibly a repo split — out of scope here).
 - No non-EMOM formats (AMRAP, for-time, Tabata) in this change, though the segment model should not preclude them later.
 - No auto-detection of how long a movement takes; pacing is author-declared, not measured.

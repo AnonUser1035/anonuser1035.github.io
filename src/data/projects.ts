@@ -41,18 +41,16 @@ const data: Project[] = [
     tech: ['TypeScript', 'React', 'Vite', 'Spaced Repetition'],
     featured: true,
   },
-  // Temporarily hidden while under revision — re-add to show on /projects.
-  // {
-  //   title: 'Workout Tracker',
-  //   subtitle: 'Personal tool',
-  //   link: '/workouts/',
-  //   preview: '/images/projects/workout-tracker.png',
-  //   linkLabel: 'Open tracker',
-  //   date: '2026-06-20',
-  //   desc: "An interactive weekly training tracker that lays out each day's split, lets me check off sets as I go, and persists progress in the browser — resetting automatically each day.",
-  //   tech: ['TypeScript', 'React', 'localStorage'],
-  //   featured: true,
-  // },
+  {
+    title: "David Rosen's EMOMs",
+    subtitle: 'Personal tool',
+    link: '/workouts/',
+    linkLabel: 'Open timer',
+    date: '2026-07-02',
+    desc: 'An interval timer for EMOM ("every minute on the minute") workouts. Workouts are authored as data and compiled into a flat timeline the timer plays — a running clock rotates through movements each minute, with 3-2-1 audio cues, per-minute pacing targets for the ergs, and a screen wake lock so it stays readable across the gym.',
+    tech: ['TypeScript', 'React', 'Web Audio', 'Wake Lock API'],
+    featured: true,
+  },
 ];
 
 /**
