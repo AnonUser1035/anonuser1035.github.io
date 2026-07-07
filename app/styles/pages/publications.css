@@ -28,6 +28,9 @@
   position: absolute;
   left: 0;
   top: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
   font-variant-numeric: tabular-nums;
   font-weight: var(--font-weight-semibold);
   color: var(--color-fg-light);
@@ -40,6 +43,7 @@
   line-height: var(--leading-tight);
   color: var(--color-fg-bold);
   font-weight: var(--font-weight-semibold);
+  text-wrap: balance;
 }
 
 a.publication-title:hover {

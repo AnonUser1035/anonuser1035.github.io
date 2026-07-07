@@ -144,10 +144,14 @@
 .footer-links-grid {
   display: grid;
   grid-template-columns: repeat(2, auto);
-  gap: 0.5rem 1.5rem;
+  gap: 0.125rem 1.5rem;
 }
 
+/* Block padding grows each link toward a comfortable touch target while the
+   tighter row gap keeps the visual rhythm unchanged. */
 .footer-links-grid a {
+  display: inline-block;
+  padding: 0.35rem 0;
   font-size: var(--text-sm);
   color: var(--color-fg-light);
   text-decoration: none;
@@ -185,8 +189,9 @@
 }
 
 .site-footer-new .icons li a {
-  width: 36px;
-  height: 36px;
+  /* 44px minimum touch target (WCAG 2.5.5 / mobile tap comfort) */
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: 1px solid var(--color-border);
   opacity: 0.7;

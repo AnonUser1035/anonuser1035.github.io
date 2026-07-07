@@ -105,6 +105,9 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <ScrollToTop />
         <div className="site-wrapper">
           <Navigation />

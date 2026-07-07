@@ -26,8 +26,12 @@ export default function Navigation() {
 
   return (
     <header className="site-header">
-      <Link href="/" className="site-logo">
-        <span className="logo-text">RB</span>
+      <Link
+        href="/"
+        className={`site-logo ${isActive('/') ? 'active' : ''}`}
+        aria-current={isActive('/') ? 'page' : undefined}
+      >
+        <span className="logo-text">Ryan Bohluli</span>
       </Link>
 
       <nav className="nav-links">

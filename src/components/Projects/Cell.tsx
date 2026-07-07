@@ -8,6 +8,12 @@ import type { Project } from '@/data/projects';
 
 interface CellProps {
   data: Project;
+  /**
+   * Heading level for the project title. Defaults to h3 (titles sit under the
+   * h2 group labels); pass 'h2' when the page hides group labels so the
+   * heading outline doesn't skip from the page h1 straight to h3.
+   */
+  headingLevel?: 'h2' | 'h3';
 }
 
 // Gap between the cursor and the floating preview thumbnail.
@@ -15,8 +21,9 @@ const PREVIEW_OFFSET = 20;
 // How long the cursor must rest on an entry before the preview appears.
 const DWELL_MS = 450;
 
-export default function Cell({ data }: CellProps) {
+export default function Cell({ data, headingLevel = 'h3' }: CellProps) {
   const { title, subtitle, link, preview, linkLabel, date, desc, tech } = data;
+  const TitleHeading = headingLevel;
 
   const hasLink = Boolean(link);
   // Internal routes navigate client-side via <Link>; external demos open in a
@@ -128,7 +135,7 @@ export default function Cell({ data }: CellProps) {
   const body = (
     <article className="project-record-body">
       <header className="project-record-header">
-        <h3 className="project-record-title">{title}</h3>
+        <TitleHeading className="project-record-title">{title}</TitleHeading>
         <time className="project-record-date" dateTime={date}>
           {dayjs(date).format('YYYY')}
         </time>
