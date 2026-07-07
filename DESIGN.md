@@ -237,6 +237,8 @@ A hybrid system, leaning flat. Surfaces are paper-flat at rest and separated mos
 
 - **Style:** Text links in Ink, serif-adjacent weight, `8px` radius hit-area. An animated `2.5px` cobalt underline scales in on hover/active/focus; active links also get a faint cobalt-light background.
 - **States:** Hover/focus → cobalt text + faint background + underline; a subtle `1.02` scale. Focus-visible always shows the underline (keyboard parity with hover).
+- **Wordmark (the Nameplate):** "Ryan Bohluli" is deliberately **not** a fifth tab. It sits in its own `1px` hairline plate (`4px` radius — squarer than the tabs' `8px` pill) like the name stamp on a chart. On the homepage the plate fills solid cobalt with the name in the page background color (white on cobalt / near-black on sky blue); hover tints the plate's border and fill while the letters hold their ink. It never takes an underline — the plate carries all state, and it opts out of the global animated link underline so no second bar can stack beneath it.
+- **Containment:** Header links set their own `line-height`; nothing in the header inherits the header-height line box, so active tints and underlines stay inside the hairline.
 - **Mobile:** Desktop nav hides below `736px`; a hamburger opens a slide menu. Theme toggle is a `44px` square (meets touch-target minimums).
 
 ### Hero Portrait (signature)
