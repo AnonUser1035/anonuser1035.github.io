@@ -256,6 +256,7 @@
   font-weight: var(--font-weight-semibold);
   margin: 0;
   line-height: var(--leading-tight);
+  text-wrap: balance;
 }
 
 .jobs-container header h3 a {
@@ -338,6 +339,7 @@
   margin-bottom: 0.25em;
   text-transform: none;
   color: var(--color-fg-bold);
+  text-wrap: balance;
 }
 
 .degree-container .school {
