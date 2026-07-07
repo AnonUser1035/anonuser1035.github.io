@@ -16,13 +16,8 @@ export default function PublicationsPage() {
   return (
     <PageWrapper mainClassName="page-main--wide">
       <section className="publications-page">
-        <header className="publications-header">
+        <header className="page-header">
           <h1 className="page-title">Publications</h1>
-          <p className="page-subtitle">
-            Research across neuromodulation, focused ultrasound, and wearable
-            neurotechnology. Selected peer-reviewed work and conference
-            presentations.
-          </p>
         </header>
 
         <section className="publications-section">

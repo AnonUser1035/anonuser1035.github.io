@@ -24,14 +24,10 @@ export default function ProjectsPage() {
     featuredProjects.length > 0 && otherProjects.length > 0;
 
   return (
-    <PageWrapper>
+    <PageWrapper mainClassName="page-main--wide">
       <section className="projects-page">
-        <header className="projects-header">
+        <header className="page-header">
           <h1 className="page-title">Projects</h1>
-          <p className="page-subtitle">
-            Research and engineering across neurotechnology, neuromodulation,
-            and biomedical devices
-          </p>
         </header>
 
         {featuredProjects.length > 0 && (

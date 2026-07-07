@@ -29,15 +29,17 @@
   }
 }
 
-/* Page header styles */
+/* Page header styles — the shared "here's the page title" wrapper for
+   list/browse pages (Projects, Publications). Centered, consistent spacing;
+   About/Contact keep their own header treatment since they read as
+   long-form content rather than a page-title-plus-list. */
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
 .page-title {
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-2);
-}
-
-.page-subtitle {
-  font-size: var(--text-lg);
-  color: var(--color-fg-light);
-  margin-bottom: 2rem;
 }
