@@ -1,19 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
 import { AUTHOR_NAME, SITE_URL } from '@/lib/utils';
-import { metadata as contactMetadata } from '../contact/page';
 import { metadata as notFoundMetadata } from '../not-found';
 import { metadata as projectsMetadata } from '../projects/page';
 import { metadata as publicationsMetadata } from '../publications/page';
-import { metadata as resumeMetadata } from '../resume/page';
 import { metadata as workoutsMetadata } from '../workouts/page';
 
 describe('page metadata', () => {
   it.each([
-    ['contact', contactMetadata, `${SITE_URL}/contact/`],
     ['projects', projectsMetadata, `${SITE_URL}/projects/`],
     ['publications', publicationsMetadata, `${SITE_URL}/publications/`],
-    ['resume', resumeMetadata, `${SITE_URL}/resume/`],
     ['workouts', workoutsMetadata, `${SITE_URL}/workouts/`],
   ])('sets page-specific open graph metadata for %s', (_, metadata, url) => {
     expect(metadata.openGraph?.url).toBe(url);
@@ -24,10 +20,8 @@ describe('page metadata', () => {
   });
 
   it.each([
-    ['contact', contactMetadata],
     ['projects', projectsMetadata],
     ['publications', publicationsMetadata],
-    ['resume', resumeMetadata],
     ['workouts', workoutsMetadata],
   ])('sets page-specific twitter metadata for %s', (_, metadata) => {
     expect(metadata.twitter?.description).toBe(metadata.description);

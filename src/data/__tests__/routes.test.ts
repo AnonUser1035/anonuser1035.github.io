@@ -37,9 +37,8 @@ describe('routes', () => {
     const paths = routes.map((r) => r.path);
 
     expect(paths).toContain('/');
-    expect(paths).toContain('/resume');
     expect(paths).toContain('/projects');
-    expect(paths).toContain('/contact');
+    expect(paths).toContain('/publications');
   });
 
   it('has unique paths', () => {

@@ -4,6 +4,34 @@
    ======================================== */
 
 /* ========================================
+   HOME CONTACT SECTION
+   Closing section of the merged narrative page — reuses the contact-*
+   classes from content.css, just without the standalone page's
+   full-viewport centering.
+   ======================================== */
+
+.home-contact {
+  max-width: 880px;
+  margin: 4.5rem auto 0;
+  padding: 0 2rem 3rem;
+  text-align: center;
+}
+
+.home-contact .contact-header {
+  margin-bottom: 2rem;
+}
+
+.home-contact .contact-header h2 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg-bold);
+  display: inline-block;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--color-accent);
+}
+
+/* ========================================
    HERO SECTION
    ======================================== */
 

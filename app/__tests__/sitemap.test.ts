@@ -9,11 +9,9 @@ describe('sitemap', () => {
 
     expect(entries).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ url: `${SITE_URL}/resume/` }),
         expect.objectContaining({ url: `${SITE_URL}/projects/` }),
         expect.objectContaining({ url: `${SITE_URL}/publications/` }),
         expect.objectContaining({ url: `${SITE_URL}/workouts/` }),
-        expect.objectContaining({ url: `${SITE_URL}/contact/` }),
       ]),
     );
   });

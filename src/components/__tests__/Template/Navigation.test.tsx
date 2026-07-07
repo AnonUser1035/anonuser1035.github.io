@@ -38,22 +38,22 @@ describe('Navigation', () => {
   it('renders navigation links for all non-index routes', () => {
     render(<Navigation />);
 
-    // Should have links for Resume, Projects, Publications, Contact
-    expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
+    // Should have links for Projects and Publications
     expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: /publications/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
   });
 
   it('marks home route as active when on homepage', () => {
     mockPathname.mockReturnValue('/');
     render(<Navigation />);
 
-    // Resume link should not be active on the homepage
-    const resumeLink = screen.getByRole('link', { name: /resume/i });
-    expect(resumeLink).not.toHaveClass('active');
+    // Publications link should not be active on the homepage
+    const publicationsLink = screen.getByRole('link', {
+      name: /publications/i,
+    });
+    expect(publicationsLink).not.toHaveClass('active');
   });
 
   it('marks projects route as active when on projects page', () => {
@@ -66,11 +66,13 @@ describe('Navigation', () => {
   });
 
   it('marks nested routes as active', () => {
-    mockPathname.mockReturnValue('/resume/skills');
+    mockPathname.mockReturnValue('/publications/some-paper');
     render(<Navigation />);
 
-    const resumeLink = screen.getByRole('link', { name: /resume/i });
-    expect(resumeLink).toHaveClass('active');
+    const publicationsLink = screen.getByRole('link', {
+      name: /publications/i,
+    });
+    expect(publicationsLink).toHaveClass('active');
   });
 
   it('renders theme toggle and hamburger menu', () => {

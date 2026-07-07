@@ -20,7 +20,7 @@ export default function NotFound() {
           <Link href="/" className="not-found-button">
             Go Home
           </Link>
-          <Link href="/contact" className="not-found-link">
+          <Link href="/#contact" className="not-found-link">
             Contact Me
           </Link>
         </div>

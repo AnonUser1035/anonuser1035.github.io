@@ -6,6 +6,7 @@ const sections = [
   { name: 'Experience', id: 'experience' },
   { name: 'Education', id: 'education' },
   { name: 'Skills', id: 'skills' },
+  { name: 'Contact', id: 'contact' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];

@@ -15,18 +15,21 @@ export default function Hero() {
         </h1>
 
         <p className="hero-tagline">
-          Computational neuroscience at{' '}
+          I&rsquo;m drawn to the gap between understanding how a system works
+          and being able to act on it in real time &mdash; that&rsquo;s what
+          pulled me into computational neuroscience at{' '}
           <a href="https://www.jhu.edu" className="hero-highlight">
             Johns Hopkins
           </a>
-          , co-founder &amp; Chief Research Officer at{' '}
+          , and into building closed-loop neuromodulation hardware as co-founder
+          &amp; Chief Research Officer at{' '}
           <a href="https://neurosafetysystems.com" className="hero-highlight">
             Neuro Safety Systems
           </a>
-          , EMT, and aspiring physician.
-          <br />
-          Building closed-loop neuromodulation systems and wearable
-          neurotechnology.
+          .
+          <br />I still volunteer as an EMT &mdash; it keeps me honest about the
+          difference between a system that works on paper and one that works in
+          someone&rsquo;s actual worst five minutes.
         </p>
 
         <div className="hero-chips">
@@ -36,10 +39,10 @@ export default function Hero() {
         </div>
 
         <div className="hero-cta">
-          <Link href="/resume" className="button button-primary">
-            View Resume
-          </Link>
-          <Link href="/contact" className="button button-secondary">
+          <a href="/resume.pdf" download className="button button-primary">
+            Download Résumé
+          </a>
+          <Link href="#contact" className="button button-secondary">
             Get in touch
           </Link>
         </div>
