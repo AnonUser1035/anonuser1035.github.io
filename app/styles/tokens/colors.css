@@ -53,7 +53,9 @@
   --color-surface-active: rgba(0, 0, 0, 0.1);
   --color-text-muted: rgba(0, 0, 0, 0.5);
   --color-text-dim: rgba(0, 0, 0, 0.6);
-  --color-fg-muted: rgba(0, 0, 0, 0.5);
+  /* Slate Muted — the documented floor for de-emphasized text (~5.3:1 on
+     white). Never rgba(0,0,0,0.5) (~3.9:1), which fails WCAG AA. */
+  --color-fg-muted: #6b6b70;
 
   /* ===================
      SEMANTIC COLORS

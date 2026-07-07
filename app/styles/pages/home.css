@@ -11,9 +11,8 @@
    ======================================== */
 
 .home-contact {
-  max-width: 880px;
-  margin: 4.5rem auto 0;
-  padding: 0 2rem 3rem;
+  margin-top: var(--spacing-20);
+  padding-bottom: var(--spacing-12);
   text-align: center;
 }
 

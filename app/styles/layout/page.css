@@ -32,8 +32,8 @@
 /* Page header styles */
 .page-title {
   font-size: var(--text-3xl);
-  font-weight: var(--font-weight-black);
-  margin-bottom: 0.5rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-2);
 }
 
 .page-subtitle {

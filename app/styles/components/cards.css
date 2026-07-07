@@ -25,25 +25,16 @@
    ======================================== */
 
 .projects-page {
-  padding-bottom: 2rem;
+  padding-bottom: var(--spacing-8);
 }
 
 .projects-header {
   text-align: center;
-  margin-bottom: 3rem;
-}
-
-.projects-section-title {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-fg-light);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-12);
 }
 
 .projects-featured {
-  margin-bottom: 3.5rem;
+  margin-bottom: var(--spacing-16);
 }
 
 .projects-grid {
@@ -54,7 +45,7 @@
 .project-record {
   display: block;
   position: relative;
-  padding: 2.25rem 0;
+  padding: var(--spacing-8) 0;
   border-bottom: 1px solid var(--color-border-bg);
   text-decoration: none;
   color: inherit;
@@ -62,15 +53,15 @@
 
 .projects-grid .project-record:last-child {
   border-bottom: none;
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--spacing-2);
 }
 
 .project-record-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 0.35rem;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-1);
 }
 
 .project-record-title {
@@ -103,7 +94,7 @@
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg-light);
-  margin-bottom: 0.85rem;
+  margin-bottom: var(--spacing-3);
 }
 
 .project-record-desc {
@@ -112,7 +103,7 @@
   line-height: var(--leading-normal);
   color: var(--color-fg);
   text-wrap: pretty;
-  margin-bottom: 1.1rem;
+  margin-bottom: var(--spacing-4);
 }
 
 .project-record-meta {
@@ -120,13 +111,13 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
+  gap: var(--spacing-3) var(--spacing-5);
 }
 
 .project-record-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--spacing-2);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -196,7 +187,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: var(--spacing-7);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-fg-light);
@@ -242,8 +233,8 @@
    ======================================== */
 
 .jobs-container {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
+  margin-bottom: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
   border-bottom: 1px solid var(--color-border-bg);
 }
 
@@ -254,7 +245,7 @@
 }
 
 .jobs-header {
-  margin-bottom: 0.9rem;
+  margin-bottom: var(--spacing-4);
 }
 
 .jobs-headline {
@@ -262,7 +253,7 @@
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.25rem 1.5rem;
+  gap: var(--spacing-1) var(--spacing-6);
 }
 
 .jobs-container header h3 {
@@ -286,18 +277,18 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-fg);
   font-size: var(--text-md);
-  margin: 0.3rem 0 0;
+  margin: var(--spacing-1) 0 0;
 }
 
 .jobs-container .points {
-  margin-top: 1rem;
+  margin-top: var(--spacing-4);
   max-width: 68ch;
 }
 
 .jobs-container .points li {
   font-size: var(--text-base);
   line-height: 1.7;
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--spacing-2);
   padding: 0;
   color: var(--color-fg-light);
 }
@@ -338,7 +329,7 @@
    ======================================== */
 
 .degree-container {
-  margin-bottom: 1.5em;
+  margin-bottom: var(--spacing-6);
 }
 
 .degree-container h3 {

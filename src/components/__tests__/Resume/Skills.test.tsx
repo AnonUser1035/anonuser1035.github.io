@@ -54,7 +54,7 @@ describe('Skills', () => {
   it('renders a group title per non-empty category', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
-    const groupTitles = document.querySelectorAll('.skill-group-title');
+    const groupTitles = document.querySelectorAll('.group-label');
     expect(groupTitles.length).toBe(3);
   });
 
@@ -64,9 +64,7 @@ describe('Skills', () => {
     // Within "Languages": Python (5) and TypeScript (5) before JavaScript (4)
     const languagesGroup = Array.from(
       document.querySelectorAll('.skill-group'),
-    ).find(
-      (g) => g.querySelector('.skill-group-title')?.textContent === 'Languages',
-    );
+    ).find((g) => g.querySelector('.group-label')?.textContent === 'Languages');
 
     const names = Array.from(
       languagesGroup?.querySelectorAll('.skill-tag-name') ?? [],

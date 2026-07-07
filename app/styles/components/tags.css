@@ -28,30 +28,37 @@
   }
 }
 
-.skill-group-title {
+/* ========================================
+   GROUP LABEL — shared sub-section label
+   The one "here's a named subgroup within this page" primitive, used by
+   Skills categories, Publications subsections, and Projects groupings.
+   A colored dot (defaulting to the accent, overridable per-category via
+   --group-label-color) carries any categorical meaning as a non-text mark,
+   never through text color alone, so it stays color-blind-safe.
+   ======================================== */
+
+.group-label {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
   font-family: var(--font-sans);
-  font-size: var(--text-lg);
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  color: var(--color-fg-bold);
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
+  color: var(--color-fg-light);
+  margin-bottom: var(--spacing-4);
+  padding-bottom: var(--spacing-3);
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Category color as a non-text mark — keeps the heading readable (color-blind
-   users still get the category from the label text) instead of tinting the text. */
-.skill-group-title::before {
+.group-label::before {
   content: '';
   flex: none;
   width: 0.7em;
   height: 0.7em;
   border-radius: var(--radius-full);
-  background: var(--skill-category-color, var(--color-accent));
+  background: var(--group-label-color, var(--color-accent));
 }
 
 .skill-tags {

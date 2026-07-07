@@ -26,12 +26,12 @@ export default function PublicationsPage() {
         </header>
 
         <section className="publications-section">
-          <h2 className="publications-section-title">Publications</h2>
+          <h2 className="group-label">Publications</h2>
           <PublicationList items={publications} />
         </section>
 
         <section className="publications-section">
-          <h2 className="publications-section-title">Presentations</h2>
+          <h2 className="group-label">Presentations</h2>
           <PublicationList items={presentations} />
         </section>
       </section>

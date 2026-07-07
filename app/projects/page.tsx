@@ -36,9 +36,7 @@ export default function ProjectsPage() {
 
         {featuredProjects.length > 0 && (
           <section className="projects-featured">
-            {showGroupLabels && (
-              <h2 className="projects-section-title">Selected Work</h2>
-            )}
+            {showGroupLabels && <h2 className="group-label">Selected Work</h2>}
             <div className="projects-grid">
               {featuredProjects.map((project) => (
                 <Cell data={project} key={project.title} />
@@ -49,9 +47,7 @@ export default function ProjectsPage() {
 
         {otherProjects.length > 0 && (
           <section className="projects-other">
-            {showGroupLabels && (
-              <h2 className="projects-section-title">More Projects</h2>
-            )}
+            {showGroupLabels && <h2 className="group-label">More Projects</h2>}
             <div className="projects-grid">
               {otherProjects.map((project) => (
                 <Cell data={project} key={project.title} />

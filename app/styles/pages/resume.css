@@ -71,12 +71,6 @@
   margin: var(--spacing-8) 0;
 }
 
-/* Resume page specific */
-.resume-page {
-  max-width: 880px;
-  margin: 0 auto;
-}
-
 .resume-nav {
   display: flex;
   flex-wrap: wrap;
@@ -156,8 +150,8 @@
    ======================================== */
 
 .experience-earlier {
-  margin-top: 2.5rem;
-  padding-top: 2.5rem;
+  margin-top: var(--spacing-10);
+  padding-top: var(--spacing-10);
   border-top: 1px solid var(--color-border-bg);
 }
 
@@ -167,15 +161,15 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   color: var(--color-fg-light);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-4);
 }
 
 .job-condensed {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 1rem 1.5rem;
-  padding: 0.85rem 0;
+  gap: var(--spacing-4) var(--spacing-6);
+  padding: var(--spacing-4) 0;
   border-bottom: 1px solid var(--color-border-bg);
 }
 

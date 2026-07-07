@@ -30,12 +30,12 @@ export default function Skills({ skills, categories }: SkillsProps) {
           if (categorySkills.length === 0) return null;
 
           const titleStyle = {
-            '--skill-category-color': category.color,
+            '--group-label-color': category.color,
           } as CSSProperties;
 
           return (
             <div key={category.name} className="skill-group">
-              <h3 className="skill-group-title" style={titleStyle}>
+              <h3 className="group-label" style={titleStyle}>
                 {category.name}
               </h3>
               <div className="skill-tags">
