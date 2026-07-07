@@ -4,13 +4,11 @@ import { AUTHOR_NAME, SITE_URL } from '@/lib/utils';
 import { metadata as notFoundMetadata } from '../not-found';
 import { metadata as projectsMetadata } from '../projects/page';
 import { metadata as publicationsMetadata } from '../publications/page';
-import { metadata as workoutsMetadata } from '../workouts/page';
 
 describe('page metadata', () => {
   it.each([
     ['projects', projectsMetadata, `${SITE_URL}/projects/`],
     ['publications', publicationsMetadata, `${SITE_URL}/publications/`],
-    ['workouts', workoutsMetadata, `${SITE_URL}/workouts/`],
   ])('sets page-specific open graph metadata for %s', (_, metadata, url) => {
     expect(metadata.openGraph?.url).toBe(url);
     expect(metadata.openGraph?.description).toBe(metadata.description);
@@ -22,7 +20,6 @@ describe('page metadata', () => {
   it.each([
     ['projects', projectsMetadata],
     ['publications', publicationsMetadata],
-    ['workouts', workoutsMetadata],
   ])('sets page-specific twitter metadata for %s', (_, metadata) => {
     expect(metadata.twitter?.description).toBe(metadata.description);
     expect(metadata.twitter?.title).toBe(`${metadata.title} | ${AUTHOR_NAME}`);
