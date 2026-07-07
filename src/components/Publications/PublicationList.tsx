@@ -26,7 +26,6 @@ function Entry({ item }: { item: Publication }) {
 
   return (
     <li className="publication">
-      <Authors authors={item.authors} />{' '}
       {href ? (
         <a className="publication-title" href={href}>
           {item.title}
@@ -34,6 +33,7 @@ function Entry({ item }: { item: Publication }) {
       ) : (
         <span className="publication-title">{item.title}</span>
       )}
+      <Authors authors={item.authors} />
       <span className="publication-meta">
         <span className="publication-venue">{item.venue}</span>
         {item.year && <span className="publication-year">{item.year}</span>}

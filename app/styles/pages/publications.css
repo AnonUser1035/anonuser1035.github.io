@@ -19,7 +19,6 @@
 .publication {
   position: relative;
   padding-left: var(--spacing-8);
-  line-height: 1.5;
   color: var(--color-fg);
 }
 
@@ -34,22 +33,30 @@
   color: var(--color-fg-light);
 }
 
+.publication-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
+  color: var(--color-fg-bold);
+  font-weight: var(--font-weight-semibold);
+}
+
+a.publication-title:hover {
+  color: var(--color-accent);
+}
+
 .publication-authors {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-fg-light);
+  margin-top: var(--spacing-1);
 }
 
 .publication-authors strong {
   color: var(--color-fg-bold);
   font-weight: var(--font-weight-semibold);
-}
-
-.publication-title {
-  color: var(--color-fg-bold);
-  font-weight: var(--font-weight-medium);
-}
-
-a.publication-title:hover {
-  color: var(--color-accent);
 }
 
 .publication-meta {
@@ -59,6 +66,7 @@ a.publication-title:hover {
   gap: var(--spacing-2);
   margin-top: var(--spacing-1);
   font-size: var(--text-sm);
+  line-height: var(--leading-normal);
 }
 
 .publication-venue {
