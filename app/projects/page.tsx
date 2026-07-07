@@ -35,7 +35,11 @@ export default function ProjectsPage() {
             {showGroupLabels && <h2 className="group-label">Selected Work</h2>}
             <div className="projects-grid">
               {featuredProjects.map((project) => (
-                <Cell data={project} key={project.title} />
+                <Cell
+                  data={project}
+                  headingLevel={showGroupLabels ? 'h3' : 'h2'}
+                  key={project.title}
+                />
               ))}
             </div>
           </section>
@@ -46,7 +50,11 @@ export default function ProjectsPage() {
             {showGroupLabels && <h2 className="group-label">More Projects</h2>}
             <div className="projects-grid">
               {otherProjects.map((project) => (
-                <Cell data={project} key={project.title} />
+                <Cell
+                  data={project}
+                  headingLevel={showGroupLabels ? 'h3' : 'h2'}
+                  key={project.title}
+                />
               ))}
             </div>
           </section>

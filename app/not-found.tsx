@@ -9,7 +9,7 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function NotFound() {
   return (
-    <main className="not-found-page">
+    <main id="main-content" tabIndex={-1} className="not-found-page">
       <div className="not-found-content">
         <span className="not-found-code">404</span>
         <h1 className="not-found-title">Page Not Found</h1>

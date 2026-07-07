@@ -18,7 +18,13 @@ export default function PageWrapper({
 }: PageWrapperProps) {
   return (
     <div className="page-container">
-      <main className={['page-main', mainClassName].filter(Boolean).join(' ')}>
+      {/* id is the skip-link target (app/layout.tsx); tabIndex lets it take
+          programmatic focus so the next Tab lands inside the content. */}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className={['page-main', mainClassName].filter(Boolean).join(' ')}
+      >
         {children}
       </main>
       {!hideFooter && <Footer />}

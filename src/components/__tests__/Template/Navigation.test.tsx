@@ -29,10 +29,25 @@ describe('Navigation', () => {
     });
   });
 
-  it('renders the logo link to home', () => {
+  it('renders the full-name wordmark linking home', () => {
     render(<Navigation />);
-    const logo = screen.getByRole('link', { name: /rb/i });
+    const logo = screen.getByRole('link', { name: /ryan bohluli/i });
     expect(logo).toHaveAttribute('href', '/');
+  });
+
+  it('marks the wordmark active only on the homepage', () => {
+    mockPathname.mockReturnValue('/');
+    const { unmount } = render(<Navigation />);
+    let logo = screen.getByRole('link', { name: /ryan bohluli/i });
+    expect(logo).toHaveClass('active');
+    expect(logo).toHaveAttribute('aria-current', 'page');
+    unmount();
+
+    mockPathname.mockReturnValue('/projects');
+    render(<Navigation />);
+    logo = screen.getByRole('link', { name: /ryan bohluli/i });
+    expect(logo).not.toHaveClass('active');
+    expect(logo).not.toHaveAttribute('aria-current');
   });
 
   it('renders navigation links for all non-index routes', () => {
