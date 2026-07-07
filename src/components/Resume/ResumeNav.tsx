@@ -14,14 +14,43 @@ type SectionId = (typeof sections)[number]['id'];
 /** Offset from top of viewport for intersection detection (header height + nav) */
 const INTERSECTION_MARGIN = '-20% 0px -75% 0px';
 
+/**
+ * A short last section (Contact) followed by the footer can run out of
+ * scroll room before it ever enters the intersection band above — the
+ * page hits max scroll while Contact's top edge is still below it, so the
+ * observer alone can never mark it active. This is the standard scroll-spy
+ * fix: once the page is scrolled to (within this many px of) the bottom,
+ * force the last section active regardless of what the observer reports.
+ */
+const BOTTOM_THRESHOLD_PX = 2;
+
 export default function ResumeNav() {
   const [activeSection, setActiveSection] = useState<SectionId>('experience');
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
+    const lastSectionId = sections[sections.length - 1].id;
+
+    const checkBottom = () => {
+      const { scrollHeight } = document.documentElement;
+      // Guard against unlaid-out environments (e.g. jsdom, where
+      // scrollHeight defaults to 0) reporting a false "at bottom".
+      const hasScrollableContent = scrollHeight > window.innerHeight;
+      const atBottom =
+        hasScrollableContent &&
+        window.innerHeight + window.scrollY >=
+          scrollHeight - BOTTOM_THRESHOLD_PX;
+      if (atBottom) {
+        setActiveSection(lastSectionId);
+      }
+    };
+
+    window.addEventListener('scroll', checkBottom, { passive: true });
+    checkBottom();
+
     // Check if IntersectionObserver is available (not in test environment)
     if (typeof IntersectionObserver === 'undefined') {
-      return;
+      return () => window.removeEventListener('scroll', checkBottom);
     }
 
     // Clean up previous observer
@@ -75,6 +104,7 @@ export default function ResumeNav() {
     });
 
     return () => {
+      window.removeEventListener('scroll', checkBottom);
       observerRef.current?.disconnect();
     };
   }, []);
