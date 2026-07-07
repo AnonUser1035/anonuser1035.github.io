@@ -3,66 +3,60 @@
    Desktop nav links and theme toggle
    ======================================== */
 
-/* The wordmark IS the home tab: it carries the same active/hover grammar as
-   .nav-link (accent color + cobalt underline bar) so "highlighted name =
-   you are on the homepage" reads at a glance, and Projects/Publications
-   visitors see it as the obvious way back. */
+/* The wordmark is the site's nameplate, not a fifth tab. It sits in its
+   own hairline plate (squarer corners than the tabs' hover pill) and marks
+   "home" by filling solid cobalt, so it never borrows the tabs' text +
+   underline grammar. `background-image: none` opts out of the global
+   animated `a` underline (base/links.css), which would otherwise stack a
+   second bar under the plate. */
 .site-logo {
-  position: relative;
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.625rem;
-  margin-left: -0.625rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border-alt);
+  border-radius: var(--radius-xs);
+  background-color: transparent;
+  background-image: none;
   text-decoration: none;
-  border-radius: var(--radius-sm);
   transition:
-    color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out);
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
 }
 
 .logo-text {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
   color: var(--color-fg-bold);
   letter-spacing: var(--tracking-tight);
   white-space: nowrap;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.site-logo::after {
-  content: '';
-  position: absolute;
-  bottom: 0.25rem;
-  left: 0.625rem;
-  right: 0.625rem;
-  height: 2.5px;
-  background: var(--color-accent);
-  border-radius: 2px;
-  transform: scaleX(0);
-  transition: transform var(--duration-fast) var(--ease-out);
+/* The plate responds to touch; the letters hold their ink. */
+.site-logo:hover,
+.site-logo:focus-visible {
+  border-color: var(--color-accent-border);
+  background-color: var(--color-accent-subtle);
 }
 
-.site-logo:hover .logo-text,
-.site-logo:focus-visible .logo-text {
-  color: var(--color-accent);
-}
-
-.site-logo:hover::after,
-.site-logo:focus-visible::after {
-  transform: scaleX(1);
+/* Home: the plate fills solid — a stamp, not an underline. --color-bg
+   keeps the name legible in both themes (white on cobalt / near-black
+   on sky blue). */
+.site-logo.active {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
 }
 
 .site-logo.active .logo-text {
-  color: var(--color-accent);
+  color: var(--color-bg);
 }
 
-.site-logo.active {
-  background-color: var(--color-accent-light);
-}
-
-.site-logo.active::after {
-  transform: scaleX(1);
+.site-logo.active:hover,
+.site-logo.active:focus-visible {
+  border-color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 88%, var(--color-bg));
 }
 
 .nav-links {
@@ -81,6 +75,9 @@
   padding: 0.75rem 1.125rem;
   font-size: 1.0625rem;
   font-weight: var(--font-weight-bold);
+  /* Explicit line-height so the link box (and its active tint) stays
+     inside the header instead of inheriting a header-height line box. */
+  line-height: var(--leading-tight);
   color: var(--color-fg-bold);
   text-decoration: none;
   /* Opt out of the global animated `a` underline (base/links.css); the
