@@ -17,7 +17,8 @@ export default function Navigation() {
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
     if (pathname?.startsWith(path)) return true;
-    // Internal project apps (e.g. /workouts) keep the Projects tab selected.
+    // Internal project apps (an in-site route rather than an external link)
+    // keep the Projects tab selected while you're inside them.
     return (
       path === '/projects' &&
       projectAppRoutes.includes(normalizePath(pathname ?? ''))

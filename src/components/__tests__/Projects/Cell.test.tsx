@@ -24,10 +24,10 @@ describe('Cell', () => {
   });
 
   it('renders internal routes without opening a new tab', () => {
-    render(<Cell data={{ ...externalProject, link: '/workouts/' }} />);
+    render(<Cell data={{ ...externalProject, link: '/projects/some-app/' }} />);
     const link = screen.getByRole('link');
     // next/link may normalize the trailing slash in the rendered href.
-    expect(link.getAttribute('href')).toMatch(/^\/workouts\/?$/);
+    expect(link.getAttribute('href')).toMatch(/^\/projects\/some-app\/?$/);
     expect(link).not.toHaveAttribute('target');
   });
 
