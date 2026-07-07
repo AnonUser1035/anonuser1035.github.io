@@ -13,7 +13,7 @@
 
 ## 3. Verification
 
-- [x] 3.1 Re-check each of the 4 corrected URLs returns a 200 response — arbutusvfd.org and semagnet.dallasisd.org confirmed 200; the two *.jhu.edu-family replacements return 403 from this sandboxed environment (same bot-blocking signature as jhu.edu/hopkinsmedicine.org, not evidence of being dead)
+- [x] 3.1 Re-check each of the 4 corrected URLs returns a 200 response — arbutusvfd.org and semagnet.dallasisd.org confirmed 200; the two \*.jhu.edu-family replacements return 403 from this sandboxed environment (same bot-blocking signature as jhu.edu/hopkinsmedicine.org, not evidence of being dead)
 - [x] 3.2 Run `npm run type-check`, `npm run lint`, `npm test`, and `npm run build` — all clean (193/193 tests pass)
 - [x] 3.3 Confirm no other links in `resume/work.ts`, `resume/degrees.ts`, `projects.ts`, `contact.ts` were changed — confirmed, only the 4 listed above
 - [x] 3.4 Report the unverifiable-but-likely-fine links (jhu.edu, hopkinsmedicine.org x2, linkedin.com/in/bohluli, ASME/Neurosurgery DOIs) to Ryan for a manual click-check — reported in chat

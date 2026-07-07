@@ -26,8 +26,8 @@ const work: Position[] = [
     position: 'Co-founder & Chief Research Officer',
     url: 'https://neurosafetysystems.com',
     startDate: '2025-05-01',
-    summary: `Co-founded a neurotechnology venture — $5M valuation, $100K pre-seed —
-    building in-ear EEG for driver-fatigue detection, where I direct research, the
+    summary: `Co-founded a neurotechnology venture ($5M valuation, $100K pre-seed)
+    building in-ear EEG for driver-fatigue detection. I direct research, the
     machine-learning pipeline, and partnerships spanning national freight carriers and
     the U.S. Army Aeromedical Research Laboratory.`,
   },

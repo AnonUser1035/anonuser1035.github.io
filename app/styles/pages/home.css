@@ -22,7 +22,7 @@
 }
 
 .home-contact .contact-header h2 {
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--color-fg-bold);
@@ -366,115 +366,6 @@
 
   .impact-list li {
     padding-left: 1.25rem;
-  }
-}
-
-/* ========================================
-   HOME DIRECTORY
-   Wayfinding index below the hero — routes each
-   audience to the destination they came for.
-   ======================================== */
-
-.home-directory {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 2rem 6rem;
-}
-
-.directory-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.directory-row {
-  display: grid;
-  grid-template-columns: 9.5rem 1fr auto;
-  align-items: baseline;
-  column-gap: 1.5rem;
-  padding: 1.5rem 0.875rem;
-  border-bottom: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  transition: background var(--duration-fast) var(--ease-out);
-}
-
-.directory-row:hover {
-  background: var(--color-accent-subtle);
-}
-
-.directory-row:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.directory-row-label {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-fg-bold);
-  transition: color var(--duration-fast) var(--ease-out);
-}
-
-.directory-row:hover .directory-row-label {
-  color: var(--color-accent);
-}
-
-.directory-row-desc {
-  color: var(--color-fg);
-  font-size: var(--text-sm);
-  line-height: var(--leading-normal);
-}
-
-.directory-row-arrow {
-  justify-self: end;
-  color: var(--color-accent);
-  font-size: var(--text-lg);
-  transition: transform var(--duration-fast) var(--ease-out);
-}
-
-.directory-row:hover .directory-row-arrow {
-  transform: translateX(4px);
-}
-
-@media (max-width: 640px) {
-  .home-directory {
-    padding: 0 1.5rem 4rem;
-  }
-
-  .directory-row {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      'label arrow'
-      'desc desc';
-    column-gap: 1rem;
-    row-gap: 0.4rem;
-  }
-
-  .directory-row-label {
-    grid-area: label;
-  }
-
-  .directory-row-desc {
-    grid-area: desc;
-  }
-
-  .directory-row-arrow {
-    grid-area: arrow;
-    align-self: center;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .directory-row,
-  .directory-row-label,
-  .directory-row-arrow {
-    transition: none;
-  }
-
-  .directory-row:hover .directory-row-arrow {
-    transform: none;
   }
 }
 

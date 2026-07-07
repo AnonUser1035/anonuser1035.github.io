@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 import ContactIcons from '@/components/Contact/ContactIcons';
 import EmailLink from '@/components/Contact/EmailLink';
@@ -16,21 +15,8 @@ import work from '@/data/resume/work';
 
 export const metadata: Metadata = {
   description:
-    'Ryan Bohluli — computational neuroscience at Johns Hopkins, co-founder & Chief Research Officer at Neuro Safety Systems, EMT, and aspiring physician. Experience, education, skills, and contact info.',
+    'Ryan Bohluli: computational neuroscience at Johns Hopkins, co-founder & Chief Research Officer at Neuro Safety Systems, EMT, and aspiring physician. Experience, education, skills, and contact info.',
 };
-
-const destinations = [
-  {
-    href: '/projects',
-    label: 'Projects',
-    desc: 'Selected research and engineering — in-ear EEG, neuromodulation, and the Neuro Safety Systems fleet demo.',
-  },
-  {
-    href: '/publications',
-    label: 'Publications',
-    desc: 'Nine peer-reviewed papers across Nature Biomedical Engineering, Scientific Reports, and ASME.',
-  },
-];
 
 export default function HomePage() {
   return (
@@ -74,22 +60,6 @@ export default function HomePage() {
           <ContactIcons />
         </div>
       </section>
-
-      <nav className="home-directory" aria-label="Explore the site">
-        <ul className="directory-list">
-          {destinations.map((d) => (
-            <li key={d.href}>
-              <Link href={d.href} className="directory-row">
-                <span className="directory-row-label">{d.label}</span>
-                <span className="directory-row-desc">{d.desc}</span>
-                <span className="directory-row-arrow" aria-hidden="true">
-                  &rarr;
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </PageWrapper>
   );
 }
