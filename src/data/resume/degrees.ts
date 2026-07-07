@@ -16,7 +16,7 @@ const degrees: Degree[] = [
   {
     school: 'School of Science and Engineering',
     degree: 'High School Diploma — Summa Cum Laude',
-    link: 'https://www.dallasisd.org/sem',
+    link: 'https://semagnet.dallasisd.org/',
     year: 2023,
   },
 ];

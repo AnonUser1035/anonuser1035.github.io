@@ -34,7 +34,7 @@ const work: Position[] = [
   {
     name: 'Thakor Laboratory, Johns Hopkins School of Medicine',
     position: 'Undergraduate Research Assistant (PURA Fellow)',
-    url: 'https://thakorlab.jhu.edu',
+    url: 'https://neuroengineering.bme.jhu.edu/',
     startDate: '2024-08-01',
     summary: `PURA Fellow studying closed-loop neuromodulation for autonomic control
     after spinal cord injury, with an independent honors thesis comparing focused
@@ -61,7 +61,7 @@ const work: Position[] = [
   {
     name: 'Arbutus Volunteer Fire Department',
     position: 'Volunteer EMT',
-    url: 'https://www.arbutusvfd.com',
+    url: 'https://www.arbutusvfd.org/',
     startDate: '2025-11-01',
     summary: `Certified EMT-Basic on a Baltimore County BLS/ALS unit, responding to 70+
     calls in underserved neighborhoods and distributing naloxone through Baltimore's
@@ -70,7 +70,7 @@ const work: Position[] = [
   {
     name: 'Mysore Laboratory, Johns Hopkins University',
     position: 'Undergraduate Research Assistant',
-    url: 'https://mysore.bme.jhu.edu',
+    url: 'https://mysorelab.johnshopkins.edu/',
     startDate: '2023-09-01',
     endDate: '2024-07-01',
     condensed: true,
