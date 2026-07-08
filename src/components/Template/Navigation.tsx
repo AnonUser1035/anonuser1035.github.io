@@ -32,7 +32,7 @@ export default function Navigation() {
         className={`site-logo ${isActive('/') ? 'active' : ''}`}
         aria-current={isActive('/') ? 'page' : undefined}
       >
-        <span className="logo-text">Ryan Bohluli</span>
+        <span className="logo-text">Ryan S. Bohluli</span>
       </Link>
 
       <nav className="nav-links">

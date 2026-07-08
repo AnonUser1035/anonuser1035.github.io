@@ -4,7 +4,7 @@
 
 // Site configuration
 export const SITE_URL = 'https://www.ryanbohluli.com';
-export const AUTHOR_NAME = 'Ryan Bohluli';
+export const AUTHOR_NAME = 'Ryan S. Bohluli';
 export const TWITTER_HANDLE = '';
 
 // Image dimension constants

@@ -14,7 +14,7 @@ describe('Footer', () => {
   it('displays the name and role', () => {
     render(<Footer />);
 
-    expect(screen.getByText('Ryan Bohluli')).toBeInTheDocument();
+    expect(screen.getByText('Ryan S. Bohluli')).toBeInTheDocument();
     expect(
       screen.getByText(
         'Co-founder & Chief Research Officer at Neuro Safety Systems Inc.',

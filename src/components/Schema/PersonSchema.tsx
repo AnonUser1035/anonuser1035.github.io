@@ -21,6 +21,8 @@ export default function PersonSchema() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: AUTHOR_NAME,
+    // Keeps search engines linking the pre-middle-initial name to this profile.
+    alternateName: 'Ryan Bohluli',
     url: SITE_URL,
     image: `${SITE_URL}/images/me.jpg`,
     jobTitle: currentJob.position,

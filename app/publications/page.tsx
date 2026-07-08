@@ -8,7 +8,7 @@ import { createPageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = createPageMetadata({
   title: 'Publications',
   description:
-    'Peer-reviewed publications and conference presentations by Ryan Bohluli in neuromodulation, focused ultrasound, and wearable neurotechnology.',
+    'Peer-reviewed publications and conference presentations by Ryan S. Bohluli in neuromodulation, focused ultrasound, and wearable neurotechnology.',
   path: '/publications/',
 });
 
