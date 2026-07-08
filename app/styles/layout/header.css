@@ -5,7 +5,7 @@
 
 /* Header sits flush on the page tone so the hairline is the only
    divider; matching --color-bg-alt avoids a second tonal edge.
-   No line-height here: flex centering positions children, and an
+   No line-height here: flex/grid centering positions children, and an
    inherited 64px line-height made the link boxes taller than the
    header itself, bleeding their active tint past the hairline. */
 .site-header {
@@ -23,6 +23,26 @@
   z-index: var(--z-header);
   transition: background-color var(--duration-fast) var(--ease-out);
   box-sizing: border-box;
+}
+
+/* Desktop, where the nav tabs are visible: a 1fr / auto / 1fr grid
+   keeps the tabs centered on the viewport, not on the leftover space
+   between the (wider) nameplate and the theme toggle — flex
+   space-between pushed them visibly off-center. Mobile keeps flex
+   space-between, since the tabs collapse into the hamburger there. */
+@media screen and (min-width: 736px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .site-header > .site-logo {
+    justify-self: start;
+  }
+
+  .site-header > .nav-actions {
+    justify-self: end;
+  }
 }
 
 @media (max-width: 736px) {
