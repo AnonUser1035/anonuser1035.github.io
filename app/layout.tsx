@@ -27,7 +27,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 const siteDescription =
-  'Ryan Bohluli is a computational neuroscience student at Johns Hopkins, co-founder and Chief Research Officer of Neuro Safety Systems, EMT, and aspiring physician researching closed-loop neuromodulation.';
+  'Ryan S. Bohluli is a computational neuroscience student at Johns Hopkins, co-founder and Chief Research Officer of Neuro Safety Systems, EMT, and aspiring physician researching closed-loop neuromodulation.';
 
 export const metadata: Metadata = {
   title: {

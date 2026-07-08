@@ -15,7 +15,7 @@ describe('Hero', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent('Ryan Bohluli');
+    expect(heading).toHaveTextContent('Ryan S. Bohluli');
   });
 
   it('renders the tagline with Johns Hopkins and Neuro Safety Systems links', () => {

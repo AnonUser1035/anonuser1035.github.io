@@ -8,7 +8,7 @@ import { createPageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = createPageMetadata({
   title: 'Projects',
   description:
-    'Selected research and engineering projects by Ryan Bohluli in neurotechnology, neuromodulation, and biomedical devices.',
+    'Selected research and engineering projects by Ryan S. Bohluli in neurotechnology, neuromodulation, and biomedical devices.',
   path: '/projects/',
 });
 

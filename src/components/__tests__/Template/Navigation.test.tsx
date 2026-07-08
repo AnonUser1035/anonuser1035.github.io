@@ -31,21 +31,21 @@ describe('Navigation', () => {
 
   it('renders the full-name wordmark linking home', () => {
     render(<Navigation />);
-    const logo = screen.getByRole('link', { name: /ryan bohluli/i });
+    const logo = screen.getByRole('link', { name: /ryan s\. bohluli/i });
     expect(logo).toHaveAttribute('href', '/');
   });
 
   it('marks the wordmark active only on the homepage', () => {
     mockPathname.mockReturnValue('/');
     const { unmount } = render(<Navigation />);
-    let logo = screen.getByRole('link', { name: /ryan bohluli/i });
+    let logo = screen.getByRole('link', { name: /ryan s\. bohluli/i });
     expect(logo).toHaveClass('active');
     expect(logo).toHaveAttribute('aria-current', 'page');
     unmount();
 
     mockPathname.mockReturnValue('/projects');
     render(<Navigation />);
-    logo = screen.getByRole('link', { name: /ryan bohluli/i });
+    logo = screen.getByRole('link', { name: /ryan s\. bohluli/i });
     expect(logo).not.toHaveClass('active');
     expect(logo).not.toHaveAttribute('aria-current');
   });
