@@ -14,7 +14,7 @@ interface CellProps {
 }
 
 export default function Cell({ data, headingLevel = 'h3' }: CellProps) {
-  const { title, subtitle, link, linkLabel, date, desc, tech } = data;
+  const { title, subtitle, link, linkLabel, date, desc } = data;
   const TitleHeading = headingLevel;
 
   const hasLink = Boolean(link);
@@ -43,15 +43,6 @@ export default function Cell({ data, headingLevel = 'h3' }: CellProps) {
       <p className="project-record-desc">{desc}</p>
 
       <div className="project-record-meta">
-        {tech && tech.length > 0 && (
-          <ul className="project-record-tech">
-            {tech.map((t) => (
-              <li key={t} className="tech-tag">
-                {t}
-              </li>
-            ))}
-          </ul>
-        )}
         {hasLink && (
           <span className="project-record-action">
             {actionLabel}

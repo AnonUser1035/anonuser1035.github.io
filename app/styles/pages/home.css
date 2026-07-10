@@ -145,35 +145,6 @@
   background-image: linear-gradient(transparent calc(100% - 2px), var(--color-accent) 2px);
 }
 
-/* Credential chips */
-.hero-chips {
-  display: flex;
-  gap: 0.625rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 2.25rem;
-}
-
-.hero-chip {
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-fg);
-  padding: 0.5rem 1rem;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  transition:
-    background var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.hero-chip:hover {
-  background: var(--color-accent-subtle);
-  border-color: var(--color-accent-border);
-  transform: translateY(-1px);
-}
-
 /* CTA buttons */
 .hero-cta {
   display: flex;
@@ -196,15 +167,6 @@
 
   .hero-tagline {
     font-size: var(--text-lg);
-  }
-
-  .hero-chips {
-    gap: 0.5rem;
-  }
-
-  .hero-chip {
-    font-size: var(--text-xs);
-    padding: 0.4rem 0.875rem;
   }
 }
 
@@ -384,10 +346,6 @@
     var(--shadow-xl),
     0 0 0 1px var(--color-accent-border),
     0 0 50px rgba(96, 165, 250, 0.12);
-}
-
-[data-theme='dark'] .hero-chip {
-  background: var(--color-bg-offset);
 }
 
 [data-theme='dark'] .home-section {

@@ -9,7 +9,6 @@ export interface Project {
   linkLabel?: string;
   date: string;
   desc: string;
-  tech?: string[];
 }
 
 /**
@@ -23,7 +22,6 @@ const data: Project[] = [
     link: 'https://demo.neurosafetysystems.com',
     date: '2026-06-01',
     desc: 'A fleet-management dashboard I built from scratch to monitor driver fatigue and shift hours across a trucking fleet, nudging at-risk drivers before fatigue becomes a hazard.',
-    tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
   },
   {
     title: 'ankibot',
@@ -31,7 +29,6 @@ const data: Project[] = [
     link: 'https://ankibot.ryanbohluli.com',
     date: '2026-06-29',
     desc: "A flashcard study app I'm building toward an AI-assisted Anki-style tutor. It imports existing Anki decks and schedules reviews with a spaced-repetition engine, entirely client-side with no backend.",
-    tech: ['TypeScript', 'React', 'Vite', 'Spaced Repetition'],
   },
   {
     title: "David Rosen's EMOMs",
@@ -39,7 +36,6 @@ const data: Project[] = [
     link: 'https://emoms.ryanbohluli.com',
     date: '2026-07-02',
     desc: 'An interval timer for EMOM ("every minute on the minute") workouts, with 3-2-1 audio cues and per-minute pacing targets for the ergs. It stays awake and readable across the gym, with a shared heatmap of who trained today.',
-    tech: ['TypeScript', 'React', 'Web Audio', 'Cloudflare Workers'],
   },
   {
     title: 'Ember',
@@ -47,7 +43,6 @@ const data: Project[] = [
     link: 'https://github.com/anonuser1035/ember',
     date: '2026-07-10',
     desc: 'A macOS menu-bar app that keeps your Mac awake with one click, even with the lid closed. It asks for your admin password on every toggle and runs no background process to work around that.',
-    tech: ['Swift', 'macOS', 'Menu Bar App'],
   },
 ];
 

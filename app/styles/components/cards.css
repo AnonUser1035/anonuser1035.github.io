@@ -104,15 +104,6 @@
   gap: var(--spacing-3) var(--spacing-5);
 }
 
-.project-record-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .project-record-action {
   display: inline-flex;
   align-items: center;

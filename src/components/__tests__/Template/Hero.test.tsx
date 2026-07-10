@@ -30,14 +30,6 @@ describe('Hero', () => {
     expect(nssLink).toHaveClass('hero-highlight');
   });
 
-  it('displays hero chips for credentials', () => {
-    render(<Hero />);
-
-    expect(screen.getByText(/Hopkins\s*['’]27/)).toBeInTheDocument();
-    expect(screen.getByText('Neurotech Founder')).toBeInTheDocument();
-    expect(screen.getByText('Volunteer EMT')).toBeInTheDocument();
-  });
-
   it('renders CTA buttons with correct links', () => {
     render(<Hero />);
 

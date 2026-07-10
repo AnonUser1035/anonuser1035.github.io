@@ -28,12 +28,6 @@ export default function Hero() {
           Volunteer EMT. Aspiring physician.
         </p>
 
-        <div className="hero-chips">
-          <span className="hero-chip">Johns Hopkins &rsquo;27</span>
-          <span className="hero-chip">Neurotech Founder</span>
-          <span className="hero-chip">Volunteer EMT</span>
-        </div>
-
         <div className="hero-cta">
           <a href="/resume.pdf" download className="button button-primary">
             Download Résumé

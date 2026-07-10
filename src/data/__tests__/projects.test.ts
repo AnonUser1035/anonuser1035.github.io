@@ -51,15 +51,6 @@ describe('projects data', () => {
     }
   });
 
-  it('tech is an array when present', () => {
-    for (const project of projects) {
-      if (project.tech) {
-        expect(Array.isArray(project.tech)).toBe(true);
-        expect(project.tech.length).toBeGreaterThan(0);
-      }
-    }
-  });
-
   it('has unique project titles', () => {
     const titles = projects.map((p) => p.title);
     const uniqueTitles = new Set(titles);

@@ -10,7 +10,6 @@ describe('Cell', () => {
     link: 'https://example.com',
     date: '2023-01-01',
     desc: 'This is a test project description',
-    tech: ['TypeScript'],
   };
 
   it('renders an external project as a new-tab link covering the entry', () => {
@@ -37,10 +36,9 @@ describe('Cell', () => {
     expect(screen.getByText('2023')).toBeInTheDocument();
   });
 
-  it('defaults the action verb by link type and shows tech tags', () => {
+  it('defaults the action verb by link type', () => {
     render(<Cell data={externalProject} />);
     expect(screen.getByText('Visit')).toBeInTheDocument();
-    expect(screen.getByText('TypeScript')).toBeInTheDocument();
   });
 
   it('renders a project without a link as a plain record (no link role)', () => {
