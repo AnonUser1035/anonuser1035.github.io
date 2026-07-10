@@ -20,16 +20,11 @@
 /* ========================================
    PROJECT RECORDS — Clinical-Record ledger
    Flat, hairline-separated entries in the résumé language. No card box; the
-   whole entry is the link. A pointer-only screenshot preview follows the
-   cursor on hover (see .project-preview).
+   whole entry is the link.
    ======================================== */
 
 .projects-page {
   padding-bottom: var(--spacing-8);
-}
-
-.projects-featured {
-  margin-bottom: var(--spacing-16);
 }
 
 .projects-grid {
@@ -144,39 +139,6 @@
   border-radius: var(--radius-sm);
 }
 
-/* Cursor-following screenshot preview (pointer devices only; toggled by JS) */
-.project-preview {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--z-tooltip);
-  width: clamp(220px, 22vw, 300px);
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-offset);
-  box-shadow: var(--shadow-xl);
-  pointer-events: none;
-  opacity: 0;
-  /* Parked off-screen until the first pointer event positions it, so it never
-     flashes in the top-left corner. */
-  transform: translate(-100vw, 0);
-  transition: opacity var(--duration-fast) var(--ease-out);
-  will-change: transform, opacity;
-}
-
-.project-preview.is-visible {
-  opacity: 1;
-}
-
-.project-preview img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 /* Back affordance for in-site project apps (e.g. the workout tracker).
    Padding grows the target to ~44px tall; the negative margins cancel it
    optically so the label still aligns with the content edge. */
@@ -212,7 +174,6 @@
 @media (prefers-reduced-motion: reduce) {
   .project-record-title,
   .project-record-arrow,
-  .project-preview,
   .back-to-projects-arrow {
     transition: none;
   }

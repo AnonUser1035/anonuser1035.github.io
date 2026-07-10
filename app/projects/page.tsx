@@ -13,16 +13,6 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ProjectsPage() {
-  // Newest first within each group.
-  const byDateDesc = (a: (typeof data)[number], b: (typeof data)[number]) =>
-    b.date.localeCompare(a.date);
-  const featuredProjects = data.filter((p) => p.featured).sort(byDateDesc);
-  const otherProjects = data.filter((p) => !p.featured).sort(byDateDesc);
-  // Only label the two groups when both exist; a lone group reads as the page
-  // itself, not a sub-section. Scales up cleanly as more projects are added.
-  const showGroupLabels =
-    featuredProjects.length > 0 && otherProjects.length > 0;
-
   return (
     <PageWrapper mainClassName="page-main--wide">
       <section className="projects-page">
@@ -30,35 +20,11 @@ export default function ProjectsPage() {
           <h1 className="page-title">Projects</h1>
         </header>
 
-        {featuredProjects.length > 0 && (
-          <section className="projects-featured">
-            {showGroupLabels && <h2 className="group-label">Selected Work</h2>}
-            <div className="projects-grid">
-              {featuredProjects.map((project) => (
-                <Cell
-                  data={project}
-                  headingLevel={showGroupLabels ? 'h3' : 'h2'}
-                  key={project.title}
-                />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {otherProjects.length > 0 && (
-          <section className="projects-other">
-            {showGroupLabels && <h2 className="group-label">More Projects</h2>}
-            <div className="projects-grid">
-              {otherProjects.map((project) => (
-                <Cell
-                  data={project}
-                  headingLevel={showGroupLabels ? 'h3' : 'h2'}
-                  key={project.title}
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        <div className="projects-grid">
+          {data.map((project) => (
+            <Cell data={project} headingLevel="h2" key={project.title} />
+          ))}
+        </div>
       </section>
     </PageWrapper>
   );

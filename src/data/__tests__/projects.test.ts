@@ -32,14 +32,6 @@ describe('projects data', () => {
     }
   });
 
-  it('preview paths start with / when present', () => {
-    for (const project of projects) {
-      if (project.preview) {
-        expect(project.preview.startsWith('/')).toBe(true);
-      }
-    }
-  });
-
   it('dates are valid date strings', () => {
     for (const project of projects) {
       const date = new Date(project.date);
@@ -73,18 +65,5 @@ describe('projects data', () => {
     const uniqueTitles = new Set(titles);
 
     expect(uniqueTitles.size).toBe(titles.length);
-  });
-
-  it('featured is boolean when present', () => {
-    for (const project of projects) {
-      if (project.featured !== undefined) {
-        expect(typeof project.featured).toBe('boolean');
-      }
-    }
-  });
-
-  it('has at least one featured project', () => {
-    const featured = projects.filter((p) => p.featured);
-    expect(featured.length).toBeGreaterThanOrEqual(1);
   });
 });

@@ -3,12 +3,6 @@ export interface Project {
   subtitle?: string;
   link?: string;
   /**
-   * Screenshot shown as a cursor-following preview when hovering a linked
-   * entry on a pointer device. Optional — entries without one simply show
-   * no preview.
-   */
-  preview?: string;
-  /**
    * Verb for the link affordance. Defaults to "Open" for internal routes and
    * "Visit" for external links.
    */
@@ -16,40 +10,44 @@ export interface Project {
   date: string;
   desc: string;
   tech?: string[];
-  featured?: boolean;
 }
 
+/**
+ * Curated display order (most to least relevant), not date order — this
+ * array's order is exactly the order the Projects page renders.
+ */
 const data: Project[] = [
   {
     title: 'NSS Fleet Demo',
     subtitle: 'Neuro Safety Systems',
     link: 'https://demo.neurosafetysystems.com',
-    preview: '/images/projects/nss-fleet-demo.png',
-    linkLabel: 'View demo',
     date: '2026-06-01',
-    desc: 'A fleet-management dashboard I built from scratch to demonstrate driver fatigue management and rerouting for truckers. Monitors live vigilance and shift hours across a fleet, escalates and nudges at-risk drivers, and surfaces recommended interventions before fatigue becomes a hazard.',
+    desc: 'A fleet-management dashboard I built from scratch to monitor driver fatigue and shift hours across a trucking fleet, nudging at-risk drivers before fatigue becomes a hazard.',
     tech: ['TypeScript', 'React', 'Real-time UI', 'Product Design'],
-    featured: true,
   },
   {
     title: 'ankibot',
     subtitle: 'Personal project',
     link: 'https://ankibot.ryanbohluli.com',
-    linkLabel: 'Try it',
     date: '2026-06-29',
-    desc: 'A flashcard study app I am building toward an AI-assisted Anki-style tutor. It imports existing Anki decks entirely in the browser, schedules reviews with a spaced-repetition engine, and runs a focused study session UI, all client-side with no backend.',
+    desc: "A flashcard study app I'm building toward an AI-assisted Anki-style tutor. It imports existing Anki decks and schedules reviews with a spaced-repetition engine, entirely client-side with no backend.",
     tech: ['TypeScript', 'React', 'Vite', 'Spaced Repetition'],
-    featured: true,
   },
   {
     title: "David Rosen's EMOMs",
     subtitle: 'Personal project',
     link: 'https://emoms.ryanbohluli.com',
-    linkLabel: 'Open timer',
     date: '2026-07-02',
-    desc: 'An interval timer for EMOM ("every minute on the minute") workouts. Workouts are authored as data and compiled into a flat timeline the timer plays — a running clock rotates through movements each minute, with 3-2-1 audio cues, per-minute pacing targets for the ergs, a screen wake lock so it stays readable across the gym, and a shared community heatmap of who trained today.',
+    desc: 'An interval timer for EMOM ("every minute on the minute") workouts, with 3-2-1 audio cues and per-minute pacing targets for the ergs. It stays awake and readable across the gym, with a shared heatmap of who trained today.',
     tech: ['TypeScript', 'React', 'Web Audio', 'Cloudflare Workers'],
-    featured: true,
+  },
+  {
+    title: 'Ember',
+    subtitle: 'Personal project',
+    link: 'https://github.com/anonuser1035/ember',
+    date: '2026-07-10',
+    desc: 'A macOS menu-bar app that keeps your Mac awake with one click, even with the lid closed. It asks for your admin password on every toggle and runs no background process to work around that.',
+    tech: ['Swift', 'macOS', 'Menu Bar App'],
   },
 ];
 

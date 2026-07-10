@@ -8,7 +8,6 @@ describe('Cell', () => {
     title: 'Test Project',
     subtitle: 'A test subtitle',
     link: 'https://example.com',
-    preview: '/images/test.jpg',
     date: '2023-01-01',
     desc: 'This is a test project description',
     tech: ['TypeScript'],
