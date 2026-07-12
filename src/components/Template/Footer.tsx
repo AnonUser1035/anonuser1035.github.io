@@ -38,9 +38,9 @@ export default function Footer() {
             </h4>
             <div className="footer-links-grid">
               <Link href="/#experience">Resume</Link>
-              <Link href="/projects">Projects</Link>
-              <Link href="/publications">Publications</Link>
-              <Link href="/#contact">Contact</Link>
+              <Link href="/#projects">Projects</Link>
+              <Link href="/#publications">Publications</Link>
+              <a href="mailto:ryan@neurosafetysystems.com">Contact</a>
             </div>
           </nav>
 

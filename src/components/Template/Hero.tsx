@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import ContactIcons from '@/components/Contact/ContactIcons';
+import EmailLink from '@/components/Contact/EmailLink';
 
 import ThemePortrait from './ThemePortrait';
 
@@ -32,9 +33,19 @@ export default function Hero() {
           <a href="/resume.pdf" download className="button button-primary">
             Download Résumé
           </a>
-          <Link href="#contact" className="button button-secondary">
-            Get in touch
-          </Link>
+        </div>
+
+        <div className="hero-contact contact-content">
+          <div className="contact-email-block">
+            <EmailLink />
+            <p className="contact-hint">Usually respond within 24 hours</p>
+          </div>
+
+          <div className="contact-divider">
+            <span>or find me on</span>
+          </div>
+
+          <ContactIcons />
         </div>
       </div>
     </section>

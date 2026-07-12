@@ -19,6 +19,8 @@
 
 .resume-page .education .title,
 .resume-page .experience .title,
+.resume-page .publications .title,
+.resume-page .projects .title,
 .resume-page .skills .title,
 .resume-page .courses .title,
 .resume-page .references .title {
@@ -28,6 +30,8 @@
 
 .resume-page .education .title h2,
 .resume-page .experience .title h2,
+.resume-page .publications .title h2,
+.resume-page .projects .title h2,
 .resume-page .skills .title h2,
 .resume-page .courses .title h2,
 .resume-page .references .title h2 {

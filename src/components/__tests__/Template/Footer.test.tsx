@@ -40,15 +40,15 @@ describe('Footer', () => {
     );
     expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute(
       'href',
-      '/projects',
+      '/#projects',
     );
     expect(screen.getByRole('link', { name: /publications/i })).toHaveAttribute(
       'href',
-      '/publications',
+      '/#publications',
     );
     expect(screen.getByRole('link', { name: /contact/i })).toHaveAttribute(
       'href',
-      '/#contact',
+      'mailto:ryan@neurosafetysystems.com',
     );
   });
 

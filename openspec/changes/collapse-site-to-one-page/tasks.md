@@ -14,14 +14,14 @@
 
 ## 3. Hero with contact
 
-- [ ] 3.1 Move EmailLink, response-time hint, and ContactIcons into `Hero.tsx` alongside the Download Résumé button; remove the "Get in touch" `#contact` button; update `Hero.test.tsx`
-- [ ] 3.2 Repurpose the `home-contact`/contact CSS into hero contact styles; confirm no `#contact` references remain in code or styles
+- [x] 3.1 Move EmailLink, response-time hint, and ContactIcons into `Hero.tsx` alongside the Download Résumé button; remove the "Get in touch" `#contact` button; update `Hero.test.tsx`
+- [x] 3.2 Repurpose the `home-contact`/contact CSS into hero contact styles; confirm no `#contact` references remain in code or styles (Footer/404 Contact links repointed to mailto)
 
 ## 4. One-page homepage
 
-- [ ] 4.1 Rebuild `app/page.tsx`: Hero, `#experience`, `#publications` (grouped PublicationLists, h2 section heading, h3 group labels), `#education`, `#projects` (Cell grid, `headingLevel="h3"`); remove Skills and Contact sections (keep Skills component + data files in tree)
-- [ ] 4.2 Add `resume-section`/scroll-margin treatment and section heading styles for the new `#publications` and `#projects` sections
-- [ ] 4.3 Update homepage `metadata.description` to reflect the one-page structure (drop "skills", mention projects and publications); update `page-metadata.test.ts`
+- [x] 4.1 Rebuild `app/page.tsx`: Hero, `#experience`, `#publications` (grouped PublicationLists, h2 section heading, h3 group labels), `#education`, `#projects` (Cell grid, `headingLevel="h3"`); remove Skills and Contact sections (keep Skills component + data files in tree)
+- [x] 4.2 Add `resume-section`/scroll-margin treatment and section heading styles for the new `#publications` and `#projects` sections
+- [x] 4.3 Update homepage `metadata.description` to reflect the one-page structure (drop "skills", mention projects and publications); `page-metadata.test.ts` updates land with the stubs in group 5
 
 ## 5. Legacy routes and scrolling
 

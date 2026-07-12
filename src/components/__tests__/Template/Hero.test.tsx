@@ -30,7 +30,7 @@ describe('Hero', () => {
     expect(nssLink).toHaveClass('hero-highlight');
   });
 
-  it('renders CTA buttons with correct links', () => {
+  it('renders the résumé download button', () => {
     render(<Hero />);
 
     const resumeButton = screen.getByRole('link', {
@@ -39,9 +39,37 @@ describe('Hero', () => {
     expect(resumeButton).toHaveAttribute('href', '/resume.pdf');
     expect(resumeButton).toHaveAttribute('download');
     expect(resumeButton).toHaveClass('button-primary');
+  });
 
-    const contactButton = screen.getByRole('link', { name: /get in touch/i });
-    expect(contactButton).toHaveAttribute('href', '#contact');
-    expect(contactButton).toHaveClass('button-secondary');
+  it('renders the contact block with email and hint', () => {
+    render(<Hero />);
+
+    const emailLink = screen.getByRole('link', {
+      name: /@neurosafetysystems\.com/i,
+    });
+    expect(emailLink).toHaveAttribute(
+      'href',
+      'mailto:ryan@neurosafetysystems.com',
+    );
+
+    expect(
+      screen.getByText(/usually respond within 24 hours/i),
+    ).toBeInTheDocument();
+  });
+
+  it('renders social contact icons', () => {
+    render(<Hero />);
+
+    const icons = document.querySelector('.hero-contact .icons');
+    expect(icons).toBeInTheDocument();
+  });
+
+  it('does not link to a #contact section', () => {
+    render(<Hero />);
+
+    const anchors = Array.from(document.querySelectorAll('a'));
+    expect(anchors.some((a) => a.getAttribute('href') === '#contact')).toBe(
+      false,
+    );
   });
 });

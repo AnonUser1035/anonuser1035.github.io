@@ -1,20 +1,20 @@
 import type { Metadata } from 'next';
 
-import ContactIcons from '@/components/Contact/ContactIcons';
-import EmailLink from '@/components/Contact/EmailLink';
+import Cell from '@/components/Projects/Cell';
+import PublicationList from '@/components/Publications/PublicationList';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
-import Skills from '@/components/Resume/Skills';
 import { PersonSchema } from '@/components/Schema';
 import Hero from '@/components/Template/Hero';
 import PageWrapper from '@/components/Template/PageWrapper';
+import projects from '@/data/projects';
+import { presentations, publications } from '@/data/publications';
 import degrees from '@/data/resume/degrees';
-import { categories, skills } from '@/data/resume/skills';
 import work from '@/data/resume/work';
 
 export const metadata: Metadata = {
   description:
-    'Ryan Bohluli: computational neuroscience at Johns Hopkins, co-founder & Chief Research Officer at Neuro Safety Systems, EMT, and aspiring physician. Experience, education, skills, and contact info.',
+    'Ryan Bohluli: computational neuroscience at Johns Hopkins, co-founder & Chief Research Officer at Neuro Safety Systems, EMT, and aspiring physician. Experience, publications, education, and projects on one page.',
 };
 
 export default function HomePage() {
@@ -29,34 +29,43 @@ export default function HomePage() {
             <Experience data={work} />
           </section>
 
+          <section id="publications" className="resume-section">
+            <div className="publications">
+              <div className="title">
+                <h2>Publications</h2>
+              </div>
+
+              <div className="publications-section">
+                <h3 className="group-label">Publications</h3>
+                <PublicationList items={publications} />
+              </div>
+
+              <div className="publications-section">
+                <h3 className="group-label">Presentations</h3>
+                <PublicationList items={presentations} />
+              </div>
+            </div>
+          </section>
+
           <section id="education" className="resume-section">
             <Education data={degrees} />
           </section>
 
-          <section id="skills" className="resume-section">
-            <Skills skills={skills} categories={categories} />
+          <section id="projects" className="resume-section">
+            <div className="projects">
+              <div className="title">
+                <h2>Projects</h2>
+              </div>
+
+              <div className="projects-grid">
+                {projects.map((project) => (
+                  <Cell data={project} headingLevel="h3" key={project.title} />
+                ))}
+              </div>
+            </div>
           </section>
         </div>
       </div>
-
-      <section id="contact" className="resume-section home-contact">
-        <div className="contact-header">
-          <h2>Contact</h2>
-        </div>
-
-        <div className="contact-content">
-          <div className="contact-email-block">
-            <EmailLink />
-            <p className="contact-hint">Usually respond within 24 hours</p>
-          </div>
-
-          <div className="contact-divider">
-            <span>or find me on</span>
-          </div>
-
-          <ContactIcons />
-        </div>
-      </section>
     </PageWrapper>
   );
 }
