@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-07-12
+goal: Convert the multi-page site (home + /projects + /publications) into a
+  single scrolling page with one unified header nav, devportfolio-style
