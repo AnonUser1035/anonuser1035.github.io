@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import routes from '../../data/routes';
+import sections from '../../data/sections';
 import SlideMenu from './SlideMenu';
 
 const MENU_ID = 'mobile-nav-menu';
@@ -23,10 +23,15 @@ export default function Hamburger() {
   const slideMenu = (
     <SlideMenu id={MENU_ID} isOpen={open} onClose={closeMenu} position="right">
       <ul className="hamburger-ul">
-        {routes.map((l) => (
-          <li key={l.label}>
-            <Link href={l.path} onClick={closeMenu}>
-              <h3 className={l.index ? 'index-li' : undefined}>{l.label}</h3>
+        <li>
+          <Link href="/" onClick={closeMenu}>
+            <h3 className="index-li">Ryan S. Bohluli</h3>
+          </Link>
+        </li>
+        {sections.map((section) => (
+          <li key={section.id}>
+            <Link href={`/#${section.id}`} onClick={closeMenu}>
+              <h3>{section.label}</h3>
             </Link>
           </li>
         ))}

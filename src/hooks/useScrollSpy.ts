@@ -1,35 +1,45 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-const sections = [
-  { name: 'Experience', id: 'experience' },
-  { name: 'Education', id: 'education' },
-  { name: 'Skills', id: 'skills' },
-  { name: 'Contact', id: 'contact' },
-] as const;
-
-type SectionId = (typeof sections)[number]['id'];
-
-/** Offset from top of viewport for intersection detection (header height + nav) */
+/** Offset from top of viewport for intersection detection (header height) */
 const INTERSECTION_MARGIN = '-20% 0px -75% 0px';
 
 /**
- * A short last section (Contact) followed by the footer can run out of
- * scroll room before it ever enters the intersection band above — the
- * page hits max scroll while Contact's top edge is still below it, so the
- * observer alone can never mark it active. This is the standard scroll-spy
- * fix: once the page is scrolled to (within this many px of) the bottom,
- * force the last section active regardless of what the observer reports.
+ * A short last section followed by the footer can run out of scroll room
+ * before it ever enters the intersection band above — the page hits max
+ * scroll while the section's top edge is still below it, so the observer
+ * alone can never mark it active. This is the standard scroll-spy fix:
+ * once the page is scrolled to (within this many px of) the bottom, force
+ * the last section active regardless of what the observer reports.
  */
 const BOTTOM_THRESHOLD_PX = 2;
 
-export default function ResumeNav() {
-  const [activeSection, setActiveSection] = useState<SectionId>('experience');
+/**
+ * Tracks which homepage section is currently in view. Returns the active
+ * section id, or null when not on the homepage (no section is "current"
+ * from other routes).
+ *
+ * Pass a stable (module-level) array of ids to avoid re-subscribing the
+ * observer on every render.
+ */
+export default function useScrollSpy(
+  sectionIds: readonly string[],
+): string | null {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    const lastSectionId = sections[sections.length - 1].id;
+    if (!isHome || sectionIds.length === 0) {
+      setActiveSection(null);
+      return;
+    }
+
+    setActiveSection(sectionIds[0]);
+    const lastSectionId = sectionIds[sectionIds.length - 1];
 
     const checkBottom = () => {
       const { scrollHeight } = document.documentElement;
@@ -81,11 +91,9 @@ export default function ResumeNav() {
         }
 
         if (targetEntry) {
-          const sectionId = sections.find(
-            (s) => s.id === targetEntry.target.id,
-          );
-          if (sectionId) {
-            setActiveSection(sectionId.id);
+          const targetId = targetEntry.target.id;
+          if (sectionIds.includes(targetId)) {
+            setActiveSection(targetId);
           }
         }
       },
@@ -96,7 +104,7 @@ export default function ResumeNav() {
     );
 
     // Observe all sections
-    sections.forEach(({ id }) => {
+    sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
         observerRef.current?.observe(element);
@@ -107,20 +115,7 @@ export default function ResumeNav() {
       window.removeEventListener('scroll', checkBottom);
       observerRef.current?.disconnect();
     };
-  }, []);
+  }, [isHome, sectionIds]);
 
-  return (
-    <nav className="resume-nav" aria-label="Resume sections">
-      {sections.map((section) => (
-        <a
-          key={section.id}
-          href={`#${section.id}`}
-          className={`resume-nav-link ${activeSection === section.id ? 'active' : ''}`}
-          aria-current={activeSection === section.id ? 'location' : undefined}
-        >
-          {section.name}
-        </a>
-      ))}
-    </nav>
-  );
+  return isHome ? activeSection : null;
 }

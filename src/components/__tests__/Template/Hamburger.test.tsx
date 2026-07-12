@@ -60,17 +60,30 @@ describe('Hamburger', () => {
     expect(icon).toHaveClass('hamburger-icon--open');
   });
 
-  it('renders navigation links in slide menu', () => {
+  it('renders home plus all section anchor links in slide menu', () => {
     render(<Hamburger />);
 
     // Open the menu
     fireEvent.click(screen.getByRole('button'));
 
-    // Check for navigation links
-    expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /ryan s\. bohluli/i }),
+    ).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: /experience/i })).toHaveAttribute(
+      'href',
+      '/#experience',
+    );
     expect(
       screen.getByRole('link', { name: /publications/i }),
-    ).toBeInTheDocument();
+    ).toHaveAttribute('href', '/#publications');
+    expect(screen.getByRole('link', { name: /education/i })).toHaveAttribute(
+      'href',
+      '/#education',
+    );
+    expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute(
+      'href',
+      '/#projects',
+    );
   });
 
   it('closes menu when a link is clicked', () => {

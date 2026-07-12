@@ -50,44 +50,45 @@ describe('Navigation', () => {
     expect(logo).not.toHaveAttribute('aria-current');
   });
 
-  it('renders navigation links for all non-index routes', () => {
+  it('renders anchor links for all homepage sections in page order', () => {
     render(<Navigation />);
 
-    // Should have links for Projects and Publications
-    expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: /publications/i }),
-    ).toBeInTheDocument();
+    const nav = document.querySelector('.nav-links') as HTMLElement;
+    const links = Array.from(nav.querySelectorAll('a'));
+
+    expect(links.map((l) => l.getAttribute('href'))).toEqual([
+      '/#experience',
+      '/#publications',
+      '/#education',
+      '/#projects',
+    ]);
+    expect(links.map((l) => l.textContent)).toEqual([
+      'Experience',
+      'Publications',
+      'Education',
+      'Projects',
+    ]);
   });
 
-  it('marks home route as active when on homepage', () => {
+  it('marks the first section active by default on the homepage', () => {
     mockPathname.mockReturnValue('/');
     render(<Navigation />);
 
-    // Publications link should not be active on the homepage
-    const publicationsLink = screen.getByRole('link', {
-      name: /publications/i,
-    });
-    expect(publicationsLink).not.toHaveClass('active');
+    const experienceLink = screen.getByRole('link', { name: /experience/i });
+    expect(experienceLink).toHaveClass('active');
+    expect(experienceLink).toHaveAttribute('aria-current', 'location');
+
+    const projectsLink = screen.getByRole('link', { name: /^projects$/i });
+    expect(projectsLink).not.toHaveClass('active');
   });
 
-  it('marks projects route as active when on projects page', () => {
+  it('marks no section active off the homepage', () => {
     mockPathname.mockReturnValue('/projects');
     render(<Navigation />);
 
-    const projectsLink = screen.getByRole('link', { name: /projects/i });
-    expect(projectsLink).toHaveClass('active');
-    expect(projectsLink).toHaveAttribute('aria-current', 'page');
-  });
-
-  it('marks nested routes as active', () => {
-    mockPathname.mockReturnValue('/publications/some-paper');
-    render(<Navigation />);
-
-    const publicationsLink = screen.getByRole('link', {
-      name: /publications/i,
-    });
-    expect(publicationsLink).toHaveClass('active');
+    const nav = document.querySelector('.nav-links') as HTMLElement;
+    expect(nav.querySelectorAll('a.active').length).toBe(0);
+    expect(nav.querySelectorAll('[aria-current]').length).toBe(0);
   });
 
   it('renders theme toggle and hamburger menu', () => {

@@ -4,7 +4,6 @@ import ContactIcons from '@/components/Contact/ContactIcons';
 import EmailLink from '@/components/Contact/EmailLink';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
-import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import { PersonSchema } from '@/components/Schema';
 import Hero from '@/components/Template/Hero';
@@ -23,8 +22,6 @@ export default function HomePage() {
     <PageWrapper mainClassName="page-main--wide">
       <PersonSchema />
       <Hero />
-
-      <ResumeNav />
 
       <div className="resume-page">
         <div className="resume-content">

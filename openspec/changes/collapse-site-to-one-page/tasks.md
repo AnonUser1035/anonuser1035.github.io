@@ -2,15 +2,15 @@
 
 ## 1. Shared foundations
 
-- [ ] 1.1 Create `src/data/sections.ts` with the ordered sections list (Experience, Publications, Education, Projects) and a test; delete `src/data/routes.ts` and `src/data/__tests__/routes.test.ts` once no imports remain (end of group 2)
-- [ ] 1.2 Extract ResumeNav's scroll-spy logic into `src/hooks/useScrollSpy.ts` (rootMargin, ratio selection, closest-to-top fallback, bottom fallback, jsdom guards), active only when pathname is `/`; migrate the spy-behavior coverage from `ResumeNav.test.tsx` into a hook test
+- [x] 1.1 Create `src/data/sections.ts` with the ordered sections list (Experience, Publications, Education, Projects) and a test; delete `src/data/routes.ts` and `src/data/__tests__/routes.test.ts` once no imports remain (end of group 2)
+- [x] 1.2 Extract ResumeNav's scroll-spy logic into `src/hooks/useScrollSpy.ts` (rootMargin, ratio selection, closest-to-top fallback, bottom fallback, jsdom guards), active only when pathname is `/`; migrate the spy-behavior coverage from `ResumeNav.test.tsx` into a hook test
 
 ## 2. Single header nav
 
-- [ ] 2.1 Rework `Navigation.tsx`: section anchor links (`/#<id>`) from `sections.ts`, active class + `aria-current="location"` from `useScrollSpy`, drop `projectAppRoutes` logic; update `Navigation.test.tsx`
-- [ ] 2.2 Rework `Hamburger.tsx`: menu lists Home + section links from `sections.ts`, closes on tap; update `Hamburger.test.tsx`
-- [ ] 2.3 Delete `ResumeNav.tsx`, its test, and `.resume-nav` styles in `app/styles/pages/resume.css`; verify `scroll-margin-top` offsets still land sections below the header
-- [ ] 2.4 Raise nav/header breakpoints from 735/736px to 899/900px in `app/styles/layout/header.css` and `app/styles/layout/navigation.css` only
+- [x] 2.1 Rework `Navigation.tsx`: section anchor links (`/#<id>`) from `sections.ts`, active class + `aria-current="location"` from `useScrollSpy`, drop `projectAppRoutes` logic; update `Navigation.test.tsx`
+- [x] 2.2 Rework `Hamburger.tsx`: menu lists Home + section links from `sections.ts`, closes on tap; update `Hamburger.test.tsx`
+- [x] 2.3 Delete `ResumeNav.tsx`, its test, and `.resume-nav` styles in `app/styles/pages/resume.css`; verify `scroll-margin-top` offsets still land sections below the header
+- [x] 2.4 Raise nav/header breakpoints from 735/736px to 899/900px in `app/styles/layout/header.css` and `app/styles/layout/navigation.css` only
 
 ## 3. Hero with contact
 
