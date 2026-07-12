@@ -6,6 +6,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Fixed header offset for every in-page anchor, so sections only need a
+       small breathing gap via scroll-margin-top (not the full header). */
+    scroll-padding-top: var(--header-height);
   }
 
   /* Respect reduced motion preference */
@@ -82,6 +85,10 @@
   }
 
   @media (max-width: 736px) {
+    html {
+      scroll-padding-top: var(--header-height-mobile);
+    }
+
     body {
       font-size: 15px;
       padding-top: var(--header-height-mobile);

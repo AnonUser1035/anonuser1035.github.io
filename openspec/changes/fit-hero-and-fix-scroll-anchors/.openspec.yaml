@@ -1,0 +1,5 @@
+schema: spec-driven
+created: 2026-07-12
+goal: Make the hero fit within one viewport so all contact info is visible at
+  first glance, and fix anchor-scroll landings that leave awkward empty space
+  above sections
