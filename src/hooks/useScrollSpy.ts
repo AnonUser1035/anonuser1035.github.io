@@ -38,8 +38,18 @@ export default function useScrollSpy(
       return;
     }
 
-    setActiveSection(sectionIds[0]);
+    const firstSectionId = sectionIds[0];
     const lastSectionId = sectionIds[sectionIds.length - 1];
+
+    // True while the visitor is still above the first section (hero at the top
+    // of the viewport): the first section's top hasn't reached the activation
+    // band yet, so no tab should read as "current". 0.2 matches the -20% top
+    // edge of INTERSECTION_MARGIN.
+    const isAboveFirstSection = () => {
+      const first = document.getElementById(firstSectionId);
+      if (!first) return false;
+      return first.getBoundingClientRect().top > window.innerHeight * 0.2;
+    };
 
     const checkBottom = () => {
       const { scrollHeight } = document.documentElement;
@@ -71,6 +81,13 @@ export default function useScrollSpy(
     // Create IntersectionObserver for efficient scroll tracking
     observerRef.current = new IntersectionObserver(
       (entries) => {
+        // While still in the hero (above the first section), keep nothing
+        // active so no tab is pre-selected on load.
+        if (isAboveFirstSection()) {
+          setActiveSection(null);
+          return;
+        }
+
         // Find the entry that is most visible (highest intersection ratio)
         const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 

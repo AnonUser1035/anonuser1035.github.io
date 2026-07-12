@@ -34,29 +34,20 @@
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-/* The plate responds to touch; the letters hold their ink. */
+/* Hover/focus: the plate fills solid cobalt — a stamp, not an underline.
+   --color-bg keeps the name legible in both themes (white on cobalt /
+   near-black on sky blue). The wordmark is otherwise unfilled at rest,
+   including on the homepage; `.active` carries aria-current for a11y but no
+   longer changes the appearance. */
 .site-logo:hover,
 .site-logo:focus-visible {
-  border-color: var(--color-accent-border);
-  background-color: var(--color-accent-subtle);
-}
-
-/* Home: the plate fills solid — a stamp, not an underline. --color-bg
-   keeps the name legible in both themes (white on cobalt / near-black
-   on sky blue). */
-.site-logo.active {
   border-color: var(--color-accent);
   background-color: var(--color-accent);
 }
 
-.site-logo.active .logo-text {
+.site-logo:hover .logo-text,
+.site-logo:focus-visible .logo-text {
   color: var(--color-bg);
-}
-
-.site-logo.active:hover,
-.site-logo.active:focus-visible {
-  border-color: var(--color-accent);
-  background-color: color-mix(in srgb, var(--color-accent) 88%, var(--color-bg));
 }
 
 .nav-links {

@@ -58,28 +58,25 @@ describe('Navigation', () => {
 
     expect(links.map((l) => l.getAttribute('href'))).toEqual([
       '/#experience',
-      '/#publications',
       '/#education',
+      '/#publications',
       '/#projects',
     ]);
     expect(links.map((l) => l.textContent)).toEqual([
       'Experience',
-      'Publications',
       'Education',
+      'Publications',
       'Projects',
     ]);
   });
 
-  it('marks the first section active by default on the homepage', () => {
+  it('marks no section active on load (nothing selected while the hero is in view)', () => {
     mockPathname.mockReturnValue('/');
     render(<Navigation />);
 
-    const experienceLink = screen.getByRole('link', { name: /experience/i });
-    expect(experienceLink).toHaveClass('active');
-    expect(experienceLink).toHaveAttribute('aria-current', 'location');
-
-    const projectsLink = screen.getByRole('link', { name: /^projects$/i });
-    expect(projectsLink).not.toHaveClass('active');
+    const nav = document.querySelector('.nav-links') as HTMLElement;
+    expect(nav.querySelectorAll('a.active').length).toBe(0);
+    expect(nav.querySelectorAll('[aria-current]').length).toBe(0);
   });
 
   it('marks no section active off the homepage', () => {

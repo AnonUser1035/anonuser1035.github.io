@@ -1,0 +1,5 @@
+schema: spec-driven
+created: 2026-07-12
+goal: No section tab is active on load until the user scrolls into a section;
+  the wordmark logo is unhighlighted by default and fills blue only on
+  hover/focus

@@ -10,8 +10,8 @@ export interface Section {
  */
 const sections: Section[] = [
   { label: 'Experience', id: 'experience' },
-  { label: 'Publications', id: 'publications' },
   { label: 'Education', id: 'education' },
+  { label: 'Publications', id: 'publications' },
   { label: 'Projects', id: 'projects' },
 ];
 

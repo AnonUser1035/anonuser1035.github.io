@@ -20,9 +20,9 @@ describe('useScrollSpy', () => {
     mockPathname.mockReturnValue('/');
   });
 
-  it('defaults to the first section on the homepage', () => {
+  it('starts with no active section on the homepage (nothing selected in the hero)', () => {
     const { result } = renderHook(() => useScrollSpy(SECTION_IDS));
-    expect(result.current).toBe('experience');
+    expect(result.current).toBeNull();
   });
 
   it('returns null off the homepage', () => {
@@ -81,6 +81,6 @@ describe('useScrollSpy', () => {
       fireEvent.scroll(window);
     });
 
-    expect(result.current).toBe('experience');
+    expect(result.current).toBeNull();
   });
 });

@@ -19,8 +19,8 @@ describe('sections', () => {
   it('lists sections in page order', () => {
     expect(sectionIds).toEqual([
       'experience',
-      'publications',
       'education',
+      'publications',
       'projects',
     ]);
   });

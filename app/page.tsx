@@ -29,6 +29,10 @@ export default function HomePage() {
             <Experience data={work} />
           </section>
 
+          <section id="education" className="resume-section">
+            <Education data={degrees} />
+          </section>
+
           <section id="publications" className="resume-section">
             <div className="publications">
               <div className="title">
@@ -45,10 +49,6 @@ export default function HomePage() {
                 <PublicationList items={presentations} />
               </div>
             </div>
-          </section>
-
-          <section id="education" className="resume-section">
-            <Education data={degrees} />
           </section>
 
           <section id="projects" className="resume-section">
