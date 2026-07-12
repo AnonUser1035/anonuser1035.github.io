@@ -30,13 +30,13 @@ All decisions are recorded in `proposal.md`. Target: one page, one header, devpo
 
 Replace `src/data/routes.ts` with `src/data/sections.ts`: an ordered array `[{ label, id }]` for Experience, Publications, Education, Projects. Header nav, Hamburger menu, and the scroll-spy hook all consume it, so order and labels can never drift between desktop, mobile, and spy. `routes.ts` and its test are deleted (nothing else imports it once Navigation and Hamburger switch over).
 
-*Alternative considered:* keep `routes.ts` and add a parallel sections list. Rejected: two lists describing the same nav is exactly the two-system problem this change removes.
+_Alternative considered:_ keep `routes.ts` and add a parallel sections list. Rejected: two lists describing the same nav is exactly the two-system problem this change removes.
 
 ### 2. Scroll spy becomes a hook consumed by the header
 
 Extract ResumeNav's logic into `src/hooks/useScrollSpy.ts` (takes the section ids, returns the active id). Carry over the existing behaviors verbatim: `-20% 0px -75% 0px` rootMargin, highest-intersection-ratio selection with closest-to-top fallback, jsdom guards, and the bottom-of-page fallback (harmless generalization even though the new last section, Projects, is tall). `Navigation.tsx` becomes the sole nav: logo, section anchor links with `active` class + `aria-current="location"` from the hook, ThemeToggle, Hamburger. `ResumeNav.tsx`, its test, and its CSS block are deleted; the test's scroll-spy coverage migrates to a `useScrollSpy` test.
 
-*Alternative considered:* keep ResumeNav as a second row docked under the header. Rejected in explore: less unified, the whole point is one nav.
+_Alternative considered:_ keep ResumeNav as a second row docked under the header. Rejected in explore: less unified, the whole point is one nav.
 
 ### 3. Anchor hrefs are `/#section`, spy active only on `/`
 
@@ -64,7 +64,7 @@ Hero keeps avatar, name, tagline, and the Download Résumé primary button. The 
 
 `app/projects/page.tsx` and `app/publications/page.tsx` become stubs that render `<meta httpEquiv="refresh" content="0;url=/#projects" />` (React 19 hoists meta tags to `<head>`) plus a visible fallback line: "Projects now live on the homepage. [Take me there.]". Metadata: `robots: { index: false }` so the stubs drop out of search; their `createPageMetadata` entries go away. `app/sitemap.ts` shrinks to the homepage entry only.
 
-*Alternative considered:* deleting the routes outright. Rejected: static export means instant 404s for any existing link; the stub costs ~10 lines.
+_Alternative considered:_ deleting the routes outright. Rejected: static export means instant 404s for any existing link; the stub costs ~10 lines.
 
 ### 7. ScrollToTop respects hashes
 

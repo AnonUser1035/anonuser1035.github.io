@@ -18,6 +18,13 @@ export default function ScrollToTop() {
       return;
     }
 
+    // Preserve in-page anchor navigation: when the destination carries a
+    // hash (e.g. arriving at /#projects from a redirect stub or the 404
+    // page), let the browser land on that section instead of the top.
+    if (window.location.hash) {
+      return;
+    }
+
     // Instant scroll to top on route change
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);

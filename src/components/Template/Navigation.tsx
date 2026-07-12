@@ -30,9 +30,7 @@ export default function Navigation() {
             key={section.id}
             href={`/#${section.id}`}
             className={`nav-link ${activeSection === section.id ? 'active' : ''}`}
-            aria-current={
-              activeSection === section.id ? 'location' : undefined
-            }
+            aria-current={activeSection === section.id ? 'location' : undefined}
           >
             {section.label}
           </Link>

@@ -4,22 +4,17 @@ import { SITE_URL } from '@/lib/utils';
 import sitemap from '../sitemap';
 
 describe('sitemap', () => {
-  it('uses trailing slashes for exported page routes', () => {
+  it('lists only the homepage now that all content is one page', () => {
     const entries = sitemap();
 
-    expect(entries).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ url: `${SITE_URL}/projects/` }),
-        expect.objectContaining({ url: `${SITE_URL}/publications/` }),
-      ]),
-    );
+    expect(entries).toHaveLength(1);
+    expect(entries[0].url).toBe(SITE_URL);
   });
 
-  it('uses trailing slashes for every non-root entry', () => {
-    const entries = sitemap();
-    const nonRoot = entries.filter((entry) => entry.url !== SITE_URL);
+  it('does not list the legacy redirect stubs', () => {
+    const urls = sitemap().map((entry) => entry.url);
 
-    expect(nonRoot.length).toBeGreaterThan(0);
-    expect(nonRoot.every((entry) => entry.url.endsWith('/'))).toBe(true);
+    expect(urls).not.toContain(`${SITE_URL}/projects/`);
+    expect(urls).not.toContain(`${SITE_URL}/publications/`);
   });
 });

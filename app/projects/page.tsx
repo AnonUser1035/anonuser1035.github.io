@@ -1,31 +1,12 @@
 import type { Metadata } from 'next';
 
-import Cell from '@/components/Projects/Cell';
-import PageWrapper from '@/components/Template/PageWrapper';
-import data from '@/data/projects';
-import { createPageMetadata } from '@/lib/metadata';
+import LegacyRedirect from '@/components/Template/LegacyRedirect';
 
-export const metadata: Metadata = createPageMetadata({
+export const metadata: Metadata = {
   title: 'Projects',
-  description:
-    'Selected research and engineering projects by Ryan S. Bohluli in neurotechnology, neuromodulation, and biomedical devices.',
-  path: '/projects/',
-});
+  robots: { index: false, follow: true },
+};
 
-export default function ProjectsPage() {
-  return (
-    <PageWrapper mainClassName="page-main--wide">
-      <section className="projects-page">
-        <header className="page-header">
-          <h1 className="page-title">Projects</h1>
-        </header>
-
-        <div className="projects-grid">
-          {data.map((project) => (
-            <Cell data={project} headingLevel="h2" key={project.title} />
-          ))}
-        </div>
-      </section>
-    </PageWrapper>
-  );
+export default function ProjectsRedirect() {
+  return <LegacyRedirect to="/#projects" label="Projects" />;
 }

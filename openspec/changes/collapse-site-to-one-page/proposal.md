@@ -7,18 +7,21 @@ The site currently runs two navigation systems stacked on top of each other: a h
 ## What Changes
 
 ### Single page
+
 - Merge `/projects` and `/publications` page content into the homepage as sections. Delete the standalone routes as destinations, but keep lightweight redirect stubs (static export cannot do server redirects) so existing deep links land on `/#projects` and `/#publications`.
 - New homepage section order (decided): Hero, Experience, Publications, Education, Projects.
 - Fully drop the Skills section: no nav item, no section, no relocated content for now. Future todo (out of scope for this change): reincorporate skill highlights somewhere lightweight, e.g. a line in the hero copy or a compact strip inside Experience.
 - Remove the `#contact` section. Its content (EmailLink, response-time line, ContactIcons) moves into the Hero, alongside a prominent resume PDF link (hpaul-v2 pattern: socials directly under the intro).
 
 ### Single header
+
 - One header nav: Logo | Experience, Publications, Education, Projects | theme toggle. All links are section anchors with smooth scroll, ordered to match the page.
 - Lift `ResumeNav`'s IntersectionObserver scroll-spy logic into the header so the active section is highlighted; delete `ResumeNav` as a separate bar.
 - Hamburger slide menu (already accessible: focus trap, scroll lock) becomes the single mobile nav, listing the same section anchors.
 - Raise the hamburger breakpoint from 736px to ~900px so mid-width viewports get the slide menu instead of a cramped link row.
 
 ### Cleanup / ripple effects
+
 - `ScrollToTop` on route change becomes mostly moot but must respect incoming `#hash` links (redirect stubs depend on this).
 - Sitemap, canonical URLs, and route-level metadata consolidate to the single page (plus 404).
 - `ResumeNav`'s bottom-of-page scroll-spy hack (BOTTOM_THRESHOLD_PX) can likely be dropped once short final sections (Contact) are gone; verify against the new final section.

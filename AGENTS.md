@@ -70,6 +70,7 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Biome ·
 
 ## Key Patterns
 
+- **Single-page IA**: The site is one scrolling page (`app/page.tsx`): Hero, then `#experience`, `#publications`, `#education`, `#projects` sections. `src/data/sections.ts` is the single source of nav order/labels/ids—consumed by the header (`Navigation.tsx`), the hamburger menu, and the `useScrollSpy` hook (active-section highlight, homepage-only). Contact and the résumé download live in the Hero, not a section. `/projects` and `/publications` are noindex meta-refresh stubs (`LegacyRedirect`) that bounce to the matching anchor; the sitemap lists only the homepage. Nav/hamburger breakpoint is 900px (in `layout/header.css` + `layout/navigation.css`); other 736px queries are content-layout, leave them
 - **Theming**: `data-theme` attribute on `<html>`, persisted to `window.localStorage` in client code/tests to avoid Node runtime globals leaking into browser-only paths
 - **Static export**: `output: 'export'` for GitHub Pages—no server features
 - **Canonical/export URLs**: When generating absolute URLs for metadata, RSS, sitemap, or schema, match `trailingSlash: true` output (`/about/`, `/writing/post-slug/`) instead of non-canonical no-slash variants; file-like routes such as `/feed.xml` and `/sitemap.xml` stay file-like

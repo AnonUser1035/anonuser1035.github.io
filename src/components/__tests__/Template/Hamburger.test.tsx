@@ -73,9 +73,10 @@ describe('Hamburger', () => {
       'href',
       '/#experience',
     );
-    expect(
-      screen.getByRole('link', { name: /publications/i }),
-    ).toHaveAttribute('href', '/#publications');
+    expect(screen.getByRole('link', { name: /publications/i })).toHaveAttribute(
+      'href',
+      '/#publications',
+    );
     expect(screen.getByRole('link', { name: /education/i })).toHaveAttribute(
       'href',
       '/#education',

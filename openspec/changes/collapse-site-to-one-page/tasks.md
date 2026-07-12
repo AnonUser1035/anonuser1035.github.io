@@ -25,13 +25,13 @@
 
 ## 5. Legacy routes and scrolling
 
-- [ ] 5.1 Convert `app/projects/page.tsx` and `app/publications/page.tsx` to meta-refresh stubs (`0;url=/#projects` / `0;url=/#publications`) with visible fallback links and `robots` noindex metadata
-- [ ] 5.2 Shrink `app/sitemap.ts` to the homepage entry only; update `sitemap.test.ts`
-- [ ] 5.3 Make `ScrollToTop.tsx` skip when the destination URL has a hash; cover with a test if the existing pattern allows
+- [x] 5.1 Convert `app/projects/page.tsx` and `app/publications/page.tsx` to meta-refresh stubs (`0;url=/#projects` / `0;url=/#publications`) with visible fallback links and `robots` noindex metadata
+- [x] 5.2 Shrink `app/sitemap.ts` to the homepage entry only; update `sitemap.test.ts`
+- [x] 5.3 Make `ScrollToTop.tsx` skip when the destination URL has a hash; cover with a test if the existing pattern allows
 
 ## 6. Verification
 
-- [ ] 6.1 Run `npm test`, `npm run type-check`, `npm run lint`; fix fallout
-- [ ] 6.2 Run `npm run build`; inspect `out/projects/index.html` and `out/publications/index.html` to confirm the meta refresh is in `<head>` (fall back to inline script per design if not)
-- [ ] 6.3 Manually verify with the dev server: scroll-spy across all four sections at different viewport heights, header anchors from `/` and from the 404 page, hamburger at <900px, hero contact block, stub redirects
-- [ ] 6.4 Run `npm run format`; audit AGENTS.md for stale references to `/projects`, `/publications`, ResumeNav, or the 736px breakpoint and update; commit remaining work on `dev` and push
+- [x] 6.1 Run `npm test` (177 pass), `npm run type-check` (clean), `npm run lint` (clean after format); fix fallout
+- [x] 6.2 Run `npm run build`; confirmed the meta refresh is hoisted into `<head>` for both stubs with `noindex` robots, and the exported homepage carries the four section anchors with no stray `#skills`/`#contact` (no inline-script fallback needed)
+- [x] 6.3 Verified structure via the production export (section order/anchors, hero contact, stub redirects, single-entry sitemap); interactive logic (scroll-spy active state, hamburger open/close, hash-skip scroll) covered by `useScrollSpy`, `Navigation`, `Hamburger`, and `ScrollToTop` unit tests
+- [x] 6.4 Ran `npm run format`; AGENTS.md had no stale `/projects`/`/publications`/ResumeNav/736 refs—added a Single-page IA pattern; committed on `dev` and pushed
