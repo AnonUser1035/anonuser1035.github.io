@@ -23,6 +23,8 @@ export default function RhythmStrip() {
   const beats = MILESTONES.map((milestone, i) => ({
     ...milestone,
     ...geometry.beats[i],
+    // The clip grows linearly, so this is when the pen draws the R peak.
+    printedAt: (REVEAL_SECONDS * geometry.beats[i].x) / revealWidth,
   }));
 
   return (

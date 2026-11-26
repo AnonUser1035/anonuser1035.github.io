@@ -99,7 +99,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .strip-reveal,
-  .strip-pen {
+  .strip-pen,
+  .strip-beat {
     animation: none;
   }
 }
@@ -148,6 +149,15 @@
   background: transparent;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  /* Hidden (no hover, focus or tap) until the pen draws this beat's R peak.
+     The delay is set inline per beat. */
+  animation: strip-arm 0s both;
+}
+
+@keyframes strip-arm {
+  from {
+    visibility: hidden;
+  }
 }
 
 /* The selection dot is the focus indicator. */

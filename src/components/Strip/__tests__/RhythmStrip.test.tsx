@@ -89,6 +89,19 @@ describe('RhythmStrip', () => {
     expect(marker()).toBeNull();
   });
 
+  it('keeps each beat unselectable until the pen has drawn its R peak', () => {
+    render(<RhythmStrip />);
+    const delays = beatButtons().map((b) => parseFloat(b.style.animationDelay));
+    const reveal = document.querySelector('.strip-reveal') as SVGRectElement;
+    const seconds = parseFloat(reveal.style.animationDuration);
+    const clipWidth = Number(reveal.getAttribute('width'));
+    delays.forEach((delay, i) => {
+      expect(delay).toBeCloseTo((seconds * geometry.beats[i].x) / clipWidth, 3);
+    });
+    expect(delays[0]).toBeGreaterThan(0);
+    expect(delays.at(-1)).toBeLessThan(seconds);
+  });
+
   it('prints year labels under the beats that carry a tick', () => {
     render(<RhythmStrip />);
     const ticks = [...document.querySelectorAll('.strip-tick')];

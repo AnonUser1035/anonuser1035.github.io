@@ -9,6 +9,8 @@ export interface StripBeat {
   /** Interactive region, mm. */
   hitStart: number;
   hitEnd: number;
+  /** Seconds after load when the pen draws this R peak. */
+  printedAt: number;
   label: string;
   text: string;
   tick?: string;
@@ -153,6 +155,7 @@ export default function StripInteractive({
                 style={{
                   left: percent(b.hitStart, width),
                   width: percent(b.hitEnd - b.hitStart, width),
+                  animationDelay: `${b.printedAt.toFixed(3)}s`,
                 }}
                 aria-label={`${b.label}: ${b.text}`}
                 aria-current={i === selected ? 'true' : undefined}
