@@ -21,6 +21,9 @@ Thumbs.db
 .vscode/
 *.swp
 
-# Claude Code / impeccable
+# Claude Code / impeccable. Impeccable's config and the full design document
+# (DESIGN.md is its map) are tracked; caches and old critiques stay local.
 .claude/
-.impeccable/
+.impeccable/*
+!.impeccable/config.json
+!.impeccable/design-full.md

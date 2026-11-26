@@ -1,13 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="5" fill="#2e59ba" />
-  <text
-    x="16"
-    y="22.5"
-    text-anchor="middle"
-    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-    font-size="16"
-    font-weight="700"
-    fill="white"
-    letter-spacing="-0.5"
-  >RB</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Newsreader's italic R, as outlines because favicons can't load web
+       fonts, with the pen's crimson dot as its full stop. Colors are the
+       paper, ink and marker tokens from src/styles/tokens.css. -->
+  <style>
+    .p { fill: #faf8f5; }
+    .i { fill: #1d2129; }
+    .m { fill: #c1121f; }
+    @media (prefers-color-scheme: dark) {
+      .p { fill: #121419; }
+      .i { fill: #e7e8ec; }
+      .m { fill: #f0505a; }
+    }
+  </style>
+  <rect class="p" width="64" height="64" />
+  <path class="i" transform="matrix(0.0332 0 0 -0.0332 4.81 54.44)" d="M716 732Q828 732 908 774Q988 816 1031 891.5Q1074 967 1074 1066Q1074 1158 1012 1206.5Q950 1255 799 1255H538L572 1352H848Q988 1352 1074.5 1320.5Q1161 1289 1200 1227.5Q1239 1166 1239 1077Q1239 968 1187.5 879.5Q1136 791 1036 735.5Q936 680 791 671V677Q856 673 893.5 649.5Q931 626 951.5 579.5Q972 533 987 458L1041 207Q1055 142 1072.5 111Q1090 80 1116.5 71Q1143 62 1184 62L1167 0Q1086 -5 1037 -1.5Q988 2 960 19.5Q932 37 916 73.5Q900 110 888 171L823 489Q812 551 794 582Q776 613 747.5 623.5Q719 634 674 634H352L381 732ZM307 93 453 48 438 0H-35L-20 48L147 96L500 1259L354 1304L369 1352H690Z" />
+  <circle class="m" cx="54.85" cy="48.94" r="5.5" />
 </svg>

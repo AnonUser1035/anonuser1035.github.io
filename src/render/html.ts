@@ -91,6 +91,7 @@ function head({ title, description, path, noindex }: PageMeta): string {
     meta('name', 'twitter:description', description),
     meta('name', 'twitter:image', image),
     '<link rel="icon" href="/icon.svg" type="image/svg+xml">',
+    '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
     ...FONTS.map(
       (href) =>
         `<link rel="preload" href="${href}" as="font" type="font/woff2" crossorigin>`,
