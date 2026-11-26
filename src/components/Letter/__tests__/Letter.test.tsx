@@ -54,10 +54,11 @@ describe('Letter', () => {
     expect(container.textContent).not.toMatch(/Cho Lab|COACH|P\.S\./);
   });
 
-  it('signs off with no footer', () => {
+  it('signs off and says where it was written', () => {
     render(<Letter />);
     expect(screen.getByText('Ryan')).toHaveClass('signature');
-    expect(screen.queryByRole('contentinfo')).toBeNull();
-    expect(screen.queryByText(/Baltimore, November/)).toBeNull();
+    expect(screen.getByRole('contentinfo')).toHaveTextContent(
+      'Written in Dallas, TX',
+    );
   });
 });

@@ -164,3 +164,6 @@ export const LETTER: LetterBlock[] = [
 ];
 
 export const SIGNATURE = 'Ryan';
+
+/** Closing line under the letter. */
+export const FOOTER = 'Written in Dallas, TX';
