@@ -7,7 +7,9 @@
  * positions.
  *
  * The waveform is a sum of simple components per beat (P, q, R, s, T) with
- * exactly isoelectric PR, ST and TP segments and no noise. See the expected
+ * exactly isoelectric PR, ST and TP segments. The drawn trace adds a faint,
+ * fixed recording noise between beats; it is zero on the calibration pulse
+ * and near every QRS, so peaks and intervals are untouched. See the expected
  * measurements in `src/lib/__tests__/ecg.test.ts`.
  */
 
@@ -62,6 +64,18 @@ const FINE_STEP = 0.0005;
 const FINE_WINDOW = 0.05;
 /** Path simplification tolerance in mm, far below a device pixel. */
 const SIMPLIFY_MM = 0.004;
+
+// Recording noise: smoothed Gaussian jitter on a fixed seed, so every build
+// draws the same strip. Knots every 6 ms keep the path compact.
+const NOISE_STEP = 0.006;
+const NOISE_MV = 0.009; // standard deviation
+const NOISE_LIMIT_MV = 0.03;
+const NOISE_CORRELATION = 0.5;
+const NOISE_SEED = 20261126;
+const NOISE_START = 0.45; // after the calibration pulse
+const NOISE_FADE_IN = 0.1;
+const NOISE_QUIET = 0.035; // seconds either side of an R peak with no noise
+const NOISE_FADE = 0.035;
 
 /** Hit area padding before the first P wave, in seconds. */
 const FIRST_HIT_LEAD = 0.1;
@@ -207,11 +221,62 @@ export function voltage(t: number, strip: readonly Beat[]): number {
   return v;
 }
 
+/** Small seeded PRNG (mulberry32), so the noise is identical on every build. */
+function seeded(seed: number): () => number {
+  let state = seed;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const NOISE_KNOTS = (() => {
+  const random = seeded(NOISE_SEED);
+  const count = Math.ceil(TRACE_END / NOISE_STEP) + 2;
+  const knots = new Float64Array(count);
+  const innovation = NOISE_MV * Math.sqrt(1 - NOISE_CORRELATION ** 2);
+  let previous = 0;
+  for (let k = 0; k < count; k += 1) {
+    const gaussian =
+      Math.sqrt(-2 * Math.log(1 - random())) * Math.cos(2 * Math.PI * random());
+    previous = NOISE_CORRELATION * previous + innovation * gaussian;
+    knots[k] = Math.max(-NOISE_LIMIT_MV, Math.min(NOISE_LIMIT_MV, previous));
+  }
+  return knots;
+})();
+
+const smoothstep = (x: number): number =>
+  x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x);
+
+/**
+ * Recording noise (mV) at time t: zero on the calibration pulse and within
+ * 35 ms of every R peak, fading in over the next 35 ms.
+ */
+export function noise(t: number, strip: readonly Beat[]): number {
+  let envelope = smoothstep((t - NOISE_START) / NOISE_FADE_IN);
+  for (const { r } of strip) {
+    if (envelope === 0) return 0;
+    envelope *= smoothstep((Math.abs(t - r) - NOISE_QUIET) / NOISE_FADE);
+  }
+  if (envelope === 0) return 0;
+  const x = t / NOISE_STEP;
+  const k = Math.floor(x);
+  const f = x - k;
+  return envelope * (NOISE_KNOTS[k] * (1 - f) + NOISE_KNOTS[k + 1] * f);
+}
+
 /**
  * Sample the trace from 0 to TRACE_END: every 2 ms, every 0.5 ms within 50 ms
- * of each R peak, and exact vertical edges on the calibration pulse.
+ * of each R peak, and exact vertical edges on the calibration pulse. Pass
+ * `noisy` for the drawn trace; measurements use the clean waveform.
  */
-export function sampleTrace(strip: readonly Beat[]): Sample[] {
+export function sampleTrace(
+  strip: readonly Beat[],
+  { noisy = false }: { noisy?: boolean } = {},
+): Sample[] {
+  const at = (t: number) => voltage(t, strip) + (noisy ? noise(t, strip) : 0);
   const times: number[] = [];
   const coarse = Math.round(TRACE_END / COARSE_STEP);
   for (let k = 0; k <= coarse; k += 1) times.push(k * COARSE_STEP);
@@ -234,12 +299,10 @@ export function sampleTrace(strip: readonly Beat[]): Sample[] {
   for (const t of sorted) {
     while (edge < edges.length && edges[edge] < t) {
       const e = edges[edge];
-      const before = voltage(e - 1e-9, strip);
-      const after = voltage(e, strip);
-      samples.push([e, before], [e, after]);
+      samples.push([e, at(e - 1e-9)], [e, at(e)]);
       edge += 1;
     }
-    samples.push([t, voltage(t, strip)]);
+    samples.push([t, at(t)]);
   }
   return samples;
 }
@@ -306,12 +369,12 @@ function pair(dx: number, dy: number): string {
 }
 
 /**
- * SVG path data for the trace, simplified to within 0.004 mm and written as
- * relative moves. Deltas come from coordinates rounded to 0.001 mm, so
- * rounding never accumulates along the strip.
+ * SVG path data for the drawn (noisy) trace, simplified to within 0.004 mm
+ * and written as relative moves. Deltas come from coordinates rounded to
+ * 0.001 mm, so rounding never accumulates along the strip.
  */
 export function tracePath(strip: readonly Beat[]): string {
-  const samples = sampleTrace(strip);
+  const samples = sampleTrace(strip, { noisy: true });
   const points: Point[] = samples.map(([t, v]) => [toX(t), toY(v)]);
 
   const keep = new Set<number>();
@@ -373,7 +436,10 @@ export function buildStrip(count: number): StripGeometry {
   return {
     trace: tracePath(strip),
     grid: gridPaths(),
-    pen: { x: toX(TRACE_END), y: toY(voltage(TRACE_END, strip)) },
+    pen: {
+      x: toX(TRACE_END),
+      y: toY(voltage(TRACE_END, strip) + noise(TRACE_END, strip)),
+    },
     beats: strip.map((beat) => ({
       x: toX(beat.r),
       hitStart: toX(beat.hitStart),

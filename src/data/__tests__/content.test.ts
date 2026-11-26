@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-import { DESCRIPTION, EVENT_MARKS, MILESTONES } from '../content';
+import { DESCRIPTION, MILESTONES } from '../content';
 
 const COPY_FILES = ['src/data/content.ts', 'src/data/talks.ts'];
 
@@ -13,9 +13,19 @@ describe('copy', () => {
     expect(text).not.toMatch(/COACH/i);
   });
 
-  it('runs oldest first and ends with Now', () => {
-    expect(MILESTONES[0].label).toBe('2022');
+  it('runs oldest first, with a month on every beat, and ends with Now', () => {
+    const MONTHS = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ');
+    const order = MILESTONES.slice(0, -1).map((m) => {
+      const [month, year] = m.label.split(' ');
+      expect(MONTHS).toContain(month);
+      return Number(year) * 12 + MONTHS.indexOf(month);
+    });
+    expect(order).toEqual([...order].sort((x, y) => x - y));
     expect(MILESTONES.at(-1)?.label).toBe('Now');
+  });
+
+  it('keeps Now current: no Cho Lab', () => {
+    expect(MILESTONES.at(-1)?.text).not.toMatch(/Cho/);
   });
 
   it('prints each year once, on the first beat of that year', () => {
@@ -27,11 +37,6 @@ describe('copy', () => {
       '2026',
       'now',
     ]);
-  });
-
-  it('anchors every event mark to a milestone', () => {
-    const labels = MILESTONES.map((m) => m.label);
-    for (const mark of EVENT_MARKS) expect(labels).toContain(mark.after);
   });
 
   it('keeps outdated titles out of the description', () => {

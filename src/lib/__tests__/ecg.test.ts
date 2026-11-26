@@ -6,6 +6,7 @@ import {
   buildStrip,
   CAL_END,
   CAL_START,
+  noise,
   R_MARKER_Y,
   rrIntervals,
   type Sample,
@@ -210,10 +211,46 @@ describe('strip geometry', () => {
       );
     }
     expect(geometry.beats[11].hitEnd).toBeCloseTo(geometry.pen.x, 6);
-    expect(geometry.pen).toEqual({ x: toX(TRACE_END), y: 20 });
+    expect(geometry.pen.x).toBeCloseTo(toX(TRACE_END), 6);
+    expect(Math.abs(geometry.pen.y - 20)).toBeLessThanOrEqual(0.3);
   });
 
   it('keeps the path compact enough to inline', () => {
-    expect(geometry.trace.length).toBeLessThan(16000);
+    expect(geometry.trace.length).toBeLessThan(30000);
+  });
+});
+
+describe('recording noise', () => {
+  const site = beats(MILESTONES.length);
+  const grid = Array.from({ length: 9547 }, (_, k) => k / 1000);
+
+  it('stays faint: at most 0.03 mV (0.3 mm on paper)', () => {
+    const peak = Math.max(...grid.map((t) => Math.abs(noise(t, site))));
+    expect(peak).toBeGreaterThan(0.01);
+    expect(peak).toBeLessThanOrEqual(0.03);
+  });
+
+  it('leaves the calibration pulse and every QRS untouched', () => {
+    for (const t of grid.filter((t) => t <= 0.45))
+      expect(noise(t, site)).toBe(0);
+    for (const { r } of site) {
+      for (let k = -70; k <= 70; k += 1) {
+        expect(Math.abs(noise(r + k * 0.0005, site))).toBeLessThan(1e-12);
+      }
+    }
+  });
+
+  it('is the same on every build', () => {
+    expect(buildStrip(MILESTONES.length).trace).toBe(
+      buildStrip(MILESTONES.length).trace,
+    );
+  });
+
+  it('keeps the drawn R peaks exactly where the marker sits', () => {
+    const drawn = sampleTrace(site, { noisy: true });
+    for (const { r } of site) {
+      const [, v] = drawn.find(([t]) => Math.abs(t - r) < 1e-9) ?? [0, 0];
+      expect(v).toBeCloseTo(1.3, 2);
+    }
   });
 });

@@ -34,19 +34,23 @@ export interface Milestone {
  */
 export const MILESTONES: Milestone[] = [
   {
-    label: '2022',
+    label: 'Jun 2022',
     tick: '2022',
     text: 'First research jobs: Abbott’s neuromodulation division, and a thermo-fluids lab at UT Dallas.',
   },
   {
-    label: '2023',
+    label: 'Aug 2023',
     tick: '2023',
     text: 'Started at Johns Hopkins in neuroscience, computational track. Joined the Mysore Lab.',
   },
   {
-    label: '2024',
+    label: 'Jul 2024',
     tick: '2024',
     text: 'Joined the Thakor Lab: focused ultrasound and autonomic control after spinal cord injury.',
+  },
+  {
+    label: 'Sep 2024',
+    text: 'Joined the Hopkins rugby team.',
   },
   {
     label: 'Dec 2024',
@@ -58,16 +62,16 @@ export const MILESTONES: Milestone[] = [
     text: 'Co-founded Neuro Safety Systems: wearable EEG for fatigue detection.',
   },
   {
-    label: 'Summer 2025',
+    label: 'Jun 2025',
     text: 'PURA Fellow. Poster at the Georgetown-TUM Neuroengineering Conference.',
-  },
-  {
-    label: '2025',
-    text: 'Co-author, Scientific Reports: spinal cord neuromodulation for blood pressure control.',
   },
   {
     label: 'Nov 2025',
     text: 'Joined the Arbutus Volunteer Fire Department. Cleared as an EMT provider in March 2026.',
+  },
+  {
+    label: 'Nov 2025',
+    text: 'Co-author, Scientific Reports: spinal cord neuromodulation for blood pressure control.',
   },
   {
     label: 'Feb 2026',
@@ -76,7 +80,7 @@ export const MILESTONES: Milestone[] = [
   },
   {
     label: 'Apr 2026',
-    text: 'First-author paper and poster at the Design of Medical Devices Conference, Minneapolis.',
+    text: 'First-author paper and poster at the Design of Medical Devices Conference. In May, Best Poster in Functional Neurosurgery at Hopkins.',
   },
   {
     label: 'Aug 2026',
@@ -93,24 +97,7 @@ export const MILESTONES: Milestone[] = [
   {
     label: 'Now',
     tick: 'now',
-    text: 'Honors thesis, Neuro Safety Systems, the Cho Lab, and calls with Arbutus.',
-  },
-];
-
-export interface EventMark extends Milestone {
-  /** Label of the milestone this mark follows on the strip. */
-  after: string;
-}
-
-/**
- * Smaller moments, printed as event marks along the top of the strip, the way
- * a monitor marks the paper when someone presses its event button.
- */
-export const EVENT_MARKS: EventMark[] = [
-  {
-    after: 'Apr 2026',
-    label: 'May 2026',
-    text: 'Best Poster in Functional Neurosurgery at Johns Hopkins Neurosurgery Research Day.',
+    text: 'Applying to medical school. Honors thesis, Neuro Safety Systems, and calls with Arbutus.',
   },
 ];
 
@@ -159,6 +146,12 @@ export const LETTER: LetterBlock[] = [
       },
       {
         title:
+          'Monitoring Autonomic Tone During Spinal Cord Neuromodulation Using Wearable AURIS Sensor',
+        href: 'https://doi.org/10.1115/1.4072357',
+        venue: 'Journal of Medical Devices, 2026. First author.',
+      },
+      {
+        title:
           'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone for Non-Invasive Neuromodulation',
         href: 'https://doi.org/10.1115/DMD2026-1020',
         venue: 'ASME Design of Medical Devices Conference, 2026. First author.',
@@ -171,6 +164,3 @@ export const LETTER: LetterBlock[] = [
 ];
 
 export const SIGNATURE = 'Ryan';
-
-/** Place, then the month and year of the last content update. */
-export const FOOTER = 'Baltimore, November 2026';

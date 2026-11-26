@@ -29,7 +29,7 @@ describe('Letter', () => {
     expect(screen.queryByRole('link', { name: 'here' })).toBeNull();
   });
 
-  it('lists three selected works, newest first, with DOI links', () => {
+  it('lists four selected works, newest first, with DOI links', () => {
     const { container } = render(<Letter />);
     expect(container.querySelector('.work-intro')).toHaveTextContent(
       'Selected work:',
@@ -40,6 +40,7 @@ describe('Letter', () => {
     ).toEqual([
       'https://doi.org/10.64898/2026.11.18.767417',
       'https://doi.org/10.1038/s41551-026-01777-6',
+      'https://doi.org/10.1115/1.4072357',
       'https://doi.org/10.1115/DMD2026-1020',
     ]);
     expect(items[0].querySelector('.venue')).toHaveTextContent(
@@ -53,11 +54,10 @@ describe('Letter', () => {
     expect(container.textContent).not.toMatch(/Cho Lab|COACH|P\.S\./);
   });
 
-  it('signs off and dates the letter', () => {
+  it('signs off with no footer', () => {
     render(<Letter />);
     expect(screen.getByText('Ryan')).toHaveClass('signature');
-    expect(screen.getByRole('contentinfo')).toHaveTextContent(
-      'Baltimore, November 2026',
-    );
+    expect(screen.queryByRole('contentinfo')).toBeNull();
+    expect(screen.queryByText(/Baltimore, November/)).toBeNull();
   });
 });

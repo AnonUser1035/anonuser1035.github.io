@@ -3,46 +3,35 @@
 import type { FocusEvent, PointerEvent, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-interface ItemBase {
-  label: string;
-  text: string;
-  /** Position of the selection dot, mm. */
+export interface StripBeat {
+  /** R peak, mm. */
   x: number;
-  y: number;
-}
-
-export interface BeatItem extends ItemBase {
-  kind: 'beat';
   /** Interactive region, mm. */
   hitStart: number;
   hitEnd: number;
+  label: string;
+  text: string;
   tick?: string;
 }
 
-export interface MarkItem extends ItemBase {
-  kind: 'mark';
-  /** SVG path for the printed mark, hidden while the dot sits on it. */
-  glyph: string;
-}
-
-export type StripItem = BeatItem | MarkItem;
-
 interface StripInteractiveProps {
-  items: StripItem[];
+  beats: StripBeat[];
   hint: { text: string; phone: string };
   width: number;
   height: number;
+  /** y of the selection dot on an R peak, mm. */
+  markerY: number;
   /** Static SVG content: grid, trace and pen. */
   children: ReactNode;
 }
 
 const percent = (mm: number, width: number) => `${(mm / width) * 100}%`;
 
-function CaptionText({ item }: { item: StripItem }) {
+function CaptionText({ beat }: { beat: StripBeat }) {
   return (
     <>
-      <span className="caption-label">{item.label}.</span>{' '}
-      <span className="caption-text">{item.text}</span>
+      <span className="caption-label">{beat.label}.</span>{' '}
+      <span className="caption-text">{beat.text}</span>
     </>
   );
 }
@@ -57,20 +46,21 @@ function HintText({ hint }: { hint: StripInteractiveProps['hint'] }) {
 }
 
 /**
- * Selection layer for the rhythm strip. Until something is selected the
- * caption shows a hint. Hover, focus or tap picks a beat or event mark; the
- * only things that change are the selection dot and the caption.
+ * Selection layer for the rhythm strip. Until a beat is selected the caption
+ * shows a hint. Hover, focus or tap picks a beat; the only things that change
+ * are the dot on its R peak and the caption.
  */
 export default function StripInteractive({
-  items,
+  beats,
   hint,
   width,
   height,
+  markerY,
   children,
 }: StripInteractiveProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-  const item = selected === null ? null : items[selected];
+  const beat = selected === null ? null : beats[selected];
 
   // On touch screens there is no hover to leave, so a tap anywhere outside
   // the strip returns the caption to the hint.
@@ -124,22 +114,11 @@ export default function StripInteractive({
               focusable="false"
             >
               {children}
-              {items.map(
-                (it, i) =>
-                  it.kind === 'mark' &&
-                  i !== selected && (
-                    <path
-                      key={it.label + it.x}
-                      className="strip-event-glyph"
-                      d={it.glyph}
-                    />
-                  ),
-              )}
-              {item && (
+              {beat && (
                 <circle
                   className="strip-marker"
-                  cx={item.x}
-                  cy={item.y}
+                  cx={beat.x}
+                  cy={markerY}
                   r={1}
                 />
               )}
@@ -152,35 +131,30 @@ export default function StripInteractive({
               25 mm/s
             </span>
 
-            {items.map(
-              (it) =>
-                it.kind === 'beat' &&
-                it.tick && (
+            {beats.map(
+              (b) =>
+                b.tick && (
                   <span
-                    key={it.tick}
+                    key={b.tick}
                     className="strip-tick"
-                    style={{ left: percent(it.x, width) }}
+                    style={{ left: percent(b.x, width) }}
                     aria-hidden="true"
                   >
-                    {it.tick}
+                    {b.tick}
                   </span>
                 ),
             )}
 
-            {items.map((it, i) => (
+            {beats.map((b, i) => (
               <button
-                key={it.kind + it.label + it.x}
+                key={b.label + b.x}
                 type="button"
-                className={it.kind === 'beat' ? 'strip-beat' : 'strip-event'}
-                style={
-                  it.kind === 'beat'
-                    ? {
-                        left: percent(it.hitStart, width),
-                        width: percent(it.hitEnd - it.hitStart, width),
-                      }
-                    : { left: percent(it.x, width) }
-                }
-                aria-label={`${it.label}: ${it.text}`}
+                className="strip-beat"
+                style={{
+                  left: percent(b.hitStart, width),
+                  width: percent(b.hitEnd - b.hitStart, width),
+                }}
+                aria-label={`${b.label}: ${b.text}`}
                 aria-current={i === selected ? 'true' : undefined}
                 onPointerEnter={hover(i)}
                 onFocus={() => setSelected(i)}
@@ -193,9 +167,9 @@ export default function StripInteractive({
 
       <div className="caption-box column">
         <p className="caption" aria-live="polite">
-          {item && <CaptionText item={item} />}
+          {beat && <CaptionText beat={beat} />}
         </p>
-        <p className="caption caption-hint" hidden={item !== null}>
+        <p className="caption caption-hint" hidden={beat !== null}>
           <HintText hint={hint} />
         </p>
         {/* Invisible copies of every caption share the grid cell, so the box
@@ -203,13 +177,13 @@ export default function StripInteractive({
         <p className="caption caption-sizer" aria-hidden="true">
           <HintText hint={hint} />
         </p>
-        {items.map((it) => (
+        {beats.map((b) => (
           <p
-            key={it.kind + it.label + it.x}
+            key={b.label + b.x}
             className="caption caption-sizer"
             aria-hidden="true"
           >
-            <CaptionText item={it} />
+            <CaptionText beat={b} />
           </p>
         ))}
       </div>

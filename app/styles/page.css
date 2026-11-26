@@ -45,7 +45,7 @@
 
 /* Selected work is its own section: wider breaks above and below. */
 .letter > .work-intro {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .letter > .selected-work {
@@ -59,7 +59,7 @@
 }
 
 .letter > .selected-work + * {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .venue {
@@ -79,14 +79,6 @@
 
 .letter > .signature {
   margin-top: 1.25em;
-}
-
-.footer {
-  margin-top: 3.5em;
-  font-size: 1.0625rem; /* 17px */
-  font-style: italic;
-  line-height: 1.55;
-  color: var(--color-secondary);
 }
 
 /* /talks/ and the 404 page */

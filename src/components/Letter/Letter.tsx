@@ -1,10 +1,4 @@
-import {
-  FOOTER,
-  LEAD,
-  LETTER,
-  type LetterBlock,
-  SIGNATURE,
-} from '@/data/content';
+import { LEAD, LETTER, type LetterBlock, SIGNATURE } from '@/data/content';
 
 import Inline from './Inline';
 
@@ -34,20 +28,15 @@ function Block({ block }: { block: LetterBlock }) {
 
 export default function Letter() {
   return (
-    <>
-      <div className="letter column">
-        <p className="lead">{LEAD}</p>
-        {LETTER.map((block) => (
-          <Block
-            key={typeof block === 'string' ? block : block.intro}
-            block={block}
-          />
-        ))}
-        <p className="signature">{SIGNATURE}</p>
-      </div>
-      <footer className="footer column">
-        <p>{FOOTER}</p>
-      </footer>
-    </>
+    <div className="letter column">
+      <p className="lead">{LEAD}</p>
+      {LETTER.map((block) => (
+        <Block
+          key={typeof block === 'string' ? block : block.intro}
+          block={block}
+        />
+      ))}
+      <p className="signature">{SIGNATURE}</p>
+    </div>
   );
 }

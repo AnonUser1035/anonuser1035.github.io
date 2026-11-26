@@ -27,7 +27,7 @@ npm test -- ComponentName                    # Test single component
 app/                  → Pages (/, /talks), layout, global CSS
 app/styles/           → tokens.css, base.css, strip.css, page.css
 src/components/       → React components (Strip, Letter, Talks, Schema, Template)
-src/data/content.ts   → All homepage copy, milestones, event marks, links (one file)
+src/data/content.ts   → All homepage copy, milestones, links (one file)
 src/data/talks.ts     → Talks and posters listed on /talks
 public/resume.pdf     → One-page public résumé (see Résumé below)
 src/lib/ecg.ts        → Pure rhythm-strip model (waveform, path, hit areas)
@@ -70,11 +70,11 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 (preflight 
 ## Key Patterns
 
 - **The letter**: The homepage (`app/page.tsx`) is the name, a Lead II rhythm strip, and a short first-person letter. No nav, buttons, cards, icons, badges, section headings, monospace, or theme toggle. When something seems missing, ask before adding it
-- **Copy lives in `src/data/content.ts`**: letter paragraphs (Markdown-style `[text](href)` links), milestones, event marks, the caption hint, footer, metadata description. Use typographic apostrophes and never em dashes (a test enforces this). Link text is descriptive ("All publications", "talks and posters", "résumé (PDF)"), never "here". Update the footer month when content changes
-- **Rhythm strip**: `src/lib/ecg.ts` turns the milestone count into SVG geometry at build time (viewBox in mm, 25 mm/s, 10 mm/mV). `RhythmStrip` (server) renders the static paper and trace; `StripInteractive` (client) only moves the selection dot and caption. Until something is selected, the caption shows the hint (phones add a drag cue); leaving the strip, tabbing past it, or tapping elsewhere returns to it. Event marks (`EVENT_MARKS`) are smaller moments printed as triangles along the top edge, one per gap, placed by the milestone they follow. Clinicians read this strip: keep it anatomically accurate and keep `src/lib/__tests__/ecg.test.ts` passing (R-peak times, PR, QRS, QTc, rate). Adding or removing a milestone redraws the beats; 9 to 15 fit
+- **Copy lives in `src/data/content.ts`**: letter paragraphs (Markdown-style `[text](href)` links), milestones (labelled with month and year), the caption hint, metadata description. Use typographic apostrophes and never em dashes (a test enforces this). Link text is descriptive ("All publications", "talks and posters", "résumé (PDF)"), never "here".
+- **Rhythm strip**: `src/lib/ecg.ts` turns the milestone count into SVG geometry at build time (viewBox in mm, 25 mm/s, 10 mm/mV). `RhythmStrip` (server) renders the static paper and trace; `StripInteractive` (client) only moves the selection dot and caption. Until something is selected, the caption shows the hint (phones add a drag cue); leaving the strip, tabbing past it, or tapping elsewhere returns to it. The drawn trace carries faint seeded recording noise (at most 0.03 mV), zero on the calibration pulse and within 35 ms of every R peak; tests measure the clean waveform and bound the noise. 15 beats is the maximum: fold related moments into one caption rather than adding beats. Clinicians read this strip: keep it anatomically accurate and keep `src/lib/__tests__/ecg.test.ts` passing (R-peak times, PR, QRS, QTc, rate). Adding or removing a milestone redraws the beats; 9 to 15 fit
 - **Theming**: light by default, dark through `prefers-color-scheme` only. Colors are tokens in `app/styles/tokens.css`; the waveform is always ink, and crimson is reserved for the marker and pen
 - **Phones (under 760px)**: the strip keeps a 900px minimum width inside a scroller with `direction: rtl`, so it opens on the most recent beats without script. Keep the page itself free of horizontal scroll
-- **Publications**: the full list lives on Google Scholar (ORCID secondary); the homepage shows three selected works with DOI links. `/talks/` lists talks and posters from `src/data/talks.ts`, Vancouver author lists, `Bohluli RS` in weight 500
+- **Publications**: the full list lives on Google Scholar (ORCID secondary); the homepage shows four selected works with DOI links. `/talks/` lists talks and posters from `src/data/talks.ts`, Vancouver author lists, `Bohluli RS` in weight 500
 - **Static export**: `output: 'export'` for GitHub Pages; no server features
 - **Canonical/export URLs**: match `trailingSlash: true` output (`/talks/`) in metadata, sitemap, and schema; file-like routes such as `/sitemap.xml` stay file-like
 - **Page metadata**: build route metadata with `createPageMetadata` so `openGraph` and `twitter` are overridden too; for `app/not-found.tsx`, omit `openGraph.url`
