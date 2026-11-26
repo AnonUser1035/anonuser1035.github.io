@@ -2,7 +2,7 @@
 
 Source for [www.ryanbohluli.com](https://www.ryanbohluli.com) — the personal site of Ryan Bohluli (computational neuroscience at Johns Hopkins, Neuro Safety Systems, EMT).
 
-Built with Next.js, React, TypeScript, and Tailwind CSS, statically exported and deployed to GitHub Pages.
+Built with Next.js, React, and TypeScript, statically exported and deployed to GitHub Pages.
 
 ## Development
 
