@@ -24,15 +24,13 @@ npm test -- ComponentName                    # Test single component
 ## Project Structure
 
 ```
-app/                  → Pages, layouts, global CSS
-app/styles/           → Modular CSS (tokens, base, components, layout, pages)
-src/components/       → React components (organized by feature)
-src/data/             → Static data (resume, projects, contact)
-src/hooks/            → Custom React hooks
-content/writing/      → Blog posts (Markdown with frontmatter)
-src/data/writing.ts   → External writing links shown on `/writing`
-public/images/        → Images and favicons
-docs/                 → Documentation
+app/                  → Pages (/, /papers, legacy redirect stubs), layout, global CSS
+app/styles/           → tokens.css, base.css, strip.css, page.css
+src/components/       → React components (Strip, Letter, Papers, Schema, Template)
+src/data/content.ts   → All homepage copy, milestones, contact links (one file)
+src/data/publications.ts → Everything listed on /papers
+src/lib/ecg.ts        → Pure rhythm-strip model (waveform, path, hit areas)
+public/images/og.png  → Static 1200x630 share card
 ```
 
 ## Code Style
@@ -40,7 +38,7 @@ docs/                 → Documentation
 **Do:**
 
 - Use TypeScript strict mode, functional components with hooks
-- Style with CSS custom properties in `app/styles/` (tokens in `tokens/`, components in `components/`)
+- Style with CSS custom properties in `app/styles/` (colors and type in `tokens.css`)
 - Keep components small and focused
 - Use existing patterns from similar components
 - Mark client components with `'use client'`
@@ -66,20 +64,21 @@ docs/                 → Documentation
 
 ## Tech Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Biome · Vitest
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 (preflight only) · Biome · Vitest
 
 ## Key Patterns
 
-- **Single-page IA**: The site is one scrolling page (`app/page.tsx`): Hero, then `#experience`, `#publications`, `#education`, `#projects` sections. `src/data/sections.ts` is the single source of nav order/labels/ids—consumed by the header (`Navigation.tsx`), the hamburger menu, and the `useScrollSpy` hook (active-section highlight, homepage-only). Contact and the résumé download live in the Hero, not a section. `/projects` and `/publications` are noindex meta-refresh stubs (`LegacyRedirect`) that bounce to the matching anchor; the sitemap lists only the homepage. Nav/hamburger breakpoint is 900px (in `layout/header.css` + `layout/navigation.css`); other 736px queries are content-layout, leave them
-- **Theming**: `data-theme` attribute on `<html>`, persisted to `window.localStorage` in client code/tests to avoid Node runtime globals leaking into browser-only paths
-- **Static export**: `output: 'export'` for GitHub Pages—no server features
-- **Canonical/export URLs**: When generating absolute URLs for metadata, RSS, sitemap, or schema, match `trailingSlash: true` output (`/about/`, `/writing/post-slug/`) instead of non-canonical no-slash variants; file-like routes such as `/feed.xml` and `/sitemap.xml` stay file-like
-- **Page metadata**: Route-level `metadata` exports and `generateMetadata` should override `openGraph` and `twitter`, not just `title`/`description`, otherwise subpages inherit the homepage share card from `app/layout.tsx`; for `app/not-found.tsx`, omit `openGraph.url` because there is no stable canonical 404 route in the static export
-- **Theme images**: Use `ThemePortrait` component for light/dark variants
-- **Profile copy**: Keep role/bio updates in sync across `src/components/Template/Hero.tsx`, `app/layout.tsx` metadata, `src/data/about.ts`, and `src/data/resume/work.ts` so homepage copy, SEO, schema, and resume stay aligned
-- **Long-form markdown pages**: Prefer a dedicated renderer component that can parse markdown into semantic sections instead of styling raw headings globally; if `markdown-to-jsx` causes dev/runtime issues in App Router, a `'use client'` boundary may still be required even without hooks. Preserve stable heading ids when converting markdown headings so deep links and `scroll-margin-top` behavior keep working, prefer a shared helper over duplicating slug logic in each page component, and expose those anchors in the UI with section nav or self-links if readers are expected to use them
-- **Blog posts**: Markdown files in `content/writing/` with frontmatter (title, date, description); slug derived from filename
-- **Writing page**: Add external links in `src/data/writing.ts` and keep dated entries sorted newest first; local posts still live in `content/writing/`
+- **The letter**: The homepage (`app/page.tsx`) is the name, a Lead II rhythm strip, and a short first-person letter. No nav, buttons, cards, icons, badges, section headings, monospace, or theme toggle. When something seems missing, ask before adding it
+- **Copy lives in `src/data/content.ts`**: letter paragraphs (Markdown-style `[text](href)` links), milestones, P.S., footer, metadata description. Use typographic apostrophes and never em dashes (a test enforces this). Update the footer month when content changes
+- **Rhythm strip**: `src/lib/ecg.ts` turns the milestone count into SVG geometry at build time (viewBox in mm, 25 mm/s, 10 mm/mV). `RhythmStrip` (server) renders the static paper and trace; `StripInteractive` (client) only moves the R-peak marker and caption. Clinicians read this strip: keep it anatomically accurate and keep `src/lib/__tests__/ecg.test.ts` passing (R-peak times, PR, QRS, QTc, rate). Adding or removing a milestone redraws the beats; 9 to 15 fit
+- **Theming**: light by default, dark through `prefers-color-scheme` only. Colors are tokens in `app/styles/tokens.css`; the waveform is always ink, and crimson is reserved for the marker and pen
+- **Phones (under 760px)**: the strip keeps a 900px minimum width inside a scroller with `direction: rtl`, so it opens on the most recent beats without script. Keep the page itself free of horizontal scroll
+- **/papers**: rendered from `src/data/publications.ts` in three groups. Vancouver author lists; `Bohluli RS` is set in weight 500. Manuscripts under review name no journal
+- **Static export**: `output: 'export'` for GitHub Pages; no server features
+- **Canonical/export URLs**: match `trailingSlash: true` output (`/papers/`) in metadata, sitemap, and schema; file-like routes such as `/sitemap.xml` stay file-like
+- **Page metadata**: build route metadata with `createPageMetadata` so `openGraph` and `twitter` are overridden too; for `app/not-found.tsx`, omit `openGraph.url`
+- **Legacy routes**: `/projects` and `/publications` are noindex meta-refresh stubs (`LegacyRedirect`) pointing at `/` and `/papers/`
+- **Share card**: `public/images/og.png` is a static image drawn from the real strip geometry; regenerate it if the name or strip changes
 
 ## Testing
 
@@ -93,10 +92,7 @@ npm test -- ComponentName       # Run specific test
 
 ## Further Reading
 
-- [README.md](./README.md) — Setup and deployment
-- [docs/adapting-guide.md](./docs/adapting-guide.md) — Guide for forking and customizing
-- [docs/design-goals.md](./docs/design-goals.md) — Architecture principles
-- [docs/contributing.md](./docs/contributing.md) — Contribution guidelines
+- [README.md](./README.md): setup and deployment
 
 ## Maintaining This Document
 

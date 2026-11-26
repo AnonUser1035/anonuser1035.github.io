@@ -1,0 +1,168 @@
+/* ========================================
+   PAGE: the letter and /papers
+   ======================================== */
+
+.page {
+  padding-top: 11vh;
+  padding-bottom: 12vh;
+}
+
+.column {
+  padding-left: var(--gutter-left);
+  padding-right: var(--gutter-right);
+}
+
+.column > * {
+  max-width: var(--measure);
+}
+
+.name {
+  margin: 0 0 30px;
+  font-size: 1.875rem; /* 30px */
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.name a {
+  text-decoration: none;
+}
+
+/* Letter */
+
+.letter {
+  margin-top: 6vh;
+}
+
+.letter > * + * {
+  margin-top: 1em;
+}
+
+.lead {
+  font-size: 1.9375rem; /* 31px */
+  line-height: 1.36;
+}
+
+.letter > .recent-papers {
+  margin-top: 0.5em;
+  padding: 0;
+  list-style: none;
+}
+
+.recent-papers li + li {
+  margin-top: 0.7em;
+}
+
+.venue {
+  display: block;
+  margin-top: 0.1em;
+  font-size: 1.0625rem; /* 17px */
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.signature {
+  font-size: 1.625rem; /* 26px */
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.letter > .signature {
+  margin-top: 0.8em;
+}
+
+.postscript,
+.footer {
+  font-size: 1.0625rem; /* 17px */
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--color-secondary);
+}
+
+.letter > .postscript {
+  margin-top: 2.4em;
+}
+
+.postscript-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .postscript-pointer {
+    display: none;
+  }
+
+  .postscript-touch {
+    display: inline;
+  }
+}
+
+.footer {
+  margin-top: 3.5em;
+}
+
+/* /papers and the small utility pages */
+
+.page--papers .name {
+  margin-bottom: 6vh;
+}
+
+.paper-group + .paper-group {
+  margin-top: 2.6em;
+}
+
+.paper-group h2 {
+  margin: 0 0 0.9em;
+  font-size: inherit;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-secondary);
+}
+
+.paper-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paper + .paper {
+  margin-top: 1.15em;
+}
+
+.paper-title {
+  line-height: 1.42;
+}
+
+.paper-authors,
+.paper-venue {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.paper-authors {
+  margin-top: 0.25em;
+}
+
+.paper-authors .me {
+  font-weight: 500;
+}
+
+.paper-venue {
+  font-style: italic;
+}
+
+@media (max-width: 759.98px) {
+  .page {
+    padding-top: 7vh;
+  }
+
+  .name {
+    font-size: 1.625rem; /* 26px */
+  }
+
+  .lead {
+    font-size: 1.625rem; /* 26px */
+  }
+}

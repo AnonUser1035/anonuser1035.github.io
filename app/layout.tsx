@@ -1,40 +1,27 @@
-import type { Metadata } from 'next';
-import { Source_Sans_3, Source_Serif_4 } from 'next/font/google';
-import Script from 'next/script';
+import type { Metadata, Viewport } from 'next';
+import { Newsreader } from 'next/font/google';
 
 import GoogleAnalytics from '@/components/Template/GoogleAnalytics';
-import Navigation from '@/components/Template/Navigation';
-import ScrollToTop from '@/components/Template/ScrollToTop';
-import { AUTHOR_NAME, SITE_URL, TWITTER_HANDLE } from '@/lib/utils';
+import { DESCRIPTION } from '@/data/content';
+import { AUTHOR_NAME, OG_IMAGE, SITE_URL, TWITTER_HANDLE } from '@/lib/utils';
 import './tailwind.css';
 
-// Variable fonts: a single file covers every weight we use (400/600/700/800)
-// as true weights — no synthetic bolds — and is lighter than stacked statics.
-const sourceSans = Source_Sans_3({
+// Weights 400 and 500, roman and italic. The optical-size axis would add
+// about 160 KB for little visible gain at these sizes, so it is left out.
+const newsreader = Newsreader({
   subsets: ['latin'],
-  variable: '--font-source-sans',
+  style: ['normal', 'italic'],
+  weight: ['400', '500'],
+  variable: '--font-newsreader',
   display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
 });
-
-const sourceSerif = Source_Serif_4({
-  subsets: ['latin'],
-  variable: '--font-source-serif',
-  display: 'swap',
-  preload: false,
-  adjustFontFallback: true,
-});
-
-const siteDescription =
-  'Ryan S. Bohluli is a computational neuroscience student at Johns Hopkins, co-founder and Chief Research Officer of Neuro Safety Systems, EMT, and aspiring physician researching closed-loop neuromodulation.';
 
 export const metadata: Metadata = {
   title: {
     default: AUTHOR_NAME,
     template: `%s | ${AUTHOR_NAME}`,
   },
-  description: siteDescription,
+  description: DESCRIPTION,
   keywords: [
     AUTHOR_NAME,
     'Johns Hopkins',
@@ -56,23 +43,16 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: AUTHOR_NAME,
     title: AUTHOR_NAME,
-    description: siteDescription,
-    images: [
-      {
-        url: '/images/me.jpg',
-        width: 1200,
-        height: 630,
-        alt: AUTHOR_NAME,
-      },
-    ],
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     site: TWITTER_HANDLE,
     creator: TWITTER_HANDLE,
     title: AUTHOR_NAME,
-    description: siteDescription,
-    images: ['/images/me.jpg'],
+    description: DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
@@ -87,32 +67,22 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FAF8F5' },
+    { media: '(prefers-color-scheme: dark)', color: '#121419' },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${sourceSans.variable} ${sourceSerif.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        {/* CSP-safe theme initialization - prevents flash on load */}
-        <Script id="theme-init" strategy="beforeInteractive">
-          {`(function(){try{var t=window.localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}else{document.documentElement.setAttribute('data-theme','light')}}catch(e){}})();`}
-        </Script>
-      </head>
+    <html lang="en" className={newsreader.variable}>
       <body>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <ScrollToTop />
-        <div className="site-wrapper">
-          <Navigation />
-          {children}
-        </div>
+        {children}
         <GoogleAnalytics />
       </body>
     </html>

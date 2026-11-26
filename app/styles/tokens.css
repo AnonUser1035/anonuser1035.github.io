@@ -1,0 +1,43 @@
+/* ========================================
+   TOKENS
+   Light by default; dark follows the system setting only.
+   ======================================== */
+
+:root {
+  color-scheme: light dark;
+
+  --color-paper: #faf8f5;
+  --color-ink: #1d2129;
+  --color-secondary: #454a54;
+  /* Brief: #7c808a. Darkened so the strip's printed marks reach WCAG AA
+     (4.6:1) on the strip paper; muted is used only for those marks. */
+  --color-muted: #6a6e78;
+  --color-rule: #d8d9de;
+  --color-navy: #23406e;
+  --color-strip-paper: #fcf1f2;
+  --color-grid-minor: rgb(204 70 98 / 0.13);
+  --color-grid-major: rgb(204 70 98 / 0.3);
+  --color-marker: #c1121f;
+
+  --font-serif: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+
+  --gutter-left: max(22px, 17vw);
+  --gutter-right: 22px;
+  --measure: 35rem;
+  --strip-max: 1680px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #121419;
+    --color-ink: #e7e8ec;
+    --color-secondary: #c0c3ca;
+    --color-muted: #8a8e97;
+    --color-rule: #30333a;
+    --color-navy: #a4bae6;
+    --color-strip-paper: #1b1a20;
+    --color-grid-minor: rgb(236 120 140 / 0.1);
+    --color-grid-major: rgb(236 120 140 / 0.24);
+    --color-marker: #f0505a;
+  }
+}
