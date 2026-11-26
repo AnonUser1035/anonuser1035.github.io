@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function PublicationsRedirect() {
-  return <LegacyRedirect to="/#publications" label="Publications" />;
+  return <LegacyRedirect to="/papers/" />;
 }

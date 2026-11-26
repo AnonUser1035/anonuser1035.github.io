@@ -1,26 +1,20 @@
-import Link from 'next/link';
-
 interface LegacyRedirectProps {
-  /** Homepage anchor to redirect to, e.g. "/#projects". */
+  /** Where the content lives now, e.g. "/papers/". */
   to: string;
-  /** Label for the content that moved, e.g. "Projects". */
-  label: string;
 }
 
 /**
- * Minimal stub for a route that has been folded into the homepage. The
- * meta refresh (hoisted into <head> by React) bounces the visitor to the
- * matching section; the visible link is the fallback when refresh is
- * unavailable. Pages using this should also declare `robots` noindex.
+ * Minimal stub for a retired route. The meta refresh (hoisted into <head> by
+ * React) sends the visitor on; the visible link is the fallback when refresh
+ * is unavailable. Pages using this should also declare `robots` noindex.
  */
-export default function LegacyRedirect({ to, label }: LegacyRedirectProps) {
+export default function LegacyRedirect({ to }: LegacyRedirectProps) {
   return (
     <>
       <meta httpEquiv="refresh" content={`0;url=${to}`} />
-      <main id="main-content" tabIndex={-1} className="redirect-stub">
-        <p>
-          {label} now live on the homepage.{' '}
-          <Link href={to}>Take me there.</Link>
+      <main className="page column">
+        <p className="body-text">
+          This page has moved. <a href={to}>Take me there.</a>
         </p>
       </main>
     </>

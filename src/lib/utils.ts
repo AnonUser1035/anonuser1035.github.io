@@ -1,35 +1,16 @@
 /**
- * Shared utility functions and constants
+ * Shared site constants
  */
+import { NAME } from '@/data/content';
 
-// Site configuration
 export const SITE_URL = 'https://www.ryanbohluli.com';
-export const AUTHOR_NAME = 'Ryan S. Bohluli';
+export const AUTHOR_NAME = NAME;
 export const TWITTER_HANDLE = '';
 
-// Image dimension constants
-export const AVATAR_SIZE = {
-  hero: 120,
-  footer: 80,
-  sidebar: 200,
+/** Static share card, 1200x630. */
+export const OG_IMAGE = {
+  url: '/images/og.png',
+  width: 1200,
+  height: 630,
+  alt: NAME,
 } as const;
-
-export const PROJECT_IMAGE = {
-  width: 600,
-  height: 400,
-} as const;
-
-/**
- * Formats a date string to a human-readable format.
- * Parses as UTC to avoid timezone shifts.
- */
-export function formatDate(dateStr: string): string {
-  if (!dateStr) return '';
-  // Parse as UTC to avoid timezone shifts
-  const date = new Date(`${dateStr}T12:00:00`);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
