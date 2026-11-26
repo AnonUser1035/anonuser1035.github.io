@@ -17,7 +17,7 @@ npm test           # vitest
 npm run lint       # biome
 ```
 
-Content lives in typed files under `src/data/` (about, contact, projects, publications, and `resume/*`). Pages are in `app/`.
+All homepage copy, including the milestones on the rhythm strip, lives in `src/data/content.ts`; the /papers list is `src/data/publications.ts`. Pages are in `app/`, and the strip's waveform model is `src/lib/ecg.ts`.
 
 ## Credits
 
