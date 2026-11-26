@@ -1,270 +1,250 @@
 ---
 name: ryanbohluli.com
-description: The personal portfolio of Ryan Bohluli — computational neuroscience, neurotech, medicine. A clinical record, read fast by experts.
+description: Ryan S. Bohluli's personal site, set as a short letter on ECG letterhead. A name, a Lead II rhythm strip whose beats are milestones, and a first-person letter.
 colors:
-  signal-cobalt: '#2e59ba'
-  sky-blue: '#60a5fa'
-  ink: '#1d1d1f'
-  slate: '#58585d'
-  slate-muted: '#6b6b70'
-  paper-white: '#ffffff'
-  mist: '#f5f5f7'
-  fog: '#f0f0f2'
-  hairline: '#0000001a'
-  ink-night-bg: '#0a0a0a'
-  ink-night-surface: '#111111'
-  ink-night-fg: '#e5e5e5'
-  skill-violet: '#6968b3'
-  skill-azure: '#37b1f5'
-  skill-graphite: '#40494e'
-  skill-indigo: '#515dd4'
-  skill-coral: '#e47272'
-  skill-rose: '#cc7b94'
+  paper: '#faf8f5'
+  ink: '#1d2129'
+  secondary: '#454a54'
+  muted: '#6a6e78'
+  rule: '#d8d9de'
+  navy: '#23406e'
+  strip-paper: '#fcf1f2'
+  grid-minor: '#cc466221'
+  grid-major: '#cc46624d'
+  marker: '#c1121f'
+  paper-dark: '#121419'
+  ink-dark: '#e7e8ec'
+  secondary-dark: '#c0c3ca'
+  muted-dark: '#8a8e97'
+  rule-dark: '#30333a'
+  navy-dark: '#a4bae6'
+  strip-paper-dark: '#1b1a20'
+  grid-minor-dark: '#ec788c1a'
+  grid-major-dark: '#ec788c3d'
+  marker-dark: '#f0505a'
 typography:
   display:
-    fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 'clamp(2.5rem, 7vw, 4rem)'
-    fontWeight: 700
-    lineHeight: 1.05
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '2.75rem'
+    fontWeight: 500
+    lineHeight: 1.1
     letterSpacing: '-0.015em'
-  headline:
-    fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: '2.2rem'
-    fontWeight: 600
-    lineHeight: 1.2
-    letterSpacing: '-0.01em'
-  title:
-    fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: '1.6rem'
-    fontWeight: 600
-    lineHeight: 1.3
+  lead:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '1.9375rem'
+    fontWeight: 400
+    lineHeight: 1.36
     letterSpacing: 'normal'
   body:
-    fontFamily: "'Source Sans 3', 'Source Sans Pro', Helvetica, sans-serif"
-    fontSize: '1rem'
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '1.25rem'
     fontWeight: 400
-    lineHeight: 1.7
-    letterSpacing: '0.01em'
-  label:
-    fontFamily: "'Source Sans 3', 'Source Sans Pro', Helvetica, sans-serif"
-    fontSize: '0.875rem'
-    fontWeight: 600
+    lineHeight: 1.62
+    letterSpacing: 'normal'
+  signature:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '1.625rem'
+    fontWeight: 400
     lineHeight: 1.3
-    letterSpacing: '0.04em'
-  mono:
-    fontFamily: "ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace"
-    fontSize: '0.95rem'
+    letterSpacing: 'normal'
+  caption:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '1.125rem'
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.5
+    letterSpacing: 'normal'
+  small:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '1.0625rem'
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: 'normal'
+  year-label:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '0.90625rem'
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: 'normal'
+  print:
+    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontSize: '0.78125rem'
+    fontWeight: 400
+    lineHeight: 1
     letterSpacing: 'normal'
 rounded:
-  xs: '4px'
-  sm: '8px'
-  md: '12px'
-  lg: '16px'
-  xl: '24px'
-  full: '999px'
+  none: '0px'
+  focus: '2px'
 spacing:
-  2: '0.5rem'
-  4: '1rem'
-  6: '1.5rem'
-  8: '2rem'
-  12: '3rem'
-  16: '4rem'
-  element: '1.75rem'
-  section: '4rem'
+  gutter-left: 'max(22px, 17vw)'
+  gutter-right: '22px'
+  measure: '35rem'
+  strip-max: '1680px'
+  name-gap: '36px'
+  caption-gap: '16px'
+  paragraph: '1em'
+  section: '3em'
+  page-top: '11vh'
+  page-bottom: '12vh'
 components:
-  button-primary:
-    backgroundColor: '{colors.signal-cobalt}'
-    textColor: '{colors.paper-white}'
-    rounded: '{rounded.sm}'
-    padding: '0 2em'
-    height: '3.25rem'
-  button-primary-hover:
-    backgroundColor: '#274d9f'
-    textColor: '{colors.paper-white}'
-  button-secondary:
-    backgroundColor: '#00000000'
-    textColor: '{colors.slate}'
-    rounded: '{rounded.sm}'
-    padding: '0 2em'
-    height: '3.25rem'
-  chip:
-    backgroundColor: '{colors.mist}'
+  link:
     textColor: '{colors.ink}'
-    rounded: '{rounded.full}'
-    padding: '0.5rem 1rem'
-  tech-tag:
-    textColor: '{colors.signal-cobalt}'
-    rounded: '{rounded.full}'
-    padding: '0.3rem 0.75rem'
-  card:
-    backgroundColor: '{colors.paper-white}'
-    rounded: '{rounded.lg}'
-    padding: '1.5rem'
-  nav-link:
-    textColor: '{colors.ink}'
-    rounded: '{rounded.sm}'
-    padding: '0.75rem 1.125rem'
+  link-hover:
+    textColor: '{colors.navy}'
+  strip:
+    backgroundColor: '{colors.strip-paper}'
+  strip-marker:
+    backgroundColor: '{colors.marker}'
+    size: '2mm'
+  caption:
+    textColor: '{colors.secondary}'
+    typography: '{typography.caption}'
+  caption-label:
+    textColor: '{colors.navy}'
+  year-label:
+    textColor: '{colors.navy}'
+    typography: '{typography.year-label}'
+  venue:
+    textColor: '{colors.secondary}'
+    typography: '{typography.small}'
+  footer:
+    textColor: '{colors.secondary}'
+    typography: '{typography.small}'
 ---
 
 # Design System: ryanbohluli.com
 
 ## 1. Overview
 
-**Creative North Star: "The Clinical Record"**
+**Creative North Star: "A letter on ECG letterhead"**
 
-This is the chart at the foot of the bed — the document an expert picks up, scans in seconds, and trusts. Its authority comes from legibility and restraint, never from decoration. The reader is a time-pressed specialist (an admissions committee, a PI, an investor) who has read a thousand of these and can smell padding instantly. So the system gives them structure, whitespace, and exact typography, and gets out of the way. Color is an annotation, not a mood. The work — nine papers, fifty surgeries, seventy calls answered — is the content; the design's only job is to make that content unmissable and effortless to navigate.
+The homepage is three things in order: the name, a full-width Lead II rhythm strip, and a short first-person letter signed "Ryan". The strip is the letterhead. Each beat is a milestone; hovering, focusing or tapping a beat puts a crimson dot on its R peak and shows a caption. Everything else is type on paper.
 
-The voice is **rigorous, grounded, and clear**. A scholarly serif carries the headings; a clean humanist sans carries the prose. White (or near-black, in the dark record) dominates; a single cobalt does all the signalling. Surfaces are calm at rest and respond to touch with a quiet lift — confidence without spectacle. Generous vertical rhythm separates sections so the eye can rest between dense passages.
-
-This system explicitly **rejects the marketing playbook**: no gradient-washed hero, no feature-card grids, no big-number stat blocks, no uppercase tracked eyebrow stacked above every section, no neon, no glassmorphism. Those are the tells of a SaaS landing page or a startup pitch, and this is neither. It also rejects the interchangeable "developer portfolio template" — the colored side-stripe on every card, the rainbow of accents, the same lifted box repeated five ways. When in doubt, the system removes rather than adds.
+Clinicians read this strip, so it is drawn to clinical standards: 25 mm/s, 10 mm/mV, a calibration pulse, real PR, QRS and QT intervals, and faint recording noise between beats. The letter is short, warm and specific. The design's job is to stay out of the way of both.
 
 **Key Characteristics:**
 
-- **One voice, one accent.** A single cobalt signals; everything else is ink, slate, and paper.
-- **Serif headlines, sans prose.** Scholarly contrast axis — institutional, not fashionable.
-- **Whitespace is the layout.** Rhythm and breathing room over density and chrome.
-- **Quiet, uniform interaction.** A small lift on hover; nothing bounces or shouts.
-- **Legibility is non-negotiable.** Every text/background pair clears WCAG AA.
+- **One typeface.** Newsreader in two weights (400, 500), roman and italic. No sans, no monospace.
+- **Paper and ink.** A warm off-white page, near-black ink, crimson only for the marker and pen.
+- **No chrome.** No nav, buttons, cards, icons, badges, section headings or theme toggle.
+- **Nothing moves but the dot.** Selecting a beat changes the marker and the caption, never the layout.
+- **Legibility first.** Every text and background pair clears WCAG AA in both themes.
 
 ## 2. Colors
 
-A near-monochrome paper-and-ink base, with a single cobalt accent doing all the signalling and a muted categorical palette reserved strictly for skill grouping.
-
-### Primary
-
-- **Signal Cobalt** (`#2e59ba`): The one voice. Links, primary buttons, active nav, focus rings, the lone section divider, the dot on an impact bullet. In dark mode it lightens to **Sky Blue** (`#60a5fa`) to hold contrast on near-black. Used on roughly ≤10% of any screen — its rarity is what makes it read as "important," not "decorative."
-
-### Secondary
-
-- **Sky Blue** (`#60a5fa`): The dark-mode accent and the lighter end of the cobalt relationship. Pairs with Signal Cobalt only in subtle two-stop gradients on functional elements (e.g. a focus glow); never as a decorative wash.
-
-### Tertiary
-
-- **The Skill Palette** — _Violet_ (`#6968b3`), _Azure_ (`#37b1f5`), _Graphite_ (`#40494e`), _Indigo_ (`#515dd4`), _Coral_ (`#e47272`), _Rose_ (`#cc7b94`): Six muted hues used **only** to label skill categories on the resume. They are intentionally desaturated so the page never turns into a rainbow. Hue alone must never be the only signal (see the No-Stripe Rule and Do's & Don'ts).
+Light by default; dark follows `prefers-color-scheme` only. All colors are tokens in `src/styles/tokens.css`.
 
 ### Neutral
 
-- **Ink** (`#1d1d1f`): Primary text and bold headings on light backgrounds. The "black" of the record.
-- **Slate** (`#58585d`): Secondary text — subtitles, dates, supporting bullet copy. Clears AA at ~6.8:1 on paper.
-- **Slate Muted** (`#6b6b70`): The _floor_ for de-emphasized text. Replaces the old `rgba(0,0,0,0.5)` (~3.9:1, an AA failure). Timestamps, captions, and hints stop here — never lighter.
-- **Paper White** (`#ffffff`): The dominant surface. The page is mostly this.
-- **Mist** (`#f5f5f7`) / **Fog** (`#f0f0f2`): Subtle surface offsets for chips, hovers, and alternating zones. Tonal layering, not borders, carries most separation.
-- **Hairline** (`#0000001a`): 1px borders and dividers. Faint by design.
-- **Night Record** — _Bg_ (`#0a0a0a`), _Surface_ (`#111111`), _Fg_ (`#e5e5e5`): The dark theme. Near-black, not navy; warmth comes from nothing — it's a clinical dark, with Sky Blue as the only color.
+- **Paper** (`#faf8f5`, dark `#121419`): the page.
+- **Ink** (`#1d2129`, dark `#e7e8ec`): text, the name, and the waveform. The trace is always ink, never colored.
+- **Secondary** (`#454a54`, dark `#c0c3ca`): captions, venues, author lists, the footer.
+- **Muted** (`#6a6e78`, dark `#8a8e97`): only the printed strip marks ("II", "25 mm/s"). Darkened from the brief's `#7c808a` so those marks reach 4.6:1 on the strip paper.
+- **Rule** (`#d8d9de`, dark `#30333a`): the resting link underline.
+
+### Strip
+
+- **Strip paper** (`#fcf1f2`, dark `#1b1a20`): the faint pink of ECG paper.
+- **Grid** (crimson at 13% for 1 mm squares, 30% for 5 mm squares; lighter in dark mode): hairlines that never scale.
+
+### Accents
+
+- **Marker** (`#c1121f`, dark `#f0505a`): the selection dot and the pulsing pen at the end of the trace. Nothing else is crimson.
+- **Navy** (`#23406e`, dark `#a4bae6`): link hover and focus, year labels under the strip, and the date at the start of a caption.
 
 ### Named Rules
 
-**The One Voice Rule.** Exactly one accent signals on any given screen — cobalt (light) or sky (dark). If a second color is carrying meaning, it's wrong. The skill palette is the single sanctioned exception, and only on the resume's skills section.
+**The Crimson Rule.** Crimson means "this beat" or "the pen". Never use it for text, links or decoration.
 
-**The Annotation Rule.** Color marks; it never decorates. A cobalt element should always _mean_ something is interactive, active, or important. No cobalt for atmosphere.
+**The Ink Trace Rule.** The waveform is ink in both themes. A colored trace reads as a monitor screenshot, not a printed strip.
 
 ## 3. Typography
 
-**Display Font:** Source Serif 4 (with Source Serif Pro, Georgia, serif)
-**Body Font:** Source Sans 3 (with Source Sans Pro, Helvetica, sans-serif)
-**Mono Font:** system mono stack (ui-monospace → SF Mono → Cascadia → Menlo)
-
-**Character:** A scholarly pairing from one superfamily — Source Serif and Source Sans share x-height and proportion, so they sit together without friction, while the serif/sans split gives a clean editorial contrast axis. The serif reads like a journal masthead; the sans reads like well-set body copy. Together: a research document, not a brochure. _(This replaces the previous Raleway heading font, whose light, wide, geometric personality read "2016 portfolio template" rather than "rigorous scientist.")_
+**Font:** Newsreader, self-hosted and trimmed to the weights in use (roman 400 to 500, italic 400), falling back to a metric-matched Times New Roman, then Georgia.
 
 ### Hierarchy
 
-- **Display** (Serif, 700, `clamp(2.5rem, 7vw, 4rem)`, 1.05, `-0.015em`): The name in the hero and page-defining H1s. The only place type gets large. Use `text-wrap: balance`.
-- **Headline** (Serif, 600, `2.2rem`, 1.2): Section H2s. Confident but not shouting.
-- **Title** (Serif, 600, `1.6rem`, 1.3): Job titles, project names, card headers (H3/H4).
-- **Body** (Sans, 400, `1rem`, 1.7): All prose. Cap measure at **65–75ch**; the About page especially must not run edge to edge. Use `text-wrap: pretty` on long passages.
-- **Label** (Sans, 600, `0.875rem`, `0.04em`, uppercase): Sparingly — the projects section label, skill-category headers. **Not** an eyebrow above every section (see Don'ts).
-- **Mono** (system mono, 400, `0.95rem`): Inline code and course numbers. _(Upgrade target from the previous `Courier New`, which reads dated.)_
+- **Name** (500, 44px, 1.1, `-0.015em`; 34px on phones): the only large type, and the only weight-500 text besides the author's name in citation lists.
+- **Lead** (400, 31px, 1.36; 26px on phones): the letter's opening sentence.
+- **Body** (400, 20px, 1.62; 18.5px on phones): the letter. Measure capped at 35rem.
+- **Signature** (italic, 26px, 1.3): "Ryan".
+- **Caption** (italic, 18px, 1.5, Secondary): beat captions and the idle hint. The date label is upright and navy.
+- **Small** (17px, 1.5): venues (italic), the footer (italic), author lists and the talks note.
+- **Year labels** (italic, 14.5px, Navy) and **printed marks** (12.5px, Muted): text laid over the strip in screen pixels.
 
 ### Named Rules
 
-**The Serif-Headline Rule.** Every heading is the serif; every run of prose is the sans. Don't set a heading in the sans "for variety" — the consistent serif voice is the system's signature.
+**The One Family Rule.** Hierarchy comes from size, italics and color within Newsreader. Do not add a second family, a monospace face or bold weights.
 
-**The Quiet Display Rule.** Display type tops out at ~4rem (`clamp` max). Bigger is shouting. Letter-spacing on display never goes below `-0.015em` — letters must not touch.
+**The No Headings Rule.** The letter has no section headings. "Selected work:" is a sentence, separated by wider space, not a heading.
 
 ## 4. Elevation
 
-A hybrid system, leaning flat. Surfaces are paper-flat at rest and separated mostly by **tonal layering** (Paper → Mist → Fog) and hairline borders, not by shadow. Shadow is reserved for **state and focus**: the standard interaction is a small upward lift (`translateY(-2px)` for buttons/tags, `-4px` for cards) with a soft shadow that grows on hover, settling back on `:active`. This is the sanctioned "quiet confidence" motion — present, uniform, never bouncy (easing is `ease-out`, `cubic-bezier(0.16, 1, 0.3, 1)`, no spring on primary surfaces). In dark mode, shadows gain a faint `1px` light inset to define edges against near-black.
-
-### Shadow Vocabulary
-
-- **sm** (`0 1px 2px rgba(0,0,0,0.04)`): Resting card hairline-shadow.
-- **md** (`0 4px 12px rgba(0,0,0,0.08)`): Buttons at rest; cards/tags on hover.
-- **lg** (`0 8px 30px rgba(0,0,0,0.12)`): Lifted buttons and featured surfaces on hover.
-- **xl** (`0 20px 40px rgba(0,0,0,0.15)`): The hero portrait; the most-lifted card states only.
-
-### Named Rules
-
-**The Lift-Not-Glow Rule.** Depth is communicated by lifting a surface toward the reader (transform + shadow), not by adding a colored glow or a gradient behind it. State changes earn shadow; resting surfaces stay flat.
-
-**Reduced-Motion Rule.** Every lift, scale, and reveal has a `@media (prefers-reduced-motion: reduce)` path that drops to an instant color/border change. No exceptions.
+Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes from whitespace alone. The only radius is the 2px corner on the link focus outline.
 
 ## 5. Components
 
-### Buttons
+### Rhythm strip
 
-- **Shape:** Gently rounded (`8px`, `rounded.sm`), `3.25rem` tall, comfortable `2em` horizontal padding.
-- **Primary:** Solid Signal Cobalt on Paper White text, soft `md` shadow with a 1px top-inset highlight. Hover deepens the cobalt (~85% cobalt + black) and lifts `-2px` to `lg` shadow; active settles to `0` with `sm` shadow.
-- **Secondary / Ghost:** Transparent with a `1.5px` inset border in Slate; text in Slate. Hover fills with a faint cobalt tint, border and text go cobalt, lifts `-2px`.
-- **Focus:** `3px` cobalt-tint ring via box-shadow (never `outline: none` without a replacement ring).
+- **Geometry:** an SVG with `viewBox="0 0 250 30"` in millimeters, aspect ratio 250:30, centered, up to 1680px wide. It spans the page rather than the text column.
+- **Paper and grid:** strip paper background, 1 mm minor and 5 mm major grid lines as non-scaling 1px hairlines.
+- **Trace:** ink, 1.4px, round joins and caps, non-scaling. It opens with a calibration pulse, then one beat per milestone (9 to 15 fit; 15 is the maximum). Seeded noise of at most 0.03 mV appears between beats, never on the calibration pulse or within 35 ms of an R peak.
+- **Printed marks:** "II" top left and "25 mm/s" top right, in Muted.
+- **Year labels:** italic navy, centered under the first beat of each year, 4% of the strip height from the bottom so they clear the S waves.
+- **Pen:** a crimson dot at the end of the trace that fades in after printing and pulses slowly.
+- **Selection:** each beat is an invisible button spanning its hit area. Hover (mouse), focus (keyboard) or tap (touch) shows a 2 mm crimson dot with a 2px strip-paper ring on the R peak. The dot is the focus indicator; buttons have no outline. Leaving the strip, tabbing past it or tapping elsewhere clears it.
 
-### Chips (credential pills)
+### Caption
 
-- **Style:** Mist background, Ink text, full-radius (`999px`), `1px` hairline border. The hero credential chips ("Johns Hopkins '27", "Volunteer EMT").
-- **State:** Hover shifts to a faint cobalt-subtle background with a cobalt border and a `-1px` nudge. Static/informational — not buttons.
+- Sits 16px below the strip, aligned to the text column.
+- At rest it shows the hint, "Select a beat to explore." On touch phones it adds "Drag back for earlier years."
+- When a beat is selected it shows "Mon YYYY." in upright navy, then the milestone text.
+- Every caption is rendered invisibly in the same grid cell, so the box is always as tall as the longest caption and the letter below never moves.
 
-### Tags
+### Letter
 
-- **Tech tags:** Full-radius cobalt-tinted pills (cobalt text on `accent-light`), `text-xs`. Used inside project cards.
-- **Skill tags:** Rounded (`8px`), paper background, hairline border, category color conveyed by an **icon + the category header**, not a left-stripe. _(The current `4px border-left` skill-tag stripe is a banned side-stripe — see Don'ts — and must move to a full border tint or icon.)_
+- **Column:** left gutter `max(22px, 17vw)`, right gutter 22px, measure 35rem.
+- **Rhythm:** paragraphs 1em apart. The selected-work block gets 3em above and below; its items sit 1em apart, each a linked title with its venue on the next line in small italic Secondary.
+- **Close:** the signature in italic, with "Written in Dallas, TX" directly beneath it in small italic Secondary and no gap.
 
-### Cards / Containers
+### Links
 
-- **Corner Style:** `16px` (`rounded.lg`) for project/feature cards; `12px` (`rounded.md`) for work and course cards.
-- **Background:** Paper White (light) / Night Surface (dark).
-- **Border:** `1px` hairline at rest, going cobalt on hover.
-- **Shadow Strategy:** Per Elevation — `sm` at rest, lifting to `lg`/`xl` on hover with a `-4px` translate. Featured cards add a `2px` cobalt-tint ring.
-- **Internal Padding:** `1.5rem`–`2rem`.
-- **Restraint:** Consolidate card variants. Five near-identical hover-lift cards (project, job, course, work, featured) read as busy against the minimal mandate — prefer two shared card treatments, differentiated by content, not by five bespoke styles.
+- Inherit the text color with a 1px underline in Rule, offset 0.2em.
+- Hover turns both the text and the underline Navy (0.15s, none under reduced motion).
+- Keyboard focus shows a 2px Navy outline, offset 3px, with a 2px radius.
+- Link text is descriptive ("All publications", "résumé (PDF)"), never "here".
 
-### Inputs / Fields
+### Talks page
 
-- **Current state:** No custom field styling exists (the contact flow uses links, not a form); inputs inherit the browser's defaults.
-- **When added:** `1px` hairline border, `8px` radius, Paper background; focus = cobalt border + `3px` cobalt-tint ring (mirror the button focus ring). Placeholder text must clear 4.5:1 — use Slate Muted, never a light gray.
+- The name links home. An italic Secondary line names the page, followed by a short note pointing to Google Scholar and ORCID.
+- Each entry is a title, then a Vancouver author list in small Secondary with "Bohluli RS" in weight 500, then the venue in small italic.
 
-### Navigation
+### Phones (under 760px)
 
-- **Style:** Text links in Ink, serif-adjacent weight, `8px` radius hit-area. An animated `2.5px` cobalt underline scales in on hover/active/focus; active links also get a faint cobalt-light background.
-- **States:** Hover/focus → cobalt text + faint background + underline; a subtle `1.02` scale. Focus-visible always shows the underline (keyboard parity with hover).
-- **Wordmark (the Nameplate):** "Ryan Bohluli" is deliberately **not** a fifth tab. It sits in its own `1px` hairline plate (`4px` radius — squarer than the tabs' `8px` pill) like the name stamp on a chart. On the homepage the plate fills solid cobalt with the name in the page background color (white on cobalt / near-black on sky blue); hover tints the plate's border and fill while the letters hold their ink. It never takes an underline — the plate carries all state, and it opts out of the global animated link underline so no second bar can stack beneath it.
-- **Containment:** Header links set their own `line-height`; nothing in the header inherits the header-height line box, so active tints and underlines stay inside the hairline.
-- **Mobile:** Desktop nav hides below `736px`; a hamburger opens a slide menu. Theme toggle is a `44px` square (meets touch-target minimums).
+- The strip keeps a 900px minimum width inside a sideways scroller with `direction: rtl`, so it opens on the most recent beats without script. The scrollbar is hidden.
+- The page itself never scrolls sideways.
+- Type steps down (name 34px, lead 26px, body 18.5px) and the top padding drops to 7vh.
 
-### Hero Portrait (signature)
+## 6. Motion
 
-- A `160px` circular portrait with an `xl` shadow and a `1px` hairline ring. Theme-aware (`ThemePortrait` swaps light/dark variants). Hover scales `1.03` and lifts `-2px`, revealing a faint cobalt ring. This is the one piece of personality-bearing chrome — keep it; it earns its place. **The blurred radial gradient blob behind the hero, however, does not** (see Don'ts).
+- **Printing:** on load, a clip grows left to right over 3.4 s at a constant speed, so the trace prints like a recorder. The pen appears when it finishes and pulses every 1.6 s.
+- **Reduced motion:** the strip appears fully drawn, the pen does not pulse, and link color changes are instant.
+- Nothing else animates.
 
-## 6. Do's and Don'ts
+## 7. Do's and Don'ts
 
 ### Do:
 
-- **Do** keep one accent doing all the signalling — Signal Cobalt (`#2e59ba`) light, Sky Blue (`#60a5fa`) dark — on ≤10% of any screen (The One Voice Rule).
-- **Do** set every heading in Source Serif 4 and every run of prose in Source Sans 3 (The Serif-Headline Rule).
-- **Do** keep display type ≤ `4rem` and letter-spacing ≥ `-0.015em` (The Quiet Display Rule).
-- **Do** carry separation with whitespace, tonal layers (Paper → Mist → Fog), and hairline borders before reaching for shadow.
-- **Do** keep the quiet hover-lift uniform and `ease-out`, and give every motion a `prefers-reduced-motion` fallback.
-- **Do** clear WCAG AA on every text/background pair; de-emphasized text bottoms out at Slate Muted (`#6b6b70`, ~5.2:1), never lighter.
-- **Do** convey skill categories with an icon plus the category header, and never with hue alone (color-blind safety).
-- **Do** cap body measure at 65–75ch.
+- **Do** keep the strip anatomically accurate and keep `src/lib/__tests__/ecg.test.ts` passing.
+- **Do** fold related moments into one caption rather than adding a sixteenth beat.
+- **Do** keep crimson for the marker and pen, and the trace in ink.
+- **Do** set everything in Newsreader, using size, italics and Secondary for hierarchy.
+- **Do** keep captions in the reserved grid cell so selection never shifts the layout.
+- **Do** clear WCAG AA in both themes.
 
 ### Don't:
 
-- **Don't** ship the **gradient-washed hero** — the 1200px blurred cobalt radial blob behind the hero is the SaaS-landing tell named in the brief. Remove it; let whitespace and the portrait carry the hero.
-- **Don't** use a **colored side-stripe** (`border-left`/`border-right` > 1px, or a `::before` stripe) on any card, tag, or list item. The job-card hover stripe and the `4px` skill-tag left border both violate this. Rewrite with full borders, a background tint, or an icon.
-- **Don't** repeat **identical lifted card grids**. Consolidate the five card variants into two shared treatments; sameness reads as busy, which is the strongest aversion in the brief.
-- **Don't** stack a **tiny uppercase tracked eyebrow above every section**. Labels are rare and deliberate, not section scaffolding. Numbered section markers (01/02/03) are likewise banned unless the content is a true ordered sequence.
-- **Don't** introduce **feature-card grids, big-number hero metrics, neon, gradient text, or glassmorphism** — the marketing/startup playbook the brief rejects.
-- **Don't** let muted text fall to `rgba(0,0,0,0.5)`/`#808080` (~3.9:1) or any lighter gray "for elegance." That's the single most common AA failure.
-- **Don't** add a second signalling color or turn the skill palette loose outside the resume skills section (The Annotation Rule).
-- **Don't** make surfaces glow or sit on a colored gradient to suggest depth; lift them instead (The Lift-Not-Glow Rule).
+- **Don't** add navigation, buttons, cards, icons, badges, section headings, monospace type or a theme toggle.
+- **Don't** add shadows, rounded containers, gradients or tinted panels. The page is paper.
+- **Don't** use em dashes anywhere in the copy (a test enforces this).
+- **Don't** color the waveform, animate anything besides the print reveal and pen, or move the letter when a beat is selected.
+- **Don't** let the page scroll sideways on phones; only the strip scrolls.

@@ -2,58 +2,18 @@
 
 Guidance for AI coding agents working on this personal site: plain HTML built by a small TypeScript script, with no framework and no runtime dependencies.
 
-## Quick Commands
-
-```bash
-npm run dev          # Dev build with live reload (localhost:3000, and the LAN)
-npm run format       # Format with Prettier + Biome (run before committing)
-npm run lint         # Biome linting
-npm run type-check   # TypeScript checking
-npm test             # Vitest tests
-npm run build        # Production build into out/
-```
-
-**File-scoped (faster feedback):**
-
-```bash
-npx biome check path/to/file.ts             # Lint single file
-npm test -- strip                            # Run matching tests
-```
-
-## Project Structure
-
-```
-build.ts              → Writes out/ (or .dev/ with --dev)
-dev.ts                → Dev server: rebuilds and reloads on change
-src/render/           → Pages, <head>, strip markup, CSS/JS inlining (build time)
-src/client/           → Inlined browser scripts: strip.js (selection), fidgets.js (easter eggs)
-src/styles/           → tokens.css, base.css, strip.css, page.css, fidgets.css
-src/data/content.ts   → All homepage copy, milestones, links (one file)
-src/data/talks.ts     → Talks and posters listed on /talks
-public/resume.pdf     → One-page public résumé (see Résumé below)
-src/lib/ecg.ts        → Pure rhythm-strip model (waveform, path, hit areas)
-public/images/og.png  → Static 1200x630 share card
-```
-
 ## Code Style
 
 **Do:**
 
-- Use TypeScript strict mode; Node runs it directly, so stick to erasable syntax (no enums) and import with `.ts` extensions
-- Write browser code as plain JS in `src/client/` with `// @ts-check` and JSDoc types, one IIFE per file
 - Style with CSS custom properties in `src/styles/` (colors and type in `tokens.css`)
-- Keep render functions small and focused
-- Use existing patterns from similar code
 - Follow conventional commits: `feat:`, `fix:`, `chore:`, `docs:`
-- Run `npm run format` before committing (CI enforces this)
+- Run `npm test` and `npm run format` before committing (CI enforces formatting)
 
 **Don't:**
 
 - Add new dependencies without clear need
-- Create monolithic files
 - Hard-code colors—use CSS variables (`var(--color-*)`)
-- Skip type annotations on function parameters
-- Commit without running `npm run format` first
 
 ## Git Workflow
 
@@ -63,10 +23,6 @@ public/images/og.png  → Static 1200x630 share card
 - Land changes on `main` by merging GitHub PRs with conventional-commit titles (deploys trigger automatically from these merges)
 - If multiple PRs need to land together, open an integration branch PR; do not locally merge into `main`
 - Treat `main` as protected: force-pushes and history rewrites require explicit user approval
-
-## Tech Stack
-
-Node 24+ (runs the TypeScript build directly) · TypeScript · plain CSS · Biome · Vitest + jsdom
 
 ## Key Patterns
 
@@ -83,16 +39,6 @@ Node 24+ (runs the TypeScript build directly) · TypeScript · plain CSS · Biom
 - **Page metadata**: every page goes through `document()` in `src/render/html.ts`, which writes the title, description, Open Graph and Twitter tags from one `PageMeta`; the 404 is `noindex` and has no `og:url`
 - **Share card**: `public/images/og.png` is a static image drawn from the real strip geometry; regenerate it if the name or strip changes
 - **Résumé**: `public/resume.pdf` is exported from Ryan's Word source (`Ryan-Bohluli-Public-Resume.docx` in his Applications output folder). Edit the .docx, keep it to one page and keep its formatting, export the PDF from Word, then copy it here. Keep the header date ("Updated <Month Year>") current
-
-## Testing
-
-Tests live in `__tests__/` directories adjacent to the code they test. Run `npm test` before committing.
-
-```bash
-npm test                        # Run all tests
-npm test -- --watch             # Watch mode
-npm test -- strip               # Run matching tests
-```
 
 ## Further Reading
 
