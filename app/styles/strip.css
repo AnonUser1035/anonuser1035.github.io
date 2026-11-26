@@ -67,11 +67,10 @@
   stroke-width: 4px; /* half sits under the fill: a 2px ring */
   paint-order: stroke;
   vector-effect: non-scaling-stroke;
-  animation: strip-appear 0s var(--marker-delay, 0s) both;
 }
 
-.strip-marker.is-touched {
-  animation: none;
+.strip-event-glyph {
+  fill: var(--color-navy);
 }
 
 @keyframes strip-print {
@@ -104,8 +103,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .strip-reveal,
-  .strip-pen,
-  .strip-marker {
+  .strip-pen {
     animation: none;
   }
 }
@@ -144,10 +142,10 @@
   color: var(--color-navy);
 }
 
-.strip-beat {
+.strip-beat,
+.strip-event {
   position: absolute;
   top: 0;
-  bottom: 0;
   margin: 0;
   padding: 0;
   border: 0;
@@ -156,8 +154,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* The marker on the R peak is the focus indicator. */
-.strip-beat:focus {
+.strip-beat {
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Event marks sit in the flat stretch between beats; their target covers
+   the top band only, at least 28px wide for fingers. */
+.strip-event {
+  z-index: 2;
+  width: 28px;
+  height: 36%;
+  margin-left: -14px;
+}
+
+/* The selection dot is the focus indicator. */
+.strip-beat:focus,
+.strip-event:focus {
   outline: none;
 }
 
@@ -185,6 +198,16 @@
 .caption-label {
   font-style: normal;
   color: var(--color-navy);
+}
+
+.hint-phone {
+  display: none;
+}
+
+@media (hover: none) and (max-width: 759.98px) {
+  .hint-phone {
+    display: inline;
+  }
 }
 
 /* Phones: the strip keeps its proportions in a sideways scroller. RTL makes
