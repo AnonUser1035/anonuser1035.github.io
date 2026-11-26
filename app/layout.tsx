@@ -1,20 +1,16 @@
 import type { Metadata, Viewport } from 'next';
-import { Newsreader } from 'next/font/google';
+import { preload } from 'react-dom';
 
 import GoogleAnalytics from '@/components/Template/GoogleAnalytics';
 import { DESCRIPTION } from '@/data/content';
 import { AUTHOR_NAME, OG_IMAGE, SITE_URL, TWITTER_HANDLE } from '@/lib/utils';
-import './tailwind.css';
+import './global.css';
 
-// Weights 400 and 500, roman and italic. The optical-size axis would add
-// about 160 KB for little visible gain at these sizes, so it is left out.
-const newsreader = Newsreader({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  weight: ['400', '500'],
-  variable: '--font-newsreader',
-  display: 'swap',
-});
+// Both faces are used above the fold (the name, and the italic caption).
+const FONTS = [
+  '/fonts/newsreader-roman.woff2',
+  '/fonts/newsreader-italic.woff2',
+];
 
 export const metadata: Metadata = {
   title: {
@@ -79,8 +75,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  for (const href of FONTS) {
+    preload(href, { as: 'font', type: 'font/woff2', crossOrigin: '' });
+  }
+
   return (
-    <html lang="en" className={newsreader.variable}>
+    <html lang="en">
       <body>
         {children}
         <GoogleAnalytics />
