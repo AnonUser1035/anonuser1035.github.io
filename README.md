@@ -17,7 +17,7 @@ npm test           # vitest
 npm run lint       # biome
 ```
 
-All homepage copy, including the milestones on the rhythm strip, lives in `src/data/content.ts`; the /papers list is `src/data/publications.ts`. Pages are in `app/`, and the strip's waveform model is `src/lib/ecg.ts`.
+All homepage copy, including the milestones on the rhythm strip, lives in `src/data/content.ts`; talks and posters are `src/data/talks.ts`. Pages are in `app/`, and the strip's waveform model is `src/lib/ecg.ts`.
 
 ## Credits
 
