@@ -159,7 +159,6 @@ export const LETTER: LetterBlock[] = [
     ],
   },
   `[All publications](${PROFILES.scholar}) are on Google Scholar, my author profile is on [ORCID](${PROFILES.orcid}), and [talks and posters](/talks/) have their own page.`,
-  'I also build small tools when I need them: [ankibot](https://ankibot.ryanbohluli.com/), which imports Anki decks and quizzes you in chat; [EMOMs](https://emoms.ryanbohluli.com/), a workout timer and library; and [Ember](https://github.com/anonuser1035/ember), a menu-bar app that keeps a Mac awake with the lid closed.',
   `The best way to reach me is [${EMAIL}](mailto:${EMAIL}). I’m also on [LinkedIn](${PROFILES.linkedin}), and here’s my [résumé (PDF)](/resume.pdf).`,
 ];
 

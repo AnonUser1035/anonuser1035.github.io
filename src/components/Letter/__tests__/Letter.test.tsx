@@ -20,9 +20,6 @@ describe('Letter', () => {
     expect(href('All publications')).toBe(PROFILES.scholar);
     expect(href('ORCID')).toBe(PROFILES.orcid);
     expect(href('talks and posters')).toBe('/talks/');
-    expect(href('ankibot')).toBe('https://ankibot.ryanbohluli.com/');
-    expect(href('EMOMs')).toBe('https://emoms.ryanbohluli.com/');
-    expect(href('Ember')).toBe('https://github.com/anonuser1035/ember');
     expect(href(EMAIL)).toBe(`mailto:${EMAIL}`);
     expect(href('LinkedIn')).toBe(PROFILES.linkedin);
     expect(href('résumé (PDF)')).toBe('/resume.pdf');
@@ -48,10 +45,12 @@ describe('Letter', () => {
     );
   });
 
-  it('keeps the letter short: no P.S., Cho Lab or COACH', () => {
+  it('keeps the letter short: no P.S., Cho Lab, COACH or tools paragraph', () => {
     const { container } = render(<Letter />);
     expect(container.querySelector('.postscript')).toBeNull();
-    expect(container.textContent).not.toMatch(/Cho Lab|COACH|P\.S\./);
+    expect(container.textContent).not.toMatch(
+      /Cho Lab|COACH|P\.S\.|small tools/,
+    );
   });
 
   it('signs off and says where it was written', () => {
