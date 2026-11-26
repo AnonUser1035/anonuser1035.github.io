@@ -1,112 +1,124 @@
+/**
+ * Everything listed on /papers, grouped as shown. Author lists use Vancouver
+ * style; AUTHOR_KEY is set in weight 500 on render. No em dashes.
+ */
+
 export interface Publication {
-  /** Full author list. The author name matching AUTHOR_LASTNAME is emphasized on render. */
-  authors: string;
   title: string;
-  venue: string;
-  /** Display year, e.g. "2026". Optional for forthcoming work. */
+  authors: string;
+  /** Journal, conference or server. Omit for manuscripts under review. */
+  venue?: string;
   year?: string;
-  /** Publication status, e.g. "In Press", "Accepted", "Under Review". */
+  /** "In press", "Accepted", "Under review", or "Poster" for presentations. */
   status?: string;
-  /** Digital Object Identifier (without the https://doi.org/ prefix). */
+  /** DOI without the https://doi.org/ prefix. */
   doi?: string;
-  /** Direct link, if not derivable from a DOI. */
-  url?: string;
-  /** True when Ryan is the first author. */
-  firstAuthor?: boolean;
 }
 
-/** Substring of the author string to emphasize when rendering. */
-export const AUTHOR_KEY = 'Bohluli, R.S.';
+export interface PublicationGroup {
+  name: string;
+  items: Publication[];
+}
 
-export const publications: Publication[] = [
-  {
-    authors: 'Bohluli, R.S., et al.',
-    title:
-      'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone for Non-Invasive Neuromodulation',
-    venue: 'ASME Digital Collection',
-    year: '2026',
-    status: 'In Press',
-    doi: '10.1115/DMD2026-1020',
-    firstAuthor: true,
-  },
-  {
-    authors: 'Bohluli, R.S., et al.',
-    title:
-      'Monitoring Autonomic Tone During Spinal Cord Neuromodulation Using Wearable AURIS Sensor',
-    venue: 'bioRxiv',
-    year: '2026',
-    doi: '10.64898/2026.03.07.709943',
-    firstAuthor: true,
-  },
-  {
-    authors: 'Lopez, A.F., … Bohluli, R.S., et al.',
-    title:
-      'Hemodynamic Impact of Different Vasopressors on Blood Flow in the Middle Cerebral Artery',
-    venue: 'Neurosurgery 72 (Supplement 1), p. 145',
-    year: '2026',
-    doi: '10.1227/neu.0000000000003964_492',
-  },
-  {
-    authors: 'Lopez, A.F., … Bohluli, R.S., et al.',
-    title:
-      'Spinal Cord Neuromodulation for Blood Pressure Control Using Low-Intensity Focused Ultrasound',
-    venue: 'Nature Scientific Reports',
-    year: '2025',
-    doi: '10.1038/s41598-025-25330-8',
-  },
-  {
-    authors: 'Routkevitch, D., … Bohluli, R.S., et al.',
-    title: 'Optimal Norepinephrine-Mediated Feedback Control of Blood Flow',
-    venue: 'Nature Biomedical Engineering',
-    status: 'Accepted, In Press',
-  },
-  {
-    authors: 'Griffith, K.M., … Bohluli, R.S., et al.',
-    title:
-      'From Invasive to Non-Invasive: Focused Ultrasound Neuromodulation of the Spinal Cord',
-    venue: 'ASME Digital Collection',
-    status: 'Accepted, In Press',
-    doi: '10.1115/DMD2026-1008',
-  },
-  {
-    authors: 'Lopez, A.F., … Bohluli, R.S., et al.',
-    title:
-      'Cerebral vs. Spinal Autoregulation: Hemodynamic Responses in a Porcine Model Following Traumatic Injury',
-    venue: 'Manuscript',
-    status: 'Under Review',
-  },
-  {
-    authors: 'Lopez, A.F., Bohluli, R.S., Thakor, N.V.',
-    title:
-      'Engineering Neuromodulation Techniques: A Review of Current Methods and Promising Therapeutic Approaches',
-    venue: 'CAE Engineering Journal',
-    status: 'Under Review',
-  },
-];
+export const AUTHOR_KEY = 'Bohluli RS';
 
-export const presentations: Publication[] = [
+export const PUBLICATION_GROUPS: PublicationGroup[] = [
   {
-    authors: 'Bohluli, R.S., et al.',
-    title:
-      'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone',
-    venue:
-      'Poster — 2026 Design of Medical Devices Conference, Minneapolis, MN',
-    year: 'Apr 2026',
-    firstAuthor: true,
+    name: 'Papers',
+    items: [
+      {
+        title:
+          'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone for Non-Invasive Neuromodulation',
+        authors: 'Bohluli RS, et al.',
+        venue: 'Design of Medical Devices Conference (DMD2026), ASME',
+        year: '2026',
+        status: 'In press',
+        doi: '10.1115/DMD2026-1020',
+      },
+      {
+        title:
+          'Hemodynamic Impact of Different Vasopressors on Blood Flow in the Middle Cerebral Artery',
+        authors: 'Lopez AF, … Bohluli RS, et al.',
+        venue: 'Neurosurgery 72 (Supplement 1), p. 145',
+        year: '2026',
+        doi: '10.1227/neu.0000000000003964_492',
+      },
+      {
+        title:
+          'Spinal Cord Neuromodulation for Blood Pressure Control Using Low-Intensity Focused Ultrasound',
+        authors: 'Lopez AF, … Bohluli RS, et al.',
+        venue: 'Scientific Reports',
+        year: '2025',
+        doi: '10.1038/s41598-025-25330-8',
+      },
+      {
+        title: 'Optimal Norepinephrine-Mediated Feedback Control of Blood Flow',
+        authors: 'Routkevitch D, … Bohluli RS, et al.',
+        venue: 'Nature Biomedical Engineering',
+        status: 'Accepted',
+      },
+      {
+        title:
+          'From Invasive to Non-Invasive: Focused Ultrasound Neuromodulation of the Spinal Cord',
+        authors: 'Griffith KM, … Bohluli RS, et al.',
+        venue: 'Design of Medical Devices Conference (DMD2026), ASME',
+        year: '2026',
+        status: 'In press',
+        doi: '10.1115/DMD2026-1008',
+      },
+    ],
   },
   {
-    authors: 'Lopez, A.F., Bohluli, R.S., Griffith, K.M., Thakor, N.V.',
-    title:
-      'Spatially Targeted Neuromodulation with Focused Ultrasound for Autonomic and Hemodynamic Control',
-    venue: '2026 Yale Bouchet Conference',
-    year: 'Apr 2026',
+    name: 'Preprints and manuscripts',
+    items: [
+      {
+        title:
+          'Monitoring Autonomic Tone During Spinal Cord Neuromodulation Using Wearable AURIS Sensor',
+        authors: 'Bohluli RS, et al.',
+        venue: 'bioRxiv',
+        year: '2026',
+        doi: '10.64898/2026.03.07.709943',
+      },
+      {
+        title:
+          'Cerebral vs. Spinal Autoregulation: Hemodynamic Responses in a Porcine Model Following Traumatic Injury',
+        authors: 'Lopez AF, … Bohluli RS, et al.',
+        status: 'Under review',
+      },
+      {
+        title:
+          'Engineering Neuromodulation Techniques: A Review of Current Methods and Promising Therapeutic Approaches',
+        authors: 'Lopez AF, Bohluli RS, Thakor NV',
+        status: 'Under review',
+      },
+    ],
   },
   {
-    authors: 'Bohluli, R.S., et al.',
-    title:
-      'Integration of Near-Infrared Spectroscopy in Blood Pressure Modulation',
-    venue: 'Poster — Georgetown-TUM Neuroengineering Conference',
-    year: 'Jun 2025',
-    firstAuthor: true,
+    name: 'Presentations',
+    items: [
+      {
+        title:
+          'Advances in Focused Ultrasound for Vagus Nerve Stimulation: Assessing Autonomic Tone',
+        authors: 'Bohluli RS, et al.',
+        venue: 'Design of Medical Devices Conference, Minneapolis, MN',
+        year: '2026',
+        status: 'Poster',
+      },
+      {
+        title:
+          'Spatially Targeted Neuromodulation with Focused Ultrasound for Autonomic and Hemodynamic Control',
+        authors: 'Lopez AF, Bohluli RS, Griffith KM, Thakor NV',
+        venue: 'Yale Bouchet Conference',
+        year: '2026',
+      },
+      {
+        title:
+          'Integration of Near-Infrared Spectroscopy in Blood Pressure Modulation',
+        authors: 'Bohluli RS, et al.',
+        venue: 'Georgetown-TUM Neuroengineering Conference',
+        year: '2025',
+        status: 'Poster',
+      },
+    ],
   },
 ];
