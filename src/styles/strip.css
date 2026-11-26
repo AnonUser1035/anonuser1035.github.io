@@ -1,0 +1,223 @@
+/* ========================================
+   RHYTHM STRIP
+   SVG user units are millimeters on ECG paper (viewBox 0 0 250 30).
+   Strokes are hairlines in screen pixels and never scale.
+   ======================================== */
+
+.strip-frame {
+  max-width: var(--strip-max);
+  margin-inline: auto;
+}
+
+.strip {
+  position: relative;
+  aspect-ratio: 250 / 30;
+  background-color: var(--color-strip-paper);
+}
+
+.strip-svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.strip-grid {
+  fill: none;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.strip-grid--minor {
+  stroke: var(--color-grid-minor);
+}
+
+.strip-grid--major {
+  stroke: var(--color-grid-major);
+}
+
+.strip-trace {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.4px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Printing: the clip grows left to right at a constant speed. Duration is
+   set inline from the component. */
+.strip-reveal {
+  transform-origin: 0 0;
+  animation: strip-print linear both;
+}
+
+.strip-pen {
+  fill: var(--color-marker);
+  animation:
+    strip-appear 0s both,
+    strip-pulse 1.6s ease-in-out infinite;
+}
+
+.strip-marker {
+  fill: var(--color-marker);
+  stroke: var(--color-strip-paper);
+  stroke-width: 4px; /* half sits under the fill: a 2px ring */
+  paint-order: stroke;
+  vector-effect: non-scaling-stroke;
+}
+
+@keyframes strip-print {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes strip-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes strip-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip-reveal,
+  .strip-pen,
+  .strip-beat {
+    animation: none;
+  }
+}
+
+/* Printed marks and year labels sit over the SVG in screen pixels. */
+.strip-print,
+.strip-tick {
+  position: absolute;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.strip-print {
+  top: 0.55em;
+  font-size: 0.78125rem; /* 12.5px */
+  color: var(--color-muted);
+}
+
+.strip-print--lead {
+  left: 0.8em;
+}
+
+.strip-print--speed {
+  right: 0.8em;
+}
+
+/* Offset as a share of strip height, so labels keep clear of the s waves
+   even on the narrowest (760px) desktop strip. */
+.strip-tick {
+  bottom: 4%;
+  transform: translateX(-50%);
+  font-size: 0.90625rem; /* 14.5px */
+  font-style: italic;
+  color: var(--color-navy);
+}
+
+.strip-beat {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* Hidden (no hover, focus or tap) until the pen draws this beat's R peak.
+     The delay is set inline per beat. */
+  animation: strip-arm 0s both;
+}
+
+@keyframes strip-arm {
+  from {
+    visibility: hidden;
+  }
+}
+
+/* The selection dot is the focus indicator. */
+.strip-beat:focus {
+  outline: none;
+}
+
+/* Caption: every caption shares one grid cell, so the box is as tall as the
+   longest and hovering never moves the letter. */
+.caption-box {
+  display: grid;
+  margin-top: 16px;
+  min-height: 3.3em;
+  font-size: 1.125rem; /* 18px */
+}
+
+.caption {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.caption-sizer {
+  visibility: hidden;
+}
+
+.caption-label {
+  font-style: normal;
+  color: var(--color-navy);
+}
+
+.hint-phone {
+  display: none;
+}
+
+@media (hover: none) and (max-width: 759.98px) {
+  .hint-phone {
+    display: inline;
+  }
+}
+
+/* Phones: the strip keeps its proportions in a sideways scroller. RTL makes
+   it open at the right end, on the most recent beats, before any script. */
+@media (max-width: 759.98px) {
+  .strip-scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    direction: rtl;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .strip-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .strip {
+    min-width: 900px;
+    direction: ltr;
+  }
+}

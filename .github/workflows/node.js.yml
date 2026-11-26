@@ -95,15 +95,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Run tests
-        run: npm run test:coverage
-
-      - name: Upload coverage reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 7
+        run: npm test
 
   # Build on multiple OS and Node versions
   build:
@@ -114,14 +106,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [20.x, 22.x]
+        # Node 24+ runs the TypeScript build directly.
+        node-version: [24.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        exclude:
-          # Reduce matrix size for faster CI
-          - os: windows-latest
-            node-version: 20.x
-          - os: macos-latest
-            node-version: 20.x
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -138,20 +125,19 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NODE_ENV: production
-          NEXT_PUBLIC_GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID || 'G-XXXXXXXXXX' }}
+          GA_TRACKING_ID: G-XXXXXXXXXX
 
-      - name: Verify static export
+      - name: Verify build output
         shell: bash
         run: |
           if [ ! -d "out" ]; then
-            echo "Error: 'out' directory not found. Static export may have failed."
+            echo "Error: 'out' directory not found. Build failed."
             exit 1
           fi
-          echo "Static export successful. Found $(find out -type f | wc -l) files."
+          echo "Build successful. Found $(find out -type f | wc -l) files."
 
       - name: Upload build artifacts
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '22.x'
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: build-output

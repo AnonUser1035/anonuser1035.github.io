@@ -39,38 +39,20 @@ jobs:
           cache: "npm"
 
       - name: Setup Pages
-        # Note: no `static_site_generator: next` — this is a user/custom-domain
-        # site served at root, so we need an empty basePath. Letting
-        # configure-pages inject a Next config also clobbers our
-        # `trailingSlash: true`, which breaks directory-style URLs and the
-        # sitemap. Our own next.config.ts is authoritative.
         uses: actions/configure-pages@v5
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            node_modules
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build with Next.js
+      - name: Build
         run: npm run build
         env:
-          NODE_ENV: production
-          # Use environment variable for GA tracking ID
-          NEXT_PUBLIC_GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID }}
+          GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID }}
 
       - name: Verify build output
         run: |
           if [ ! -d "out" ]; then
-            echo "Error: 'out' directory not found. Static export failed."
+            echo "Error: 'out' directory not found. Build failed."
             exit 1
           fi
           echo "Build successful. Generated $(find out -type f | wc -l) files."

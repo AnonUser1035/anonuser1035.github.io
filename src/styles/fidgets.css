@@ -1,0 +1,154 @@
+/* ========================================
+   EASTER EGGS (homepage only; see src/client/fidgets.js)
+   The only hints are a pointer cursor or a small hover response.
+   ======================================== */
+
+/* Ping */
+.strip-ping {
+  fill: none;
+  stroke: var(--color-marker);
+  stroke-width: 1.25px;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Retrace: the pen's own crimson, over the ink, then gone. */
+.strip-retrace {
+  fill: none;
+  stroke: var(--color-marker);
+  stroke-width: 1.6px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.strip-retrace-reveal {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+}
+
+/* Gain: drag the calibration pulse. --gain is 1 at 10 mm/mV; the trace
+   scales about the baseline and the dot and pen ride along. */
+.strip-cal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  cursor: ns-resize;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.strip-ink {
+  transform-box: view-box;
+  transform: scaleY(var(--gain, 1));
+}
+
+.strip-marks {
+  translate: 0 calc((1 - var(--gain, 1)) * var(--marks-rise, 0px));
+}
+
+.strip-pen {
+  translate: 0 calc((1 - var(--gain, 1)) * var(--pen-rise, 0px));
+}
+
+/* Tear-off: an invisible target around the pen dot, armed once it appears;
+   hovering gives the pen a soft halo. */
+.strip-pen-hit {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: strip-arm 0s both;
+}
+
+.strip:has(.strip-pen-hit:hover) .strip-pen {
+  stroke: var(--color-marker);
+  stroke-opacity: 0.25;
+  stroke-width: 6px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The sheet being torn away, cut along a ragged clip-path. */
+.strip-torn {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.strip-torn-paper,
+.strip-torn-fibers {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-strip-paper);
+}
+
+.strip-torn-fibers {
+  background-color: var(--color-paper-fiber);
+}
+
+/* Fresh paper keeps its printed labels back until it starts printing. */
+.strip > .strip-tick,
+.strip > .strip-print {
+  transition: opacity 0.4s ease;
+}
+
+.strip--fresh > .strip-tick,
+.strip--fresh > .strip-print {
+  opacity: 0;
+  transition: none;
+}
+
+/* Year steps: years are clickable, above the beat under them. */
+.strip-tick {
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.strip-torn .strip-tick {
+  pointer-events: none;
+}
+
+/* Re-ink: a soft-edged wipe, like ink going down; the closing line follows
+   the signature. */
+.signature,
+.footer p {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.signature.is-inking,
+.footer p.is-inking {
+  -webkit-mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
+  mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
+  animation: ink-wipe 1.2s cubic-bezier(0.45, 0.05, 0.35, 1) backwards;
+}
+
+.footer p.is-inking {
+  animation-duration: 1.6s;
+  animation-delay: 0.9s;
+}
+
+@keyframes ink-wipe {
+  from {
+    -webkit-mask-position: 120% 0;
+    mask-position: 120% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature.is-inking,
+  .footer p.is-inking {
+    animation: none;
+  }
+}

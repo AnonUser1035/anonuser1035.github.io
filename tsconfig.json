@@ -1,36 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2023",
+    "lib": ["dom", "dom.iterable", "es2023"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
     "allowJs": true,
-    "skipLibCheck": true,
+    "checkJs": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "incremental": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "types": [],
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "skipLibCheck": true,
+    "types": ["node"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "vitest.setup.tsx",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["*.ts", "src/**/*.ts", "src/**/*.js"],
+  "exclude": ["node_modules", "out", ".dev"]
 }

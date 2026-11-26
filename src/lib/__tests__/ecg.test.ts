@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { MILESTONES } from '@/data/content';
+import { MILESTONES } from '../../data/content.ts';
 import {
   beats,
   buildStrip,
@@ -14,7 +14,7 @@ import {
   TRACE_END,
   toX,
   tracePath,
-} from '../ecg';
+} from '../ecg.ts';
 
 const LISTED_R_PEAKS = [
   0.85, 1.916, 2.947, 3.917, 4.799, 5.577, 6.267, 6.896, 7.49, 8.066, 8.634,
