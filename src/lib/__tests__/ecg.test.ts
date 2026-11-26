@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import { MILESTONES } from '@/data/content';
 import {
   beats,
   buildStrip,
   CAL_END,
   CAL_START,
+  noise,
   R_MARKER_Y,
   rrIntervals,
   type Sample,
@@ -25,18 +27,18 @@ const samples = sampleTrace(strip);
 /** Threshold for leaving the isoelectric line, as a reader would by eye. */
 const THRESHOLD_MV = 0.01;
 
-function inWindow(from: number, to: number): Sample[] {
-  return samples.filter(([t]) => t >= from && t <= to);
+function inWindow(from: number, to: number, s = samples): Sample[] {
+  return s.filter(([t]) => t >= from && t <= to);
 }
 
-function firstAbove(from: number, to: number): number {
-  const hit = inWindow(from, to).find(([, v]) => Math.abs(v) > THRESHOLD_MV);
+function firstAbove(from: number, to: number, s = samples): number {
+  const hit = inWindow(from, to, s).find(([, v]) => Math.abs(v) > THRESHOLD_MV);
   if (!hit) throw new Error(`No deflection between ${from} and ${to}`);
   return hit[0];
 }
 
-function lastAbove(from: number, to: number): number {
-  const hit = inWindow(from, to)
+function lastAbove(from: number, to: number, s = samples): number {
+  const hit = inWindow(from, to, s)
     .reverse()
     .find(([, v]) => Math.abs(v) > THRESHOLD_MV);
   if (!hit) throw new Error(`No deflection between ${from} and ${to}`);
@@ -44,10 +46,10 @@ function lastAbove(from: number, to: number): number {
 }
 
 /** Measure each beat from the sampled trace alone. */
-function measure() {
-  const peaks = samples.filter(
+function measure(s = samples) {
+  const peaks = s.filter(
     ([t, v], k) =>
-      v > 0.5 && t > CAL_END && v >= samples[k - 1][1] && v > samples[k + 1][1],
+      v > 0.5 && t > CAL_END && v >= s[k - 1][1] && v > s[k + 1][1],
   );
 
   return peaks.map(([r, rMv], i) => {
@@ -55,11 +57,11 @@ function measure() {
     const nextR = peaks[i + 1]?.[0];
     const rr = prevR === undefined ? peaks[1][0] - r : r - prevR;
 
-    const pOnset = firstAbove(r - 0.3, r - 0.08);
-    const qrsOnset = firstAbove(r - 0.08, r);
-    const qrsOffset = lastAbove(r, r + 0.08);
-    const tEnd = lastAbove(r + 0.08, nextR ? nextR - 0.3 : TRACE_END);
-    const sMv = Math.min(...inWindow(r, r + 0.05).map(([, v]) => v));
+    const pOnset = firstAbove(r - 0.3, r - 0.08, s);
+    const qrsOnset = firstAbove(r - 0.08, r, s);
+    const qrsOffset = lastAbove(r, r + 0.08, s);
+    const tEnd = lastAbove(r + 0.08, nextR ? nextR - 0.3 : TRACE_END, s);
+    const sMv = Math.min(...inWindow(r, r + 0.05, s).map(([, v]) => v));
 
     const qt = tEnd - qrsOnset;
     return {
@@ -110,6 +112,37 @@ describe('rhythm', () => {
     }
     expect(() => rrIntervals(30)).toThrow();
   });
+});
+
+type Measured = ReturnType<typeof measure>[number];
+
+function expectClinicalRanges(m: Measured) {
+  expect(m.pr).toBeGreaterThanOrEqual(0.15);
+  expect(m.pr).toBeLessThanOrEqual(0.165);
+  expect(m.qrs).toBeGreaterThanOrEqual(0.075);
+  expect(m.qrs).toBeLessThanOrEqual(0.085);
+  expect(m.qtc).toBeGreaterThanOrEqual(0.37);
+  expect(m.qtc).toBeLessThanOrEqual(0.385);
+  expect(m.rMv).toBeCloseTo(1.3, 2);
+  expect(m.sMv).toBeCloseTo(-0.21, 2);
+}
+
+describe(`the site's strip (${MILESTONES.length} milestones)`, () => {
+  const siteStrip = beats(MILESTONES.length);
+  const siteMeasured = measure(sampleTrace(siteStrip));
+
+  it('draws one R peak per milestone, between 50 and 110 bpm', () => {
+    expect(siteMeasured).toHaveLength(MILESTONES.length);
+    for (const { rate } of siteMeasured) {
+      expect(rate).toBeGreaterThanOrEqual(50);
+      expect(rate).toBeLessThanOrEqual(110);
+    }
+    expect(siteStrip.at(-1)?.tEnd).toBeLessThan(TRACE_END);
+  });
+
+  it.each(
+    siteMeasured.map((m, i) => [i + 1, m]),
+  )('beat %i reads as normal sinus', (_, m) => expectClinicalRanges(m));
 });
 
 describe('waveform measurements', () => {
@@ -178,10 +211,46 @@ describe('strip geometry', () => {
       );
     }
     expect(geometry.beats[11].hitEnd).toBeCloseTo(geometry.pen.x, 6);
-    expect(geometry.pen).toEqual({ x: toX(TRACE_END), y: 20 });
+    expect(geometry.pen.x).toBeCloseTo(toX(TRACE_END), 6);
+    expect(Math.abs(geometry.pen.y - 20)).toBeLessThanOrEqual(0.3);
   });
 
   it('keeps the path compact enough to inline', () => {
-    expect(geometry.trace.length).toBeLessThan(16000);
+    expect(geometry.trace.length).toBeLessThan(30000);
+  });
+});
+
+describe('recording noise', () => {
+  const site = beats(MILESTONES.length);
+  const grid = Array.from({ length: 9547 }, (_, k) => k / 1000);
+
+  it('stays faint: at most 0.03 mV (0.3 mm on paper)', () => {
+    const peak = Math.max(...grid.map((t) => Math.abs(noise(t, site))));
+    expect(peak).toBeGreaterThan(0.01);
+    expect(peak).toBeLessThanOrEqual(0.03);
+  });
+
+  it('leaves the calibration pulse and every QRS untouched', () => {
+    for (const t of grid.filter((t) => t <= 0.45))
+      expect(noise(t, site)).toBe(0);
+    for (const { r } of site) {
+      for (let k = -70; k <= 70; k += 1) {
+        expect(Math.abs(noise(r + k * 0.0005, site))).toBeLessThan(1e-12);
+      }
+    }
+  });
+
+  it('is the same on every build', () => {
+    expect(buildStrip(MILESTONES.length).trace).toBe(
+      buildStrip(MILESTONES.length).trace,
+    );
+  });
+
+  it('keeps the drawn R peaks exactly where the marker sits', () => {
+    const drawn = sampleTrace(site, { noisy: true });
+    for (const { r } of site) {
+      const [, v] = drawn.find(([t]) => Math.abs(t - r) < 1e-9) ?? [0, 0];
+      expect(v).toBeCloseTo(1.3, 2);
+    }
   });
 });

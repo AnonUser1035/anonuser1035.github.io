@@ -15,10 +15,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/papers/`,
+      url: `${SITE_URL}/talks/`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.6,
     },
   ];
 }

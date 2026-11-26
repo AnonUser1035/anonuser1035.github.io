@@ -20,8 +20,13 @@ describe('PersonSchema', () => {
     expect(data.url).toBe(SITE_URL);
   });
 
-  it('links LinkedIn and GitHub in sameAs', () => {
-    expect(schema().sameAs).toEqual([PROFILES.linkedin, PROFILES.github]);
+  it('links LinkedIn, GitHub, Google Scholar and ORCID in sameAs', () => {
+    expect(schema().sameAs).toEqual([
+      PROFILES.linkedin,
+      PROFILES.github,
+      PROFILES.scholar,
+      PROFILES.orcid,
+    ]);
   });
 
   it('is affiliated with Johns Hopkins University', () => {

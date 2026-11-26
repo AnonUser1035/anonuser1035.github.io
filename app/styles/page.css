@@ -1,5 +1,5 @@
 /* ========================================
-   PAGE: the letter and /papers
+   PAGE: the letter and /talks
    ======================================== */
 
 .page {
@@ -17,11 +17,11 @@
 }
 
 .name {
-  margin: 0 0 30px;
-  font-size: 1.875rem; /* 30px */
+  margin: 0 0 36px;
+  font-size: 2.75rem; /* 44px */
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
 .name a {
@@ -43,14 +43,23 @@
   line-height: 1.36;
 }
 
-.letter > .recent-papers {
+/* Selected work is its own section: wider breaks above and below. */
+.letter > .work-intro {
+  margin-top: 3em;
+}
+
+.letter > .selected-work {
   margin-top: 0.5em;
   padding: 0;
   list-style: none;
 }
 
-.recent-papers li + li {
-  margin-top: 0.7em;
+.selected-work li + li {
+  margin-top: 1em;
+}
+
+.letter > .selected-work + * {
+  margin-top: 3em;
 }
 
 .venue {
@@ -69,54 +78,36 @@
 }
 
 .letter > .signature {
-  margin-top: 0.8em;
+  margin-top: 1.25em;
 }
 
-.postscript,
+/* Sits directly under the signature. */
 .footer {
+  margin-top: 0;
   font-size: 1.0625rem; /* 17px */
   font-style: italic;
   line-height: 1.55;
   color: var(--color-secondary);
 }
 
-.letter > .postscript {
-  margin-top: 2.4em;
-}
-
-.postscript-touch {
-  display: none;
-}
-
-@media (hover: none) {
-  .postscript-pointer {
-    display: none;
-  }
-
-  .postscript-touch {
-    display: inline;
-  }
-}
-
-.footer {
-  margin-top: 3.5em;
-}
-
-/* /papers and the small utility pages */
+/* /talks/ and the 404 page */
 
 .page--papers .name {
   margin-bottom: 6vh;
 }
 
-.paper-group + .paper-group {
-  margin-top: 2.6em;
-}
-
-.paper-group h2 {
-  margin: 0 0 0.9em;
+.paper-group-name {
+  margin: 0 0 0.4em;
   font-size: inherit;
   font-style: italic;
   font-weight: 400;
+  color: var(--color-secondary);
+}
+
+.talks-note {
+  margin-bottom: 1.8em;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.55;
   color: var(--color-secondary);
 }
 
@@ -159,10 +150,15 @@
   }
 
   .name {
-    font-size: 1.625rem; /* 26px */
+    font-size: 2.125rem; /* 34px */
   }
 
   .lead {
     font-size: 1.625rem; /* 26px */
+  }
+
+  /* The caption box already reserves room for the longest caption. */
+  .letter {
+    margin-top: 3vh;
   }
 }

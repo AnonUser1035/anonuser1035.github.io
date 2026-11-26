@@ -67,11 +67,6 @@
   stroke-width: 4px; /* half sits under the fill: a 2px ring */
   paint-order: stroke;
   vector-effect: non-scaling-stroke;
-  animation: strip-appear 0s var(--marker-delay, 0s) both;
-}
-
-.strip-marker.is-touched {
-  animation: none;
 }
 
 @keyframes strip-print {
@@ -104,8 +99,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .strip-reveal,
-  .strip-pen,
-  .strip-marker {
+  .strip-pen {
     animation: none;
   }
 }
@@ -156,7 +150,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* The marker on the R peak is the focus indicator. */
+/* The selection dot is the focus indicator. */
 .strip-beat:focus {
   outline: none;
 }
@@ -185,6 +179,16 @@
 .caption-label {
   font-style: normal;
   color: var(--color-navy);
+}
+
+.hint-phone {
+  display: none;
+}
+
+@media (hover: none) and (max-width: 759.98px) {
+  .hint-phone {
+    display: inline;
+  }
 }
 
 /* Phones: the strip keeps its proportions in a sideways scroller. RTL makes

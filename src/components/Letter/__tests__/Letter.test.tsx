@@ -5,58 +5,59 @@ import { EMAIL, PROFILES } from '@/data/content';
 import Letter from '../Letter';
 
 describe('Letter', () => {
-  it('links the copy as written', () => {
+  it('uses descriptive link text throughout', () => {
     render(<Letter />);
     const href = (name: string) =>
-      screen.getAllByRole('link', { name })[0].getAttribute('href');
+      screen.getByRole('link', { name }).getAttribute('href');
 
     expect(href('Thakor Lab')).toBe('https://neuroengineering.bme.jhu.edu/');
     expect(href('Neuro Safety Systems')).toBe(
       'https://neurosafetysystems.com/',
     );
+    expect(href('Here’s how it started')).toBe(
+      'https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/',
+    );
+    expect(href('All publications')).toBe(PROFILES.scholar);
+    expect(href('ORCID')).toBe(PROFILES.orcid);
+    expect(href('talks and posters')).toBe('/talks/');
     expect(href(EMAIL)).toBe(`mailto:${EMAIL}`);
     expect(href('LinkedIn')).toBe(PROFILES.linkedin);
-    expect(href('Google Scholar')).toBe(PROFILES.scholar);
-    expect(href('flashcard app')).toBe('https://ankibot.ryanbohluli.com/');
-    expect(href('timer for erg workouts')).toBe(
-      'https://emoms.ryanbohluli.com/',
-    );
-    expect(href('menu-bar app')).toBe('https://github.com/anonuser1035/ember');
+    expect(href('résumé (PDF)')).toBe('/resume.pdf');
+    expect(screen.queryByRole('link', { name: 'here' })).toBeNull();
+  });
 
-    const here = screen.getAllByRole('link', { name: 'here' });
-    expect(here.map((a) => a.getAttribute('href'))).toEqual([
-      '/papers/',
-      '/resume.pdf',
+  it('lists four selected works, newest first, with DOI links', () => {
+    const { container } = render(<Letter />);
+    expect(container.querySelector('.work-intro')).toHaveTextContent(
+      'Selected work:',
+    );
+    const items = [...container.querySelectorAll('.selected-work li')];
+    expect(
+      items.map((li) => li.querySelector('a')?.getAttribute('href')),
+    ).toEqual([
+      'https://doi.org/10.64898/2026.11.18.767417',
+      'https://doi.org/10.1038/s41551-026-01777-6',
+      'https://doi.org/10.1115/1.4072357',
+      'https://doi.org/10.1115/DMD2026-1020',
     ]);
-  });
-
-  it('lists three recent papers with DOI links and venue lines', () => {
-    const { container } = render(<Letter />);
-    const items = container.querySelectorAll('.recent-papers li');
-    expect(items).toHaveLength(3);
-    for (const item of items) {
-      expect(item.querySelector('a')?.getAttribute('href')).toMatch(
-        /^https:\/\/doi\.org\//,
-      );
-      expect(item.querySelector('.venue')?.textContent).toMatch(/\.$/);
-    }
-  });
-
-  it('carries both P.S. endings for pointer and touch screens', () => {
-    const { container } = render(<Letter />);
-    expect(container.querySelector('.postscript-pointer')).toHaveTextContent(
-      'Hover over one.',
-    );
-    expect(container.querySelector('.postscript-touch')).toHaveTextContent(
-      'Tap one, or drag the strip back for earlier years.',
+    expect(items[0].querySelector('.venue')).toHaveTextContent(
+      'bioRxiv preprint',
     );
   });
 
-  it('signs off and dates the letter', () => {
+  it('keeps the letter short: no P.S., Cho Lab, COACH or tools paragraph', () => {
+    const { container } = render(<Letter />);
+    expect(container.querySelector('.postscript')).toBeNull();
+    expect(container.textContent).not.toMatch(
+      /Cho Lab|COACH|P\.S\.|small tools/,
+    );
+  });
+
+  it('signs off and says where it was written', () => {
     render(<Letter />);
     expect(screen.getByText('Ryan')).toHaveClass('signature');
     expect(screen.getByRole('contentinfo')).toHaveTextContent(
-      'Baltimore, November 2026',
+      'Written in Dallas, TX',
     );
   });
 });

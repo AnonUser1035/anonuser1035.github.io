@@ -10,7 +10,12 @@ export default function PersonSchema() {
     // Keeps search engines linking the pre-middle-initial name to this profile.
     alternateName: 'Ryan Bohluli',
     url: SITE_URL,
-    sameAs: [PROFILES.linkedin, PROFILES.github],
+    sameAs: [
+      PROFILES.linkedin,
+      PROFILES.github,
+      PROFILES.scholar,
+      PROFILES.orcid,
+    ],
     affiliation: {
       '@type': 'CollegeOrUniversity',
       name: 'Johns Hopkins University',
