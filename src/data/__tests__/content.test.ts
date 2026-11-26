@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-import { DESCRIPTION, MILESTONES } from '../content';
+import { DESCRIPTION, MILESTONES } from '../content.ts';
 
 const COPY_FILES = ['src/data/content.ts', 'src/data/talks.ts'];
 

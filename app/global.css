@@ -1,8 +1,0 @@
-/* ========================================
-   STYLE ENTRY POINT
-   ======================================== */
-
-@import './styles/tokens.css';
-@import './styles/base.css';
-@import './styles/strip.css';
-@import './styles/page.css';

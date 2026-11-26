@@ -1,0 +1,192 @@
+/* ========================================
+   EASTER EGGS
+   Each is switched on by a word in <html data-fidgets>. The only hints are
+   a pointer cursor or a small hover response.
+   ======================================== */
+
+/* Reprint: an invisible target around the pen dot, armed once it appears. */
+.strip-pen-hit {
+  position: absolute;
+  display: none;
+  width: 44px;
+  height: 44px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: strip-arm 0s both;
+}
+
+[data-fidgets~='reprint'] .strip-pen-hit,
+[data-fidgets~='tearoff'] .strip-pen-hit {
+  display: block;
+}
+
+/* Hovering the pen gives it a soft halo. */
+.strip:has(.strip-pen-hit:hover) .strip-pen {
+  stroke: var(--color-marker);
+  stroke-opacity: 0.25;
+  stroke-width: 6px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Ping */
+.strip-ping {
+  fill: none;
+  stroke: var(--color-marker);
+  stroke-width: 1.25px;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Retrace: the pen's own crimson, over the ink, then gone. */
+.strip-retrace {
+  fill: none;
+  stroke: var(--color-marker);
+  stroke-width: 1.6px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.strip-retrace-reveal {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+}
+
+/* Gain switch: the calibration pulse is the knob. */
+.strip-cal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-fidgets~='gain'] .strip-cal {
+  display: block;
+}
+
+.strip-ink {
+  transform-box: view-box;
+  transition: transform 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+.strip-marks,
+.strip-pen {
+  transition:
+    translate 0.5s cubic-bezier(0.3, 0.7, 0.2, 1),
+    stroke-width 0.2s ease;
+}
+
+[data-fidgets~='gain'] .strip--half .strip-ink {
+  transform: scaleY(0.5);
+}
+
+[data-fidgets~='gain'] .strip--half .strip-marks {
+  translate: 0 var(--half-marks);
+}
+
+[data-fidgets~='gain'] .strip--half .strip-pen {
+  translate: 0 var(--half-pen);
+}
+
+/* Calipers */
+[data-fidgets~='calipers'] .strip {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.strip-calipers line {
+  stroke: var(--color-navy);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.strip-caliper-reading {
+  position: absolute;
+  top: 9.5%;
+  translate: -50% 0;
+  padding: 0 0.35em;
+  font-size: 0.8125rem; /* 13px */
+  font-style: italic;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--color-navy);
+  background-color: var(--color-strip-paper);
+  pointer-events: none;
+}
+
+.strip-caliper-reading:empty {
+  display: none;
+}
+
+/* Pen in rhythm: a beat-like flash at the strip's final heart rate. */
+[data-fidgets~='rhythm'] .strip-pen {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    strip-appear 0s both,
+    strip-heartbeat var(--rr, 0.6s) ease-out infinite;
+}
+
+@keyframes strip-heartbeat {
+  0% {
+    opacity: 1;
+    scale: 1.45;
+  }
+  22% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0.35;
+    scale: 1;
+  }
+}
+
+/* Signature re-ink: a soft-edged wipe, like ink going down. */
+[data-fidgets~='ink'] .signature {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.signature.is-inking {
+  -webkit-mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
+  mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
+  animation: signature-ink 1.2s cubic-bezier(0.45, 0.05, 0.35, 1);
+}
+
+@keyframes signature-ink {
+  from {
+    -webkit-mask-position: 120% 0;
+    mask-position: 120% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+/* Year steps: years become clickable, above the beat under them. */
+[data-fidgets~='years'] .strip-tick {
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fidgets~='rhythm'] .strip-pen,
+  .signature.is-inking {
+    animation: none;
+  }
+
+  .strip-ink,
+  .strip-marks,
+  .strip-pen {
+    transition: none;
+  }
+}

@@ -230,7 +230,7 @@ A hybrid system, leaning flat. Surfaces are paper-flat at rest and separated mos
 
 ### Inputs / Fields
 
-- **Current state:** No custom field styling exists (the contact flow uses links, not a form); inputs inherit Tailwind defaults.
+- **Current state:** No custom field styling exists (the contact flow uses links, not a form); inputs inherit the browser's defaults.
 - **When added:** `1px` hairline border, `8px` radius, Paper background; focus = cobalt border + `3px` cobalt-tint ring (mirror the button focus ring). Placeholder text must clear 4.5:1 — use Slate Muted, never a light gray.
 
 ### Navigation

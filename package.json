@@ -1,6 +1,8 @@
 {
   "name": "ryanbohluli.com",
-  "version": "4.1.0",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
   "homepage": "https://www.ryanbohluli.com/",
   "license": "MIT",
   "repository": {
@@ -8,37 +10,21 @@
     "url": "https://github.com/anonuser1035/anonuser1035.github.io.git"
   },
   "engines": {
-    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
+    "node": ">=24"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "biome check .",
-    "type-check": "tsc --noEmit",
-    "format": "biome format --write . && prettier --write \"**/*.{md,css,scss}\"",
-    "format:check": "biome format . && prettier --check \"**/*.{md,css,scss}\"",
+    "dev": "node dev.ts",
+    "build": "node build.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
-    "predeploy": "npm run build"
-  },
-  "dependencies": {
-    "@next/third-parties": "^16.2.0",
-    "next": "^16.2.6",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "lint": "biome check .",
+    "type-check": "tsc",
+    "format": "biome format --write . && prettier --write \"**/*.{md,css}\"",
+    "format:check": "biome format . && prettier --check \"**/*.{md,css}\""
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
     "@types/node": "^25.4.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
-    "@vitest/coverage-v8": "^4.1.5",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
