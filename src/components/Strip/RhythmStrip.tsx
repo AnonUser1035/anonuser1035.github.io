@@ -1,4 +1,4 @@
-import { MILESTONES } from '@/data/content';
+import { HINT, MILESTONES } from '@/data/content';
 import {
   buildStrip,
   R_MARKER_Y,
@@ -20,17 +20,15 @@ const REVEAL_OVERHANG_MM = 1;
 export default function RhythmStrip() {
   const geometry = buildStrip(MILESTONES.length);
   const revealWidth = geometry.pen.x + REVEAL_OVERHANG_MM;
-  const revealDelay = (x: number) => (REVEAL_SECONDS * x) / revealWidth;
-
-  const beats = geometry.beats.map((beat, i) => ({
-    ...beat,
-    ...MILESTONES[i],
-    revealAt: revealDelay(beat.x),
+  const beats = MILESTONES.map((milestone, i) => ({
+    ...milestone,
+    ...geometry.beats[i],
   }));
 
   return (
     <StripInteractive
       beats={beats}
+      hint={HINT}
       width={STRIP_WIDTH_MM}
       height={STRIP_HEIGHT_MM}
       markerY={R_MARKER_Y}
