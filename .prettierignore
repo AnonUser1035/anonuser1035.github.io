@@ -1,18 +1,5 @@
-# Prettier is only used for markdown, CSS, and SCSS
-# Biome handles JavaScript, TypeScript, and JSON formatting
-
-# Dependencies
+# Prettier is only used for Markdown and CSS; Biome handles JS, TS and JSON.
 node_modules/
-
-# Build outputs
-.next/
 out/
-build/
-coverage/
-
-# Generated files
+.dev/
 package-lock.json
-pnpm-lock.yaml
-yarn.lock
-*.tsbuildinfo
-next-env.d.ts

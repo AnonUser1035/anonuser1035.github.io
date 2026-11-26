@@ -7,8 +7,3 @@ updates:
     directory: "/" # Location of package manifest
     schedule:
       interval: "weekly"
-    groups:
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
