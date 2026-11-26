@@ -38,6 +38,7 @@ Guidance for AI coding agents working on this personal site: plain HTML built by
 - **URLs**: pages are directories (`/talks/` is `out/talks/index.html`), so use the trailing slash in metadata, the sitemap and schema; file-like routes such as `/sitemap.xml` stay file-like
 - **Page metadata**: every page goes through `document()` in `src/render/html.ts`, which writes the title, description, Open Graph and Twitter tags from one `PageMeta`; the 404 is `noindex` and has no `og:url`
 - **Share card**: `public/images/og.png` is a static image drawn from the real strip geometry; regenerate it if the name or strip changes
+- **Favicon**: `public/icon.svg` is Newsreader's italic R as outlines (favicons can't load web fonts) with the crimson pen dot as its full stop, and follows `prefers-color-scheme`. `public/apple-touch-icon.png` is a 180px render of it. Change them together
 - **Résumé**: `public/resume.pdf` is exported from Ryan's Word source (`Ryan-Bohluli-Public-Resume.docx` in his Applications output folder). Edit the .docx, keep it to one page and keep its formatting, export the PDF from Word, then copy it here. Keep the header date ("Updated <Month Year>") current
 
 ## Further Reading
