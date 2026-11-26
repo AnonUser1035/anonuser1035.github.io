@@ -50,8 +50,6 @@ export interface DocumentOptions {
   script?: string;
   /** Google Analytics measurement ID (production only). */
   gaId?: string;
-  /** Space-separated easter eggs that are switched on. */
-  fidgets?: string;
 }
 
 function head({ title, description, path, noindex }: PageMeta): string {
@@ -124,11 +122,9 @@ export function document({
   css,
   script,
   gaId,
-  fidgets,
 }: DocumentOptions): string {
-  const fidgetAttr = fidgets ? ` data-fidgets="${esc(fidgets)}"` : '';
   return (
-    `<!doctype html><html lang="en"${fidgetAttr}><head>${head(meta)}` +
+    `<!doctype html><html lang="en"><head>${head(meta)}` +
     `<style>${css}</style></head><body>${body}` +
     (script ? `<script>${script}</script>` : '') +
     (gaId ? analytics(gaId) : '') +

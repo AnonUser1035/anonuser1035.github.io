@@ -44,12 +44,12 @@ function block(item: LetterBlock): string {
   return `<p class="work-intro">${esc(item.intro)}</p><ul class="selected-work">${works}</ul>`;
 }
 
-export function home({ fidgets = false }: { fidgets?: boolean } = {}): string {
+export function home(): string {
   return (
     '<main class="page">' +
     jsonLd(person) +
     `<h1 class="name column">${esc(NAME)}</h1>` +
-    strip({ fidgets }) +
+    strip() +
     '<div class="letter column">' +
     `<p class="lead">${esc(LEAD)}</p>` +
     LETTER.map(block).join('') +

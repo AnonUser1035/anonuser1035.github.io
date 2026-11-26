@@ -2,20 +2,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 
 import { HINT, MILESTONES } from '../../data/content.ts';
 import { buildStrip } from '../../lib/ecg.ts';
-import { renderSite } from '../../render/site.ts';
+import { loadHome } from './page.ts';
 
-const html = renderSite()['index.html'];
 const geometry = buildStrip(MILESTONES.length);
-
-/** Load the built homepage and run the inline script it ships. */
-function load() {
-  const page = new DOMParser().parseFromString(html, 'text/html');
-  document.body.innerHTML = page.body.innerHTML;
-  const script = [...page.querySelectorAll('script:not([type])')]
-    .map((s) => s.textContent)
-    .join('\n');
-  new Function(script)();
-}
 
 const live = () => document.querySelector('.caption[aria-live]');
 const hint = () => document.querySelector('.caption-hint') as HTMLElement;
@@ -29,7 +18,9 @@ const pointer = (type: string, target: Element, pointerType = 'mouse') =>
   target.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerType }));
 
 describe('rhythm strip', () => {
-  beforeEach(load);
+  beforeEach(() => {
+    loadHome();
+  });
 
   it('renders one labelled hit area per milestone', () => {
     expect(beatButtons()).toHaveLength(MILESTONES.length);

@@ -8,7 +8,6 @@ import {
   beats,
   buildStrip,
   R_MARKER_Y,
-  rrIntervals,
   STRIP_HEIGHT_MM,
   STRIP_WIDTH_MM,
   toX,
@@ -29,16 +28,11 @@ const captionText = (m: Milestone) =>
 
 const hintText = `${esc(HINT.text)}<span class="hint-phone"> ${esc(HINT.phone)}</span>`;
 
-/**
- * @param fidgets Add the data the easter eggs need (P-wave onset and T-wave
- * end per beat, and the heart rate at the pen).
- */
-export function strip({ fidgets = false }: { fidgets?: boolean } = {}) {
+export function strip() {
   const count = MILESTONES.length;
   const geometry = buildStrip(count);
   const timing = beats(count);
   const revealWidth = geometry.pen.x + REVEAL_OVERHANG_MM;
-  const lastRR = rrIntervals(count).at(-1) ?? 0;
 
   const items = MILESTONES.map((milestone, i) => ({
     ...milestone,
@@ -49,7 +43,7 @@ export function strip({ fidgets = false }: { fidgets?: boolean } = {}) {
     tEnd: toX(timing[i].tEnd),
   }));
 
-  const penStyle = `animation-delay:${REVEAL_SECONDS}s${fidgets ? `;--rr:${fixed(lastRR)}s` : ''}`;
+  const penStyle = `animation-delay:${REVEAL_SECONDS}s`;
 
   const svg =
     `<svg class="strip-svg" viewBox="0 0 ${STRIP_WIDTH_MM} ${STRIP_HEIGHT_MM}" aria-hidden="true" focusable="false">` +
@@ -72,10 +66,9 @@ export function strip({ fidgets = false }: { fidgets?: boolean } = {}) {
   const buttons = items
     .map((b) => {
       const style = `left:${pct(b.hitStart)};width:${pct(b.hitEnd - b.hitStart)};animation-delay:${fixed(b.printedAt)}s`;
-      const extra = fidgets
-        ? ` data-p="${fixed(b.pStart)}" data-t="${fixed(b.tEnd)}"`
-        : '';
-      return `<button type="button" class="strip-beat" style="${style}" data-x="${fixed(b.x)}"${extra} aria-label="${esc(`${b.label}: ${b.text}`)}"></button>`;
+      // R peak, P-wave onset and T-wave end (mm), for the dot and retrace.
+      const data = `data-x="${fixed(b.x)}" data-p="${fixed(b.pStart)}" data-t="${fixed(b.tEnd)}"`;
+      return `<button type="button" class="strip-beat" style="${style}" ${data} aria-label="${esc(`${b.label}: ${b.text}`)}"></button>`;
     })
     .join('');
 

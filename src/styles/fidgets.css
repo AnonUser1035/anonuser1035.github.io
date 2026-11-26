@@ -1,34 +1,7 @@
 /* ========================================
-   EASTER EGGS
-   Each is switched on by a word in <html data-fidgets>. The only hints are
-   a pointer cursor or a small hover response.
+   EASTER EGGS (homepage only; see src/client/fidgets.js)
+   The only hints are a pointer cursor or a small hover response.
    ======================================== */
-
-/* Reprint: an invisible target around the pen dot, armed once it appears. */
-.strip-pen-hit {
-  position: absolute;
-  display: none;
-  width: 44px;
-  height: 44px;
-  translate: -50% -50%;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  animation: strip-arm 0s both;
-}
-
-[data-fidgets~='reprint'] .strip-pen-hit,
-[data-fidgets~='tearoff'] .strip-pen-hit {
-  display: block;
-}
-
-/* Hovering the pen gives it a soft halo. */
-.strip:has(.strip-pen-hit:hover) .strip-pen {
-  stroke: var(--color-marker);
-  stroke-opacity: 0.25;
-  stroke-width: 6px;
-  vector-effect: non-scaling-stroke;
-}
 
 /* Ping */
 .strip-ping {
@@ -55,112 +28,114 @@
   transform-origin: 0 0;
 }
 
-/* Gain switch: the calibration pulse is the knob. */
+/* Gain: drag the calibration pulse. --gain is 1 at 10 mm/mV; the trace
+   scales about the baseline and the dot and pen ride along. */
 .strip-cal {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  display: none;
-  cursor: pointer;
+  cursor: ns-resize;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-[data-fidgets~='gain'] .strip-cal {
-  display: block;
 }
 
 .strip-ink {
   transform-box: view-box;
-  transition: transform 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+  transform: scaleY(var(--gain, 1));
 }
 
-.strip-marks,
+.strip-marks {
+  translate: 0 calc((1 - var(--gain, 1)) * var(--marks-rise, 0px));
+}
+
 .strip-pen {
-  transition:
-    translate 0.5s cubic-bezier(0.3, 0.7, 0.2, 1),
-    stroke-width 0.2s ease;
+  translate: 0 calc((1 - var(--gain, 1)) * var(--pen-rise, 0px));
 }
 
-[data-fidgets~='gain'] .strip--half .strip-ink {
-  transform: scaleY(0.5);
+/* Tear-off: an invisible target around the pen dot, armed once it appears;
+   hovering gives the pen a soft halo. */
+.strip-pen-hit {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: strip-arm 0s both;
 }
 
-[data-fidgets~='gain'] .strip--half .strip-marks {
-  translate: 0 var(--half-marks);
-}
-
-[data-fidgets~='gain'] .strip--half .strip-pen {
-  translate: 0 var(--half-pen);
-}
-
-/* Calipers */
-[data-fidgets~='calipers'] .strip {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.strip-calipers line {
-  stroke: var(--color-navy);
-  stroke-width: 1px;
+.strip:has(.strip-pen-hit:hover) .strip-pen {
+  stroke: var(--color-marker);
+  stroke-opacity: 0.25;
+  stroke-width: 6px;
   vector-effect: non-scaling-stroke;
 }
 
-.strip-caliper-reading {
+/* The sheet being torn away, cut along a ragged clip-path. */
+.strip-torn {
   position: absolute;
-  top: 9.5%;
-  translate: -50% 0;
-  padding: 0 0.35em;
-  font-size: 0.8125rem; /* 13px */
-  font-style: italic;
-  line-height: 1.3;
-  white-space: nowrap;
-  color: var(--color-navy);
-  background-color: var(--color-strip-paper);
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
 }
 
-.strip-caliper-reading:empty {
-  display: none;
+.strip-torn-paper,
+.strip-torn-fibers {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-strip-paper);
 }
 
-/* Pen in rhythm: a beat-like flash at the strip's final heart rate. */
-[data-fidgets~='rhythm'] .strip-pen {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation:
-    strip-appear 0s both,
-    strip-heartbeat var(--rr, 0.6s) ease-out infinite;
+.strip-torn-fibers {
+  background-color: var(--color-paper-fiber);
 }
 
-@keyframes strip-heartbeat {
-  0% {
-    opacity: 1;
-    scale: 1.45;
-  }
-  22% {
-    opacity: 1;
-    scale: 1;
-  }
-  100% {
-    opacity: 0.35;
-    scale: 1;
-  }
+/* Fresh paper keeps its printed labels back until it starts printing. */
+.strip > .strip-tick,
+.strip > .strip-print {
+  transition: opacity 0.4s ease;
 }
 
-/* Signature re-ink: a soft-edged wipe, like ink going down. */
-[data-fidgets~='ink'] .signature {
+.strip--fresh > .strip-tick,
+.strip--fresh > .strip-print {
+  opacity: 0;
+  transition: none;
+}
+
+/* Year steps: years are clickable, above the beat under them. */
+.strip-tick {
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.strip-torn .strip-tick {
+  pointer-events: none;
+}
+
+/* Re-ink: a soft-edged wipe, like ink going down; the closing line follows
+   the signature. */
+.signature,
+.footer p {
   width: fit-content;
   cursor: pointer;
 }
 
-.signature.is-inking {
+.signature.is-inking,
+.footer p.is-inking {
   -webkit-mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
   mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
-  animation: signature-ink 1.2s cubic-bezier(0.45, 0.05, 0.35, 1);
+  animation: ink-wipe 1.2s cubic-bezier(0.45, 0.05, 0.35, 1) backwards;
 }
 
-@keyframes signature-ink {
+.footer p.is-inking {
+  animation-duration: 1.6s;
+  animation-delay: 0.9s;
+}
+
+@keyframes ink-wipe {
   from {
     -webkit-mask-position: 120% 0;
     mask-position: 120% 0;
@@ -171,22 +146,9 @@
   }
 }
 
-/* Year steps: years become clickable, above the beat under them. */
-[data-fidgets~='years'] .strip-tick {
-  z-index: 1;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  [data-fidgets~='rhythm'] .strip-pen,
-  .signature.is-inking {
+  .signature.is-inking,
+  .footer p.is-inking {
     animation: none;
-  }
-
-  .strip-ink,
-  .strip-marks,
-  .strip-pen {
-    transition: none;
   }
 }

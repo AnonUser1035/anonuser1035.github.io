@@ -44,6 +44,8 @@
   --color-rule: #d8d9de;
   --color-navy: #23406e;
   --color-strip-paper: #fcf1f2;
+  /* The white of the paper, seen along a torn edge. */
+  --color-paper-fiber: #ffffff;
   --color-grid-minor: rgb(204 70 98 / 0.13);
   --color-grid-major: rgb(204 70 98 / 0.3);
   --color-marker: #c1121f;
@@ -65,6 +67,7 @@
     --color-rule: #30333a;
     --color-navy: #a4bae6;
     --color-strip-paper: #1b1a20;
+    --color-paper-fiber: #3a3842;
     --color-grid-minor: rgb(236 120 140 / 0.1);
     --color-grid-major: rgb(236 120 140 / 0.24);
     --color-marker: #f0505a;

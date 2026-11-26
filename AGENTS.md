@@ -5,7 +5,7 @@ Guidance for AI coding agents working on this personal site: plain HTML built by
 ## Quick Commands
 
 ```bash
-npm run dev          # Dev build with every easter egg + live reload (localhost:3000)
+npm run dev          # Dev build with live reload (localhost:3000, and the LAN)
 npm run format       # Format with Prettier + Biome (run before committing)
 npm run lint         # Biome linting
 npm run type-check   # TypeScript checking
@@ -26,8 +26,8 @@ npm test -- strip                            # Run matching tests
 build.ts              → Writes out/ (or .dev/ with --dev)
 dev.ts                → Dev server: rebuilds and reloads on change
 src/render/           → Pages, <head>, strip markup, CSS/JS inlining (build time)
-src/client/           → Inlined browser scripts: strip.js, fidgets.js, panel.js (dev)
-src/styles/           → tokens.css, base.css, strip.css, page.css, fidgets.css, panel.css
+src/client/           → Inlined browser scripts: strip.js (selection), fidgets.js (easter eggs)
+src/styles/           → tokens.css, base.css, strip.css, page.css, fidgets.css
 src/data/content.ts   → All homepage copy, milestones, links (one file)
 src/data/talks.ts     → Talks and posters listed on /talks
 public/resume.pdf     → One-page public résumé (see Résumé below)
@@ -77,7 +77,7 @@ Node 24+ (runs the TypeScript build directly) · TypeScript · plain CSS · Biom
 - **Phones (under 760px)**: the strip keeps a 900px minimum width inside a scroller with `direction: rtl`, so it opens on the most recent beats without script. Keep the page itself free of horizontal scroll
 - **Publications**: the full list lives on Google Scholar (ORCID secondary); the homepage shows four selected works with DOI links. `/talks/` lists talks and posters from `src/data/talks.ts`, Vancouver author lists, `Bohluli RS` in weight 500
 - **Build**: `node build.ts` writes plain HTML to `out/` for GitHub Pages. CSS and the strip script are minified and inlined, so a page is one request plus the two fonts (Newsreader, self-hosted in `public/fonts/`, trimmed to roman 400 to 500 and italic 400). No framework, bundler or runtime dependencies: keep it that way, and watch the size line the build prints
-- **Easter eggs**: small pointer-only surprises in `src/client/fidgets.js` and `src/styles/fidgets.css`, switched on by words in `<html data-fidgets>`. Nothing announces them beyond a pointer cursor or a small hover response; they add no tab stops and screen readers skip them. `LIVE_FIDGETS` in `src/render/site.ts` lists the ones the live site ships; `npm run dev` switches all of them on, with a picker panel that never ships
+- **Easter eggs** (homepage only, `src/client/fidgets.js` and `src/styles/fidgets.css`): click the selection dot to ping it; click a beat to retrace it in crimson at paper speed; drag the calibration pulse to change the gain (2.5 to 14 mm/mV, resting at 10); click the pen dot to tear the printout off along a ragged edge and print fresh paper; click the signature or the closing line to re-ink both; click a printed year to step through its milestones. Meant to be slightly obvious but not all findable: no labels, only a pointer cursor or a small hover response. They're pointer-only (no tab stops, hidden from screen readers) and respect reduced motion. Ryan passed on calipers (gimmicky) and a heart-rate pulse on the pen (too attention-seeking)
 - **Analytics**: Google Analytics in production builds only (`GA_TRACKING_ID`, set in CI from the `NEXT_PUBLIC_GA_TRACKING_ID` repository variable). It is queued at once but fetched after the page loads
 - **URLs**: pages are directories (`/talks/` is `out/talks/index.html`), so use the trailing slash in metadata, the sitemap and schema; file-like routes such as `/sitemap.xml` stay file-like
 - **Page metadata**: every page goes through `document()` in `src/render/html.ts`, which writes the title, description, Open Graph and Twitter tags from one `PageMeta`; the 404 is `noindex` and has no `og:url`

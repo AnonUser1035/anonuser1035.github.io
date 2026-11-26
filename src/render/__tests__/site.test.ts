@@ -5,7 +5,7 @@ import { TALKS } from '../../data/talks.ts';
 import { SITE_URL } from '../../site.ts';
 import { jsonLd } from '../html.ts';
 import { citationLine } from '../pages.ts';
-import { ALL_FIDGETS, renderSite } from '../site.ts';
+import { renderSite } from '../site.ts';
 
 const site = renderSite({ now: new Date('2026-11-26T00:00:00Z') });
 const parse = (html: string) =>
@@ -176,17 +176,18 @@ describe('build modes', () => {
     expect(() => renderSite({ gaId: "G-1');alert(1);//" })).toThrow();
   });
 
-  it('keeps easter eggs and the picker out of a build without them', () => {
-    expect(home.documentElement.hasAttribute('data-fidgets')).toBe(false);
-    expect(site['index.html']).not.toMatch(/fidget-panel|strip-pen-hit/);
+  it('keeps the easter eggs to the homepage', () => {
+    expect(site['index.html']).toContain('strip-pen-hit');
+    for (const page of [site['talks/index.html'], site['404.html']]) {
+      expect(page).not.toMatch(/strip-torn|<script>/);
+    }
   });
 
-  it('dev builds carry every easter egg, the picker and live reload', () => {
-    const dev = renderSite({ dev: true, fidgets: ALL_FIDGETS });
-    const doc = parse(dev['index.html']);
-    expect(doc.documentElement.dataset.fidgets).toBe(ALL_FIDGETS.join(' '));
-    expect(dev['index.html']).toContain('fidget-panel');
-    expect(dev['index.html']).toContain('/__reload');
-    expect(doc.querySelector('.strip-beat')?.hasAttribute('data-p')).toBe(true);
+  it('adds live reload to dev builds only', () => {
+    const dev = renderSite({ dev: true });
+    for (const page of ['index.html', 'talks/index.html', '404.html']) {
+      expect(dev[page]).toContain('/__reload');
+      expect(site[page]).not.toContain('/__reload');
+    }
   });
 });

@@ -1,19 +1,27 @@
 // @ts-check
 /*
  * Easter eggs. Nothing announces them: a pointer cursor or a small hover
- * response is the only hint, and they're pointer-only, so they add no tab
- * stops and screen readers skip them. Each checks <html data-fidgets> when it
- * fires, so the dev panel can switch them live.
+ * response is the only hint. They're pointer-only, so they add no tab stops
+ * and screen readers skip them.
+ *
+ * - Ping: click the selection dot and a ring leaves it.
+ * - Retrace: click a beat and the pen redraws it in crimson at paper speed.
+ * - Gain: drag the calibration pulse up or down to change the gain.
+ * - Tear-off: click the pen dot; the printout tears away and fresh paper
+ *   prints.
+ * - Re-ink: click the signature or the line under it; both write again.
+ * - Year steps: click a printed year to step through that year's milestones.
  */
 (() => {
   const strip = document.querySelector('.strip');
   const svg = strip?.querySelector('.strip-svg');
-  if (!(strip instanceof HTMLElement) || !(svg instanceof SVGSVGElement))
+  if (!(strip instanceof HTMLElement) || !(svg instanceof SVGSVGElement)) {
     return;
+  }
 
   const NS = 'http://www.w3.org/2000/svg';
   const MM_PER_SECOND = 25;
-  const root = document.documentElement;
+  const STANDARD_GAIN = 10; // mm/mV
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const ink = /** @type {SVGGElement} */ (svg.querySelector('.strip-ink'));
   const trace = /** @type {SVGPathElement} */ (
@@ -28,13 +36,14 @@
   const beats = /** @type {HTMLElement[]} */ ([
     ...strip.querySelectorAll('.strip-beat'),
   ]);
-  const width = svg.viewBox.baseVal.width;
-  const height = svg.viewBox.baseVal.height;
+  const [, , width, height] = (svg.getAttribute('viewBox') ?? '')
+    .split(' ')
+    .map(Number);
+  const penX = Number(pen.getAttribute('cx'));
+  const penY = Number(pen.getAttribute('cy'));
   const baseline = Number(strip.dataset.baseline);
   const markerY = Number(strip.dataset.markerY);
 
-  /** @param {string} name */
-  const on = (name) => (root.dataset.fidgets ?? '').split(' ').includes(name);
   /** @param {number} mm */
   const pct = (mm) => `${(mm / width) * 100}%`;
   /** @param {HTMLElement} beat @param {string} key */
@@ -50,8 +59,9 @@
    */
   const draw = (tag, attrs) => {
     const el = document.createElementNS(NS, tag);
-    for (const [key, value] of Object.entries(attrs))
+    for (const [key, value] of Object.entries(attrs)) {
       el.setAttribute(key, String(value));
+    }
     return el;
   };
   /** @param {string} className */
@@ -63,56 +73,21 @@
     return el;
   };
 
-  // Last pointer type, since click events don't reliably carry one.
-  let pointer = 'mouse';
+  // Ping and retrace. Whether the press landed on the dot is decided on
+  // pointerdown, before a tap moves the dot to the tapped beat.
+  let onDot = false;
   strip.addEventListener('pointerdown', (event) => {
-    pointer = event.pointerType;
+    const dot = marks.querySelector('.strip-marker');
+    const box = dot?.getBoundingClientRect();
+    const reach = event.pointerType === 'touch' ? 24 : 12;
+    onDot =
+      !!box &&
+      Math.hypot(
+        event.clientX - (box.left + box.width / 2),
+        event.clientY - (box.top + box.height / 2),
+      ) <= reach;
   });
 
-  // 1. Reprint: the strip clears and prints again, beats re-arming as the
-  //    pen passes. Tear-off slides the old printout away first.
-  let tearing = false;
-  const reprint = () => {
-    select(-1);
-    for (const animation of strip.getAnimations({ subtree: true })) {
-      if (animation instanceof CSSAnimation) animation.currentTime = 0;
-    }
-  };
-  const tearOff = () => {
-    if (tearing) return;
-    tearing = true;
-    const away = strip.animate(
-      [
-        { transform: 'none', opacity: 1 },
-        { transform: 'translateY(-45%) rotate(-1.5deg)', opacity: 0 },
-      ],
-      {
-        duration: 320,
-        easing: 'cubic-bezier(0.5, 0, 0.9, 0.5)',
-        fill: 'forwards',
-      },
-    );
-    away.onfinish = () => {
-      reprint();
-      strip.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 260,
-        easing: 'ease-out',
-      });
-      away.cancel();
-      tearing = false;
-    };
-  };
-  const restart = () => {
-    if (on('tearoff') && !reduced.matches) tearOff();
-    else if (on('reprint') || on('tearoff')) reprint();
-  };
-  const penHit = overlay('strip-pen-hit');
-  penHit.style.left = pct(pen.cx.baseVal.value);
-  penHit.style.top = `${(pen.cy.baseVal.value / height) * 100}%`;
-  penHit.style.animationDelay = pen.style.animationDelay;
-  penHit.addEventListener('click', restart);
-
-  // 2. Ping: a ring leaves the dot when a beat is clicked or tapped.
   /** @param {number} index */
   const ping = (index) => {
     const ring = draw('circle', {
@@ -131,8 +106,6 @@
     ).onfinish = () => ring.remove();
   };
 
-  // 3. Retrace: the pen redraws the clicked beat in crimson at true paper
-  //    speed (25 mm/s), then the ink fades back.
   let clips = 0;
   /** @param {number} index */
   const retrace = (index) => {
@@ -168,126 +141,215 @@
     };
   };
 
-  // 4. Gain switch: the calibration pulse toggles 10 and 5 mm/mV, like the
-  //    gain knob on an ECG machine. The trace eases to half height.
+  strip.addEventListener('click', (event) => {
+    const index = beats.indexOf(/** @type {HTMLElement} */ (event.target));
+    // detail is 0 for keyboard clicks: the eggs are pointer-only.
+    if (index < 0 || event.detail === 0 || reduced.matches) return;
+    retrace(index);
+    if (onDot) ping(index);
+    onDot = false;
+  });
+
+  // Gain: the calibration pulse is a handle. Its top follows the pointer,
+  // in half-millimeter steps from 2.5 to 14 mm/mV (the tallest R wave still
+  // fits on the paper), and 10 mm/mV is where it rests.
   const cal = overlay('strip-cal');
   cal.style.width = beats[0]?.style.left ?? '0';
   ink.style.transformOrigin = `0 ${baseline}px`;
-  strip.style.setProperty('--half-marks', `${(baseline - markerY) / 2}px`);
-  strip.style.setProperty(
-    '--half-pen',
-    `${(baseline - pen.cy.baseVal.value) / 2}px`,
-  );
-  /** @param {boolean} half */
-  const setGain = (half) => {
-    strip.classList.toggle('strip--half', half);
-    speed.textContent = half ? '25 mm/s · 5 mm/mV' : '25 mm/s';
+  strip.style.setProperty('--marks-rise', `${baseline - markerY}px`);
+  strip.style.setProperty('--pen-rise', `${baseline - penY}px`);
+  let gain = STANDARD_GAIN;
+  /** @param {number} value mm/mV */
+  const setGain = (value) => {
+    const stepped = Math.round(Math.min(14, Math.max(2.5, value)) * 2) / 2;
+    if (stepped === gain) return;
+    gain = stepped;
+    strip.style.setProperty('--gain', String(gain / STANDARD_GAIN));
+    speed.textContent =
+      gain === STANDARD_GAIN ? '25 mm/s' : `25 mm/s · ${gain} mm/mV`;
   };
-  cal.addEventListener('click', () => {
-    if (on('gain')) setGain(!strip.classList.contains('strip--half'));
-  });
-  document.addEventListener('fidgets', () => {
-    if (!on('gain')) setGain(false);
+  cal.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    try {
+      cal.setPointerCapture(event.pointerId); // keep the drag past the handle
+    } catch {}
+    const mmPerPx = width / strip.getBoundingClientRect().width;
+    const startY = event.clientY;
+    const startGain = gain;
+    /** @param {PointerEvent} move */
+    const drag = (move) =>
+      setGain(startGain + (startY - move.clientY) * mmPerPx);
+    const stop = () => {
+      cal.removeEventListener('pointermove', drag);
+      cal.removeEventListener('pointerup', stop);
+      cal.removeEventListener('pointercancel', stop);
+    };
+    cal.addEventListener('pointermove', drag);
+    cal.addEventListener('pointerup', stop);
+    cal.addEventListener('pointercancel', stop);
   });
 
-  // 5. Calipers (mouse): drag across beats to measure the interval between
-  //    two R peaks and the rate it implies.
-  const calipers = draw('g', { class: 'strip-calipers' });
-  marks.before(calipers);
-  const reading = overlay('strip-caliper-reading');
-  /** @type {{ x: number, from: number } | null} */
-  let drag = null;
-  let dragged = false;
-  /** @param {number} clientX */
-  const nearest = (clientX) => {
-    const box = strip.getBoundingClientRect();
-    const at = ((clientX - box.left) / box.width) * width;
-    let best = -1;
-    beats.forEach((beat, i) => {
-      if (!armed(beat)) return;
-      if (
-        best < 0 ||
-        Math.abs(mm(beat, 'x') - at) < Math.abs(mm(beats[best], 'x') - at)
-      ) {
-        best = i;
-      }
-    });
-    return best;
+  // Tear-off. A copy of the printout, cut along a ragged line just past the
+  // pen, tears from the bottom up in a few catches (still held at the top),
+  // then lifts free and away. A thin band of paper fibers shows along the
+  // torn edge. Fresh paper waits underneath, its labels held back, and
+  // starts printing once the old sheet is clear.
+  let tearing = false;
+  /**
+   * A torn edge from top to bottom around x: a wandering line with small
+   * jags and the odd deeper notch, plus how far fibers stick out past it.
+   * @param {number} x @param {number} h px
+   */
+  const tearLine = (x, h) => {
+    /** @type {Array<[x: number, y: number, fiber: number]>} */
+    const points = [];
+    let drift = 0;
+    for (let y = 0; y < h; y += 1.5 + Math.random() * 3) {
+      drift = Math.max(-6, Math.min(6, drift + (Math.random() - 0.5) * 2.4));
+      const notch = Math.random() < 0.08 ? (Math.random() - 0.5) * 7 : 0;
+      const jag = (Math.random() - 0.5) * 3 + notch;
+      points.push([x + drift + jag, y, 1 + Math.random() * 2.5]);
+    }
+    points.push([x + drift, h, 1.5]);
+    return points;
   };
-  const hideCalipers = () => {
-    calipers.replaceChildren();
-    reading.textContent = '';
-  };
-  /** @param {number} a @param {number} b */
-  const measure = (a, b) => {
-    if (a < 0 || b < 0 || a === b) return hideCalipers();
-    const [i, j] = a < b ? [a, b] : [b, a];
-    const x1 = mm(beats[i], 'x');
-    const x2 = mm(beats[j], 'x');
-    const intervals = j - i;
-    const ms = Math.round(((x2 - x1) / MM_PER_SECOND) * 1000);
-    const bpm = Math.round((60000 * intervals) / ms);
-    calipers.replaceChildren(
-      draw('line', { x1, x2: x1, y1: 1.2, y2: height - 1.2 }),
-      draw('line', { x1: x2, x2, y1: 1.2, y2: height - 1.2 }),
-      draw('line', { x1, x2, y1: 2, y2: 2 }),
+  /**
+   * @param {Array<[number, number, number]>} line
+   * @param {boolean} fibers include the fibers past the edge
+   */
+  const sheetShape = (line, fibers) => {
+    const h = line[line.length - 1][1];
+    const edge = line.map(
+      ([x, y, fiber]) =>
+        `${(x + (fibers ? fiber : 0)).toFixed(1)}px ${y.toFixed(1)}px`,
     );
-    reading.style.left = pct((x1 + x2) / 2);
-    reading.textContent =
-      intervals === 1
-        ? `RR ${ms} ms · ${bpm} bpm`
-        : `${intervals} intervals · ${(ms / 1000).toFixed(2)} s · ${bpm} bpm`;
+    return `polygon(0 0,${edge.join(',')},0 ${h}px)`;
   };
-  strip.addEventListener('pointerdown', (event) => {
-    hideCalipers();
-    dragged = false;
-    drag =
-      on('calipers') && event.pointerType !== 'touch' && event.button === 0
-        ? { x: event.clientX, from: nearest(event.clientX) }
-        : null;
-  });
-  strip.addEventListener('pointermove', (event) => {
-    if (!drag || !(event.buttons & 1)) return;
-    if (!dragged && Math.abs(event.clientX - drag.x) < 6) return;
-    dragged = true;
-    measure(drag.from, nearest(event.clientX));
-  });
-  addEventListener('pointerup', () => {
-    drag = null;
-  });
-  strip.addEventListener('pointerleave', hideCalipers);
+  const tearOff = () => {
+    if (tearing) return;
+    select(-1);
+    for (const el of svg.querySelectorAll('.strip-ping, .strip-retrace')) {
+      el.remove();
+    }
+    const prints = strip
+      .getAnimations({ subtree: true })
+      .filter((animation) => animation instanceof CSSAnimation);
+    if (prints.length === 0) return; // reduced motion: nothing prints
 
-  // Clicking a beat: ping and retrace. With both off, a mouse click on the
-  // strip reprints it instead.
-  strip.addEventListener('click', (event) => {
-    const index = beats.indexOf(/** @type {HTMLElement} */ (event.target));
-    if (index < 0 || dragged || event.detail === 0 || reduced.matches) return;
-    if (on('ping')) ping(index);
-    if (on('retrace')) retrace(index);
-    if (!on('ping') && !on('retrace') && pointer === 'mouse') restart();
-  });
+    tearing = true;
+    const box = strip.getBoundingClientRect();
+    const tearX = ((penX + 2.5) / width) * box.width;
+    const line = tearLine(tearX, box.height);
+    const torn = document.createElement('div');
+    torn.className = 'strip-torn';
+    torn.inert = true;
+    torn.setAttribute('aria-hidden', 'true');
+    torn.style.transformOrigin = `${tearX}px 0`;
+    const fibers = document.createElement('div');
+    fibers.className = 'strip-torn-fibers';
+    fibers.style.clipPath = sheetShape(line, true);
+    const paper = document.createElement('div');
+    paper.className = 'strip-torn-paper';
+    paper.style.clipPath = sheetShape(line, false);
+    const sheet = /** @type {SVGSVGElement} */ (svg.cloneNode(true));
+    for (const el of sheet.querySelectorAll(
+      'defs, .strip-pen, .strip-marks, .strip-retrace',
+    )) {
+      el.remove();
+    }
+    sheet.querySelector('.strip-trace')?.removeAttribute('clip-path');
+    const labels = strip.querySelectorAll('.strip-print--lead, .strip-tick');
+    paper.append(sheet, ...[...labels].map((el) => el.cloneNode(true)));
+    torn.append(fibers, paper);
+    strip.append(torn);
+    strip.classList.add('strip--fresh');
 
-  // 6. Pen in rhythm is CSS only (fidgets.css), timed by --rr on the pen.
+    for (const animation of prints) {
+      animation.currentTime = 0;
+      animation.pause();
+    }
 
-  // 7. Signature re-ink: "Ryan" writes itself again, left to right.
-  const signature = document.querySelector('.signature');
-  if (signature instanceof HTMLElement) {
-    signature.addEventListener('click', () => {
-      if (!on('ink') || reduced.matches) return;
-      signature.classList.remove('is-inking');
-      void signature.offsetWidth;
-      signature.classList.add('is-inking');
+    const flat = 'drop-shadow(0 0 0 rgb(0 0 0 / 0))';
+    const lifted = 'drop-shadow(0 2px 4px rgb(0 0 0 / 0.16))';
+    const away = 'drop-shadow(0 10px 14px rgb(0 0 0 / 0.1))';
+    const slip = 'cubic-bezier(0.6, 0, 0.9, 0.6)';
+    /**
+     * @param {number} offset
+     * @param {string} transform
+     * @param {string} filter
+     * @param {number} opacity
+     * @param {string} [easing]
+     */
+    const frame = (offset, transform, filter, opacity, easing = 'linear') => ({
+      offset,
+      transform,
+      filter,
+      opacity,
+      easing,
     });
-    signature.addEventListener('animationend', () => {
-      signature.classList.remove('is-inking');
+    torn.animate(
+      [
+        frame(0, 'rotate(0deg)', flat, 1),
+        // The tear runs up from the bottom edge in catches.
+        frame(0.1, 'rotate(0.3deg)', lifted, 1, slip),
+        frame(0.16, 'rotate(0.36deg)', lifted, 1),
+        frame(0.26, 'rotate(0.85deg)', lifted, 1, slip),
+        frame(0.31, 'rotate(0.9deg)', lifted, 1),
+        frame(
+          0.42,
+          'rotate(1.5deg)',
+          lifted,
+          1,
+          'cubic-bezier(0.4, 0, 0.7, 0.6)',
+        ),
+        // Free: lifted toward the reader and away.
+        frame(
+          0.6,
+          'translate(-1%, -8%) rotate(1.9deg) scale(1.015)',
+          away,
+          0.85,
+        ),
+        frame(1, 'translate(-2.5%, -20%) rotate(2.4deg) scale(1.04)', away, 0),
+      ],
+      { duration: 1000 },
+    ).onfinish = () => {
+      torn.remove();
+      strip.classList.remove('strip--fresh');
+      for (const animation of prints) animation.play();
+      tearing = false;
+    };
+  };
+  const penHit = overlay('strip-pen-hit');
+  penHit.style.left = pct(penX);
+  penHit.style.top = `${(penY / height) * 100}%`;
+  penHit.style.animationDelay = pen.style.animationDelay;
+  penHit.addEventListener('click', tearOff);
+
+  // Re-ink: the signature writes itself again, then the line under it.
+  const lines = [
+    document.querySelector('.signature'),
+    document.querySelector('.footer p'),
+  ].filter((el) => el instanceof HTMLElement);
+  const reink = () => {
+    if (reduced.matches) return;
+    for (const line of lines) {
+      line.classList.remove('is-inking');
+      void line.offsetWidth;
+      line.classList.add('is-inking');
+    }
+  };
+  for (const line of lines) {
+    line.addEventListener('click', reink);
+    line.addEventListener('animationend', () => {
+      line.classList.remove('is-inking');
     });
   }
 
-  // 8. Year steps: a printed year picks that year's first milestone, and
-  //    each click after steps to the next one.
+  // Year steps: a printed year picks that year's first milestone, and each
+  // click after steps to the next one.
   for (const tick of strip.querySelectorAll('.strip-tick')) {
     tick.addEventListener('click', () => {
-      if (!on('years')) return;
       const year = (tick.textContent ?? '').toLowerCase();
       const group = beats.flatMap((beat, i) =>
         (beat.getAttribute('aria-label') ?? '')

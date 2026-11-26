@@ -10,12 +10,7 @@ Needs Node 24 or newer, which runs the TypeScript directly.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000, rebuilds and reloads on save
-```
-
-The dev build switches on every easter egg and adds a small panel for trying them; neither ships unless it's listed in `LIVE_FIDGETS` (`src/render/site.ts`).
-
-```bash
+npm run dev        # http://localhost:3000 (and your LAN), reloads on save
 npm run build      # production build into ./out
 npm test           # vitest
 npm run lint       # biome
