@@ -159,6 +159,15 @@ describe('metadata', () => {
     }
   });
 
+  it('links the favicon and the home-screen icon on every page', () => {
+    for (const doc of [home, talks, notFound]) {
+      const href = (rel: string) =>
+        doc.querySelector(`link[rel="${rel}"]`)?.getAttribute('href');
+      expect(href('icon')).toBe('/icon.svg');
+      expect(href('apple-touch-icon')).toBe('/apple-touch-icon.png');
+    }
+  });
+
   it('lists the homepage and /talks/ in the sitemap', () => {
     const urls = [...site['sitemap.xml'].matchAll(/<loc>([^<]+)<\/loc>/g)];
     expect(urls.map((m) => m[1])).toEqual([SITE_URL, `${SITE_URL}/talks/`]);

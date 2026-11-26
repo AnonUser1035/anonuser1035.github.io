@@ -25,10 +25,10 @@ colors:
 typography:
   display:
     fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
-    fontSize: '2.75rem'
-    fontWeight: 500
+    fontSize: '3.25rem'
+    fontWeight: 400
     lineHeight: 1.1
-    letterSpacing: '-0.015em'
+    letterSpacing: '-0.02em'
   lead:
     fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
     fontSize: '1.9375rem'
@@ -79,7 +79,7 @@ spacing:
   gutter-right: '22px'
   measure: '35rem'
   strip-max: '1680px'
-  name-gap: '36px'
+  name-gap: '32px'
   caption-gap: '16px'
   paragraph: '1em'
   section: '3em'
@@ -148,7 +148,7 @@ Light by default; dark follows `prefers-color-scheme` only. All colors are token
 
 ### Accents
 
-- **Marker** (`#c1121f`, dark `#f0505a`): the selection dot and the pulsing pen at the end of the trace. Nothing else is crimson.
+- **Marker** (`#c1121f`, dark `#f0505a`): the selection dot and the pulsing pen at the end of the trace. The favicon's full stop is the same pen. Nothing else is crimson.
 - **Navy** (`#23406e`, dark `#a4bae6`): link hover and focus, year labels under the strip, and the date at the start of a caption.
 
 ### Named Rules
@@ -163,7 +163,7 @@ Light by default; dark follows `prefers-color-scheme` only. All colors are token
 
 ### Hierarchy
 
-- **Name** (500, 44px, 1.1, `-0.015em`; 34px on phones): the only large type, and the only weight-500 text besides the author's name in citation lists.
+- **Name** (italic 400, 52px, 1.1, `-0.02em`; 40px on phones): the only large type. It shares the signature's italic, so the letter opens and closes in one hand. Weight 500 is left only for the author's name in citation lists.
 - **Lead** (400, 31px, 1.36; 26px on phones): the letter's opening sentence.
 - **Body** (400, 20px, 1.62; 18.5px on phones): the letter. Measure capped at 35rem.
 - **Signature** (italic, 26px, 1.3): "Ryan".
@@ -222,7 +222,13 @@ Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes fr
 
 - The strip keeps a 900px minimum width inside a sideways scroller with `direction: rtl`, so it opens on the most recent beats without script. The scrollbar is hidden.
 - The page itself never scrolls sideways.
-- Type steps down (name 34px, lead 26px, body 18.5px) and the top padding drops to 7vh.
+- Type steps down (name 40px, lead 26px, body 18.5px) and the top padding drops to 7vh.
+
+### Favicon
+
+- `public/icon.svg`: Newsreader's italic R, drawn as outlines because favicons can't load web fonts, in ink on paper with the crimson pen dot as its full stop. It switches to the dark palette with `prefers-color-scheme`.
+- `public/apple-touch-icon.png`: a 180px light render of the same mark, inset so iOS's rounded corners never reach the dot.
+- No rounded tile and no other colors. Change both files together.
 
 ## 6. Motion
 
