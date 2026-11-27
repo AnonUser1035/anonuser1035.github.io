@@ -28,7 +28,7 @@ export function renderSite({
   return {
     'index.html': document({
       meta: { description: DESCRIPTION, path: '/' },
-      body: home(),
+      body: home(now),
       css: styles([...BASE_STYLES, 'fidgets']),
       script: [scripts(['strip', 'fidgets']), reload].join('\n').trim(),
       gaId,

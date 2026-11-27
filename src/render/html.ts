@@ -36,7 +36,7 @@ export interface PageMeta {
   /** Page name; the homepage leaves it out and is titled with the name. */
   title?: string;
   description: string;
-  /** Canonical path for og:url. Leave out for the 404 page. */
+  /** Canonical path, for the canonical link and og:url. Leave out for the 404. */
   path?: `/${string}`;
   noindex?: boolean;
 }
@@ -54,6 +54,7 @@ export interface DocumentOptions {
 
 function head({ title, description, path, noindex }: PageMeta): string {
   const fullTitle = title ? `${title} | ${NAME}` : NAME;
+  const url = path ? new URL(path, SITE_URL).toString() : '';
   const image = new URL(OG_IMAGE.url, SITE_URL).toString();
   const meta = (key: 'name' | 'property', id: string, content: string) =>
     `<meta ${key}="${id}" content="${esc(content)}">`;
@@ -78,7 +79,8 @@ function head({ title, description, path, noindex }: PageMeta): string {
         ),
     meta('property', 'og:title', fullTitle),
     meta('property', 'og:description', description),
-    path ? meta('property', 'og:url', new URL(path, SITE_URL).toString()) : '',
+    url ? `<link rel="canonical" href="${esc(url)}">` : '',
+    url ? meta('property', 'og:url', url) : '',
     meta('property', 'og:site_name', NAME),
     meta('property', 'og:locale', 'en_US'),
     meta('property', 'og:image', image),

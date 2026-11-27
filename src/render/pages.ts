@@ -20,12 +20,8 @@ const person = {
   // Keeps search engines linking the pre-middle-initial name to this profile.
   alternateName: 'Ryan Bohluli',
   url: SITE_URL,
-  sameAs: [
-    PROFILES.linkedin,
-    PROFILES.github,
-    PROFILES.scholar,
-    PROFILES.orcid,
-  ],
+  image: `${SITE_URL}/images/portrait.jpg`,
+  sameAs: [PROFILES.linkedin, PROFILES.scholar, PROFILES.orcid],
   affiliation: {
     '@type': 'CollegeOrUniversity',
     name: 'Johns Hopkins University',
@@ -44,18 +40,30 @@ function block(item: LetterBlock): string {
   return `<p class="work-intro">${esc(item.intro)}</p><ul class="selected-work">${works}</ul>`;
 }
 
-export function home(): string {
+/** "November 2026": when the letter was last built, in Dallas time. */
+export const dated = (now: Date) =>
+  now.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Chicago',
+  });
+
+export function home(now: Date): string {
   return (
     '<main class="page">' +
     jsonLd(person) +
-    `<h1 class="name column">${esc(NAME)}</h1>` +
+    `<h1 class="name column"><span class="name-ink">${esc(NAME)}</span></h1>` +
     strip() +
     '<div class="letter column">' +
     `<p class="lead">${esc(LEAD)}</p>` +
     LETTER.map(block).join('') +
-    `<p class="signature">${esc(SIGNATURE)}</p>` +
     '</div>' +
-    `<footer class="footer column"><p>${esc(FOOTER)}</p></footer>` +
+    // Signed off with a small mounted portrait beside the name and dateline.
+    '<footer class="closing column"><div class="sign-off">' +
+    `<img class="portrait" src="/images/portrait-small.jpg" width="120" height="150" alt="Portrait of ${esc(NAME)}" loading="lazy" decoding="async">` +
+    `<div><p class="signature">${esc(SIGNATURE)}</p>` +
+    `<p class="dateline">${esc(`${FOOTER}, ${dated(now)}`)}</p></div>` +
+    '</div></footer>' +
     '</main>'
   );
 }
@@ -80,7 +88,7 @@ export function talks(): string {
   const items = TALKS.map(
     (talk) =>
       '<li class="paper">' +
-      `<p class="paper-title">${esc(talk.title)}</p>` +
+      `<p class="paper-title">${talk.href ? `<a href="${esc(talk.href)}">${esc(talk.title)}</a>` : esc(talk.title)}</p>` +
       `<p class="paper-authors">${authors(talk.authors)}</p>` +
       `<p class="paper-venue">${esc(citationLine(talk))}</p>` +
       '</li>',

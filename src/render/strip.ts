@@ -63,12 +63,14 @@ export function strip() {
     )
     .join('');
 
+  // One tab stop: the oldest beat takes focus first, arrow keys move from
+  // there, and the strip script keeps tabindex on the last beat focused.
   const buttons = items
-    .map((b) => {
+    .map((b, i) => {
       const style = `left:${pct(b.hitStart)};width:${pct(b.hitEnd - b.hitStart)};animation-delay:${fixed(b.printedAt)}s`;
       // R peak, P-wave onset and T-wave end (mm), for the dot and retrace.
       const data = `data-x="${fixed(b.x)}" data-p="${fixed(b.pStart)}" data-t="${fixed(b.tEnd)}"`;
-      return `<button type="button" class="strip-beat" style="${style}" ${data} aria-label="${esc(`${b.label}: ${b.text}`)}"></button>`;
+      return `<button type="button" role="option" class="strip-beat" style="${style}" ${data} tabindex="${i === 0 ? 0 : -1}" aria-selected="false" aria-label="${esc(`${b.label}: ${b.text}`)}"></button>`;
     })
     .join('');
 
@@ -83,7 +85,7 @@ export function strip() {
 
   return (
     '<div class="strip-frame"><div class="strip-scroller">' +
-    `<div class="strip" role="group" aria-label="Rhythm strip" data-marker-y="${fixed(R_MARKER_Y)}" data-baseline="${BASELINE_MM}">` +
+    `<div class="strip" role="listbox" aria-orientation="horizontal" aria-label="Milestones on the rhythm strip" data-marker-y="${fixed(R_MARKER_Y)}" data-baseline="${BASELINE_MM}">` +
     svg +
     '<span class="strip-print strip-print--lead" aria-hidden="true">II</span>' +
     '<span class="strip-print strip-print--speed" aria-hidden="true">25 mm/s</span>' +
@@ -91,7 +93,7 @@ export function strip() {
     buttons +
     '</div></div></div>' +
     '<div class="caption-box column">' +
-    '<p class="caption" aria-live="polite"></p>' +
+    '<p class="caption caption-current"></p>' +
     `<p class="caption caption-hint">${hintText}</p>` +
     sizers +
     '</div>'

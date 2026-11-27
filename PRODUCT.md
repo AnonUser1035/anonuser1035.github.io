@@ -8,7 +8,7 @@ web
 
 ## Users
 
-The personal portfolio of Ryan Bohluli — computational neuroscience at Johns Hopkins, co-founder & CRO of Neuro Safety Systems, volunteer EMT, and aspiring physician. It serves four overlapping audiences, each arriving with a different question:
+The personal portfolio of Ryan Bohluli — computational neuroscience at Johns Hopkins, co-founder and Chief Science Officer of Neuro Safety Systems, volunteer EMT, and aspiring physician. It serves four overlapping audiences, each arriving with a different question:
 
 - **Med school / residency admissions** — evaluating him as a future physician. They want evidence of clinical depth, service, and a coherent narrative behind the credentials.
 - **Research & academia** (PIs, collaborators, grad programs) — reading the publications and lab work. They want rigor, scholarly weight, and proof the science is real.
@@ -61,9 +61,10 @@ Everything Ryan does is reading the body before something goes wrong: the Hopkin
 - Talks and posters with Vancouver author lists (`src/data/talks.ts`), including a Best Poster award in functional neurosurgery at Johns Hopkins Neurosurgery Research Day 2026.
 - The one-page résumé, `public/resume.pdf`.
 - The JHU Engineering magazine story on how Neuro Safety Systems started.
-- Profiles: Google Scholar, ORCID, LinkedIn and GitHub.
+- Profiles: Google Scholar, ORCID and LinkedIn.
+- A headshot, shown small beside the signature (`public/images/portrait-small.jpg`) and listed in the structured data (`public/images/portrait.jpg`).
 
-Not on hand, and never to be invented: testimonials, a portrait photo, Neuro Safety Systems traction numbers, or press beyond that story.
+Not on hand, and never to be invented: testimonials, Neuro Safety Systems traction numbers, or press beyond that story.
 
 ## Product Principles
 
