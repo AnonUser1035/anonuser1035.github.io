@@ -185,6 +185,14 @@ describe('metadata', () => {
     expect(meta(talks, 'twitter:title')).toBe(`Talks and posters | ${NAME}`);
   });
 
+  it('gives each indexed page a canonical link matching its og:url', () => {
+    const canonical = (doc: Document) =>
+      doc.querySelector('link[rel="canonical"]')?.getAttribute('href');
+    expect(canonical(home)).toBe(`${SITE_URL}/`);
+    expect(canonical(talks)).toBe(`${SITE_URL}/talks/`);
+    expect(canonical(notFound)).toBeUndefined();
+  });
+
   it('keeps the 404 out of search without inventing a canonical url', () => {
     expect(meta(notFound, 'og:url')).toBeUndefined();
     expect(meta(notFound, 'robots')).toBe('noindex');
