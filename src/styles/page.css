@@ -3,7 +3,7 @@
    ======================================== */
 
 .page {
-  padding-top: 11vh;
+  padding-top: clamp(7vh, calc(7vh + (100vw - 480px) * 0.0662), 11vh);
   padding-bottom: 12vh;
 }
 
@@ -19,7 +19,7 @@
 /* Set in the signature's italic, so the letter opens and closes in one hand. */
 .name {
   margin: 0 0 32px;
-  font-size: 3.25rem; /* 52px */
+  font-size: clamp(2.5rem, 1.8382rem + 2.2059vw, 3.25rem); /* 40 to 52px */
   font-style: italic;
   font-weight: 400;
   line-height: 1.1;
@@ -32,8 +32,9 @@
 
 /* Letter */
 
+/* The caption box already reserves room for the longest caption. */
 .letter {
-  margin-top: 6vh;
+  margin-top: clamp(3vh, calc(3vh + (100vw - 480px) * 0.05), 6vh);
 }
 
 .letter > * + * {
@@ -41,7 +42,7 @@
 }
 
 .lead {
-  font-size: 1.9375rem; /* 31px */
+  font-size: clamp(1.625rem, 1.3493rem + 0.9191vw, 1.9375rem); /* 26 to 31px */
   line-height: 1.36;
 }
 
@@ -144,23 +145,4 @@
 
 .paper-venue {
   font-style: italic;
-}
-
-@media (max-width: 759.98px) {
-  .page {
-    padding-top: 7vh;
-  }
-
-  .name {
-    font-size: 2.5rem; /* 40px */
-  }
-
-  .lead {
-    font-size: 1.625rem; /* 26px */
-  }
-
-  /* The caption box already reserves room for the longest caption. */
-  .letter {
-    margin-top: 3vh;
-  }
 }

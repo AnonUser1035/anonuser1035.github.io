@@ -28,18 +28,12 @@ body {
   background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-serif);
-  font-size: 1.25rem; /* 20px */
+  font-size: clamp(1.15625rem, 1.0735rem + 0.2757vw, 1.25rem); /* 18.5 to 20px */
   font-weight: 400;
   line-height: 1.62;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (max-width: 759.98px) {
-  body {
-    font-size: 1.15625rem; /* 18.5px */
-  }
 }
 
 a {
