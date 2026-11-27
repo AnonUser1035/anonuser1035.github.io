@@ -329,7 +329,7 @@
   // Re-ink: the signature writes itself again, then the line under it.
   const lines = [
     document.querySelector('.signature'),
-    document.querySelector('.footer p'),
+    document.querySelector('.dateline'),
   ].filter((el) => el instanceof HTMLElement);
   const reink = () => {
     if (reduced.matches) return;

@@ -106,7 +106,7 @@ describe('easter eggs', () => {
 
   it('re-ink the signature and the closing line together', () => {
     loadHome();
-    const lines = [$('.signature'), $('.footer p')];
+    const lines = [$('.signature'), $('.dateline')];
     click(lines[1]);
     expect(lines.every((l) => l.classList.contains('is-inking'))).toBe(true);
     lines[0].dispatchEvent(new Event('animationend'));

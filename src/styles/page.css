@@ -80,13 +80,39 @@
   line-height: 1.3;
 }
 
-.letter > .signature {
-  margin-top: 1.25em;
+/* The sign-off: a small mounted print of Ryan beside the signature, with
+   the dateline directly under it. */
+.closing {
+  margin-top: 2.03125rem; /* 1.25em at the signature's size */
 }
 
-/* Sits directly under the signature. */
-.footer {
-  margin-top: 0;
+.sign-off {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.sign-off p {
+  margin: 0;
+}
+
+/* The frame runs from the top of the R in "Ryan" to the dateline's
+   baseline. Newsreader's ascent is 0.74em and its descent 0.26em, and the
+   italic R stands 0.676em tall, so in a 1.3 line the R tops out 0.214em
+   down and a 1.55 line puts its baseline 1.015em down. */
+.portrait {
+  box-sizing: border-box;
+  flex: none;
+  height: calc(1.086 * 1.625rem + 1.015 * 1.0625rem);
+  width: calc((1.086 * 1.625rem + 1.015 * 1.0625rem - 8px) * 0.8 + 8px);
+  margin-top: calc(0.214 * 1.625rem);
+  padding: 3px;
+  border: 1px solid var(--color-rule);
+  background-color: var(--color-paper);
+  object-fit: cover;
+}
+
+.dateline {
   font-size: 1.0625rem; /* 17px */
   font-style: italic;
   line-height: 1.55;

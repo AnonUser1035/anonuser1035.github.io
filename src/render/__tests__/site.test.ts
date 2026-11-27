@@ -66,10 +66,19 @@ describe('the letter', () => {
   });
 
   it('signs off and says where and when it was written', () => {
-    expect(home.querySelector('.signature')?.textContent).toBe('Ryan');
-    expect(home.querySelector('footer')?.textContent).toBe(
+    const footer = home.querySelector('footer');
+    expect(footer?.querySelector('.signature')?.textContent).toBe('Ryan');
+    expect(footer?.querySelector('.dateline')?.textContent).toBe(
       'Written in Dallas, TX, November 2026',
     );
+  });
+
+  it('signs off beside a small portrait that loads last', () => {
+    const img = home.querySelector('.sign-off img.portrait');
+    expect(img?.getAttribute('src')).toBe('/images/portrait-small.jpg');
+    expect(img?.getAttribute('alt')).toBe(`Portrait of ${NAME}`);
+    expect(img?.getAttribute('loading')).toBe('lazy');
+    expect(img?.nextElementSibling?.querySelector('.signature')).not.toBeNull();
   });
 
   it('dates the letter in Dallas time', () => {
@@ -94,6 +103,7 @@ describe('the letter', () => {
       '@type': 'Person',
       name: NAME,
       url: SITE_URL,
+      image: `${SITE_URL}/images/portrait.jpg`,
       affiliation: {
         '@type': 'CollegeOrUniversity',
         name: 'Johns Hopkins University',

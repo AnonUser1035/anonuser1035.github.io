@@ -20,6 +20,7 @@ const person = {
   // Keeps search engines linking the pre-middle-initial name to this profile.
   alternateName: 'Ryan Bohluli',
   url: SITE_URL,
+  image: `${SITE_URL}/images/portrait.jpg`,
   sameAs: [PROFILES.linkedin, PROFILES.scholar, PROFILES.orcid],
   affiliation: {
     '@type': 'CollegeOrUniversity',
@@ -56,9 +57,13 @@ export function home(now: Date): string {
     '<div class="letter column">' +
     `<p class="lead">${esc(LEAD)}</p>` +
     LETTER.map(block).join('') +
-    `<p class="signature">${esc(SIGNATURE)}</p>` +
     '</div>' +
-    `<footer class="footer column"><p>${esc(`${FOOTER}, ${dated(now)}`)}</p></footer>` +
+    // Signed off with a small mounted portrait beside the name and dateline.
+    '<footer class="closing column"><div class="sign-off">' +
+    `<img class="portrait" src="/images/portrait-small.jpg" width="120" height="150" alt="Portrait of ${esc(NAME)}" loading="lazy" decoding="async">` +
+    `<div><p class="signature">${esc(SIGNATURE)}</p>` +
+    `<p class="dateline">${esc(`${FOOTER}, ${dated(now)}`)}</p></div>` +
+    '</div></footer>' +
     '</main>'
   );
 }

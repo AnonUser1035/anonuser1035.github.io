@@ -118,19 +118,19 @@
 /* Re-ink: a soft-edged wipe, like ink going down; the closing line follows
    the signature. */
 .signature,
-.footer p {
+.dateline {
   width: fit-content;
   cursor: pointer;
 }
 
 .signature.is-inking,
-.footer p.is-inking {
+.dateline.is-inking {
   -webkit-mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
   mask: linear-gradient(90deg, #000 50%, transparent 60%) 0 0 / 220% 100% no-repeat;
   animation: ink-wipe 1.2s cubic-bezier(0.45, 0.05, 0.35, 1) backwards;
 }
 
-.footer p.is-inking {
+.dateline.is-inking {
   animation-duration: 1.6s;
   animation-delay: 0.9s;
 }
@@ -148,7 +148,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .signature.is-inking,
-  .footer p.is-inking {
+  .dateline.is-inking {
     animation: none;
   }
 }
