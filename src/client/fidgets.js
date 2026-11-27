@@ -10,6 +10,8 @@
  * - Tear-off: click the pen dot; the printout tears away and fresh paper
  *   prints.
  * - Re-ink: click the signature or the line under it; both write again.
+ * - Fresh ink: click the name; it turns the pen's crimson and dries back to
+ *   ink while the printout tears off.
  * - Year steps: click a printed year to step through that year's milestones.
  */
 (() => {
@@ -343,6 +345,22 @@
     line.addEventListener('click', reink);
     line.addEventListener('animationend', () => {
       line.classList.remove('is-inking');
+    });
+  }
+
+  // Fresh ink: the name takes the pen's crimson and dries back to ink, and
+  // the printout tears off once the pen has finished printing.
+  const name = document.querySelector('.name-ink');
+  if (name instanceof HTMLElement) {
+    name.addEventListener('click', () => {
+      if (reduced.matches) return;
+      name.classList.remove('is-fresh');
+      void name.offsetWidth;
+      name.classList.add('is-fresh');
+      if (armed(penHit)) tearOff();
+    });
+    name.addEventListener('animationend', () => {
+      name.classList.remove('is-fresh');
     });
   }
 

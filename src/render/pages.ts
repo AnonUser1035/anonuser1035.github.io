@@ -52,7 +52,7 @@ export function home(now: Date): string {
   return (
     '<main class="page">' +
     jsonLd(person) +
-    `<h1 class="name column">${esc(NAME)}</h1>` +
+    `<h1 class="name column"><span class="name-ink">${esc(NAME)}</span></h1>` +
     strip() +
     '<div class="letter column">' +
     `<p class="lead">${esc(LEAD)}</p>` +

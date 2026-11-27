@@ -146,9 +146,29 @@
   }
 }
 
+/* Fresh ink: the name turns the pen's crimson and dries back to ink. */
+.name-ink {
+  cursor: pointer;
+}
+
+.name-ink.is-fresh {
+  animation: fresh-ink 1.8s cubic-bezier(0.2, 0, 0.4, 1) backwards;
+}
+
+@keyframes fresh-ink {
+  from,
+  30% {
+    color: var(--color-marker);
+  }
+  to {
+    color: var(--color-ink);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .signature.is-inking,
-  .dateline.is-inking {
+  .dateline.is-inking,
+  .name-ink.is-fresh {
     animation: none;
   }
 }

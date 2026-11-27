@@ -113,6 +113,20 @@ describe('easter eggs', () => {
     expect(lines[0].classList.contains('is-inking')).toBe(false);
   });
 
+  it('freshen the name in crimson ink and tear off the printout', () => {
+    const { animations } = loadHome();
+    const name = $('.name-ink');
+    expect(name.closest('h1')?.textContent).toBe('Ryan S. Bohluli');
+    click(name);
+    expect(name.classList.contains('is-fresh')).toBe(true);
+    const torn = $('.strip-torn');
+    expect(torn).not.toBeNull();
+    name.dispatchEvent(new Event('animationend'));
+    expect(name.classList.contains('is-fresh')).toBe(false);
+    animations.find((a) => a.target === torn)?.finish();
+    expect($('.strip-torn')).toBeNull();
+  });
+
   it('step through a year’s milestones from its printed label', () => {
     loadHome();
     const tick = $$('.strip-tick').find((t) => t.textContent === '2025');
@@ -135,7 +149,10 @@ describe('easter eggs', () => {
     pointer('pointerdown', beat(3), { clientX: 0, clientY: 0 });
     click(beat(3));
     click($('.signature'));
+    click($('.name-ink'));
     expect(animations).toHaveLength(0);
     expect($('.signature').classList.contains('is-inking')).toBe(false);
+    expect($('.name-ink').classList.contains('is-fresh')).toBe(false);
+    expect($('.strip-torn')).toBeNull();
   });
 });
