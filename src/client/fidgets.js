@@ -360,8 +360,8 @@
           : [],
       );
       if (group.length === 0) return;
-      const current = beats.findIndex((beat) =>
-        beat.hasAttribute('aria-current'),
+      const current = beats.findIndex(
+        (beat) => beat.getAttribute('aria-selected') === 'true',
       );
       select(group[(group.indexOf(current) + 1) % group.length]);
     });

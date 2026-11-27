@@ -14,13 +14,16 @@ const pointer = (type: string, target: Element, init: PointerEventInit = {}) =>
 /** A pointer click (detail 1); keyboard activation has detail 0. */
 const click = (target: Element, detail = 1) =>
   target.dispatchEvent(new MouseEvent('click', { bubbles: true, detail }));
-const label = () => $('.caption[aria-live] .caption-label')?.textContent;
+const label = () => $('.caption-current .caption-label')?.textContent;
 
 describe('easter eggs', () => {
   it('add no tab stops and stay hidden from screen readers', () => {
     loadHome();
     const focusable = $$('.strip button, .strip [tabindex]');
     expect(focusable).toHaveLength(MILESTONES.length);
+    expect(
+      focusable.filter((el) => el.getAttribute('tabindex') === '0'),
+    ).toHaveLength(1);
     for (const el of $$('.strip-cal, .strip-pen-hit')) {
       expect(el.tagName).toBe('SPAN');
       expect(el.getAttribute('aria-hidden')).toBe('true');
