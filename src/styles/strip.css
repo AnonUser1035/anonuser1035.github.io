@@ -202,7 +202,9 @@
 }
 
 /* Phones: the strip keeps its proportions in a sideways scroller. RTL makes
-   it open at the right end, on the most recent beats, before any script. */
+   it open at the right end, on the most recent beats, before any script.
+   Its minimum width eases from 900px on a 390px phone to the full window at
+   760px, so it meets the desktop strip without a jump. */
 @media (max-width: 759.98px) {
   .strip-scroller {
     overflow-x: auto;
@@ -217,7 +219,7 @@
   }
 
   .strip {
-    min-width: 900px;
+    min-width: min(900px, calc(900px - (100vw - 390px) * 0.3784));
     direction: ltr;
   }
 }

@@ -14,13 +14,16 @@ const pointer = (type: string, target: Element, init: PointerEventInit = {}) =>
 /** A pointer click (detail 1); keyboard activation has detail 0. */
 const click = (target: Element, detail = 1) =>
   target.dispatchEvent(new MouseEvent('click', { bubbles: true, detail }));
-const label = () => $('.caption[aria-live] .caption-label')?.textContent;
+const label = () => $('.caption-current .caption-label')?.textContent;
 
 describe('easter eggs', () => {
   it('add no tab stops and stay hidden from screen readers', () => {
     loadHome();
     const focusable = $$('.strip button, .strip [tabindex]');
     expect(focusable).toHaveLength(MILESTONES.length);
+    expect(
+      focusable.filter((el) => el.getAttribute('tabindex') === '0'),
+    ).toHaveLength(1);
     for (const el of $$('.strip-cal, .strip-pen-hit')) {
       expect(el.tagName).toBe('SPAN');
       expect(el.getAttribute('aria-hidden')).toBe('true');
@@ -103,11 +106,25 @@ describe('easter eggs', () => {
 
   it('re-ink the signature and the closing line together', () => {
     loadHome();
-    const lines = [$('.signature'), $('.footer p')];
+    const lines = [$('.signature'), $('.dateline')];
     click(lines[1]);
     expect(lines.every((l) => l.classList.contains('is-inking'))).toBe(true);
     lines[0].dispatchEvent(new Event('animationend'));
     expect(lines[0].classList.contains('is-inking')).toBe(false);
+  });
+
+  it('freshen the name in crimson ink and tear off the printout', () => {
+    const { animations } = loadHome();
+    const name = $('.name-ink');
+    expect(name.closest('h1')?.textContent).toBe('Ryan S. Bohluli');
+    click(name);
+    expect(name.classList.contains('is-fresh')).toBe(true);
+    const torn = $('.strip-torn');
+    expect(torn).not.toBeNull();
+    name.dispatchEvent(new Event('animationend'));
+    expect(name.classList.contains('is-fresh')).toBe(false);
+    animations.find((a) => a.target === torn)?.finish();
+    expect($('.strip-torn')).toBeNull();
   });
 
   it('step through a year’s milestones from its printed label', () => {
@@ -132,7 +149,10 @@ describe('easter eggs', () => {
     pointer('pointerdown', beat(3), { clientX: 0, clientY: 0 });
     click(beat(3));
     click($('.signature'));
+    click($('.name-ink'));
     expect(animations).toHaveLength(0);
     expect($('.signature').classList.contains('is-inking')).toBe(false);
+    expect($('.name-ink').classList.contains('is-fresh')).toBe(false);
+    expect($('.strip-torn')).toBeNull();
   });
 });

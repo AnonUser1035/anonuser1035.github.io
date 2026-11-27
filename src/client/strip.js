@@ -3,14 +3,18 @@
  * Rhythm strip selection. Hover, focus or tap picks a beat: the dot moves to
  * its R peak and the caption shows its milestone. Leaving the strip, tabbing
  * past it, or tapping elsewhere brings back the hint. Inlined into the page.
+ *
+ * For keyboards and screen readers the strip is a listbox with one tab stop:
+ * arrow keys move between beats and Home/End jump to the ends. Each beat is
+ * read once, from its label, with its position.
  */
 (() => {
   const strip = document.querySelector('.strip');
-  const live = document.querySelector('.caption[aria-live]');
+  const current = document.querySelector('.caption-current');
   const hint = document.querySelector('.caption-hint');
   if (
     !(strip instanceof HTMLElement) ||
-    !live ||
+    !current ||
     !(hint instanceof HTMLElement)
   ) {
     return;
@@ -31,19 +35,19 @@
   /** @param {number} index Beat to select, or -1 for none. */
   const select = (index) => {
     if (index === selected) return;
-    beats[selected]?.removeAttribute('aria-current');
+    beats[selected]?.setAttribute('aria-selected', 'false');
     selected = index;
     const beat = beats[index];
     if (!(beat instanceof HTMLElement)) {
       marker.remove();
-      live.textContent = '';
+      current.textContent = '';
       hint.hidden = false;
       return;
     }
-    beat.setAttribute('aria-current', 'true');
+    beat.setAttribute('aria-selected', 'true');
     marker.setAttribute('cx', beat.dataset.x ?? '0');
     marks?.append(marker);
-    live.innerHTML = sizers[index + 1].innerHTML;
+    current.innerHTML = sizers[index + 1].innerHTML;
     hint.hidden = true;
   };
 
@@ -61,7 +65,28 @@
   });
   strip.addEventListener('focusin', (event) => {
     const index = indexOf(event.target);
-    if (index >= 0) select(index);
+    if (index < 0) return;
+    // Roving tab stop: Tab comes back to the beat focused last.
+    for (const beat of beats) beat.setAttribute('tabindex', '-1');
+    beats[index].setAttribute('tabindex', '0');
+    select(index);
+  });
+
+  /** @type {Record<string, (from: number) => number>} */
+  const KEYS = {
+    ArrowRight: (from) => from + 1,
+    ArrowLeft: (from) => from - 1,
+    Home: () => 0,
+    End: () => beats.length - 1,
+  };
+  strip.addEventListener('keydown', (event) => {
+    const from = indexOf(event.target);
+    const move = KEYS[event.key];
+    if (from < 0 || !move) return;
+    event.preventDefault();
+    const to = Math.max(0, Math.min(beats.length - 1, move(from)));
+    // A beat the pen hasn't printed yet is hidden and refuses focus.
+    /** @type {HTMLElement} */ (beats[to]).focus();
   });
   strip.addEventListener('click', (event) => {
     const index = indexOf(event.target);

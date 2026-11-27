@@ -6,7 +6,7 @@ import { loadHome } from './page.ts';
 
 const geometry = buildStrip(MILESTONES.length);
 
-const live = () => document.querySelector('.caption[aria-live]');
+const live = () => document.querySelector('.caption-current');
 const hint = () => document.querySelector('.caption-hint') as HTMLElement;
 const marker = () => document.querySelector('.strip-marker');
 const trace = () => document.querySelector('.strip-trace')?.getAttribute('d');
@@ -64,9 +64,55 @@ describe('rhythm strip', () => {
         3,
       );
       expect(marker()?.getAttribute('cy')).toBe('7');
-      expect(button.getAttribute('aria-current')).toBe('true');
+      expect(button.getAttribute('aria-selected')).toBe('true');
+      expect(
+        beatButtons().filter((b) => b.getAttribute('aria-selected') === 'true'),
+      ).toHaveLength(1);
       expect(trace()).toBe(before);
     });
+  });
+
+  it('is one tab stop: a listbox whose first beat takes focus', () => {
+    expect(strip().getAttribute('role')).toBe('listbox');
+    expect(strip().getAttribute('aria-orientation')).toBe('horizontal');
+    expect(
+      beatButtons().every((b) => b.getAttribute('role') === 'option'),
+    ).toBe(true);
+    expect(beatButtons().map((b) => b.tabIndex)).toEqual(
+      MILESTONES.map((_, i) => (i === 0 ? 0 : -1)),
+    );
+    // Read once, from the label: the caption is no longer a live region.
+    expect(document.querySelector('[aria-live]')).toBeNull();
+  });
+
+  it('moves between beats with the arrow keys, Home and End', () => {
+    const key = (k: string) =>
+      document.activeElement?.dispatchEvent(
+        new KeyboardEvent('keydown', { key: k, bubbles: true }),
+      );
+    const at = () =>
+      beatButtons().indexOf(document.activeElement as HTMLButtonElement);
+    beatButtons()[0].focus();
+    expect(at()).toBe(0);
+    key('ArrowLeft');
+    expect(at()).toBe(0);
+    key('ArrowRight');
+    key('ArrowRight');
+    expect(at()).toBe(2);
+    expect(live()?.textContent).toBe(
+      `${MILESTONES[2].label}. ${MILESTONES[2].text}`,
+    );
+    key('End');
+    expect(at()).toBe(MILESTONES.length - 1);
+    key('ArrowRight');
+    expect(at()).toBe(MILESTONES.length - 1);
+    key('Home');
+    expect(at()).toBe(0);
+    key('ArrowRight');
+    // Tab returns to the beat focused last.
+    expect(beatButtons().filter((b) => b.tabIndex === 0)).toEqual([
+      beatButtons()[1],
+    ]);
   });
 
   it('returns to the hint when the pointer leaves the strip', () => {

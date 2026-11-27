@@ -8,13 +8,12 @@
 export const NAME = 'Ryan S. Bohluli';
 
 export const DESCRIPTION =
-  'Ryan S. Bohluli studies the nervous system at Johns Hopkins, co-founded Neuro Safety Systems, and volunteers as an EMT in Baltimore County.';
+  'Ryan S. Bohluli is a neuroscience senior at Johns Hopkins, co-founder of Neuro Safety Systems, and a volunteer EMT in Baltimore County.';
 
 export const EMAIL = 'ryan@neurosafetysystems.com';
 
 export const PROFILES = {
   linkedin: 'https://www.linkedin.com/in/bohluli/',
-  github: 'https://github.com/anonuser1035',
   scholar: 'https://scholar.google.com/citations?user=8er4PycAAAAJ&hl=en',
   orcid: 'https://orcid.org/0000-0003-4182-5773',
 } as const;
@@ -44,7 +43,7 @@ export const MILESTONES: Milestone[] = [
     text: 'Started at Johns Hopkins in neuroscience, computational track. Joined the Mysore Lab.',
   },
   {
-    label: 'Jul 2024',
+    label: 'Aug 2024',
     tick: '2024',
     text: 'Joined the Thakor Lab: focused ultrasound and autonomic control after spinal cord injury.',
   },
@@ -83,7 +82,7 @@ export const MILESTONES: Milestone[] = [
     text: 'First-author paper and poster at the Design of Medical Devices Conference. In May, Best Poster in Functional Neurosurgery at Hopkins.',
   },
   {
-    label: 'Aug 2026',
+    label: 'Jul 2026',
     text: 'First-author paper in the Journal of Medical Devices: wearable autonomic monitoring with AURIS.',
   },
   {
@@ -126,8 +125,8 @@ export const LEAD =
   'Hi, I’m Ryan. I study the nervous system, mostly by trying to read it before something goes wrong.';
 
 export const LETTER: LetterBlock[] = [
-  'At Johns Hopkins I research how focused ultrasound might help regulate blood pressure after spinal cord injury, in the [Thakor Lab](https://neuroengineering.bme.jhu.edu/). With three Hopkins rugby teammates I also started [Neuro Safety Systems](https://neurosafetysystems.com/), which is developing wearable systems to detect driver drowsiness. [Here’s how it started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/).',
-  'I volunteer as an EMT with the Arbutus Volunteer Fire Department in Baltimore County. I’m pursuing medicine, and I want patient care to shape the questions I study and the tools I build.',
+  'I’m a senior at Johns Hopkins studying neuroscience. In the [Thakor Lab](https://neuroengineering.bme.jhu.edu/) I research how focused ultrasound might help regulate blood pressure after spinal cord injury. With three Hopkins rugby teammates I also started [Neuro Safety Systems](https://neurosafetysystems.com/), which is developing wearable systems to detect driver drowsiness. Here’s [how it started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/), from Johns Hopkins Engineering.',
+  'I volunteer as an EMT with the Arbutus Volunteer Fire Department in Baltimore County. I’m applying to medical school, and I want patient care to shape the questions I study and the tools I build.',
   'I’m Iranian American and grew up in Dallas. I helped revive Hopkins’ Iranian Cultural Society and volunteer at Gandomak, a Farsi language school.',
   {
     intro: 'Selected work:',
@@ -164,5 +163,5 @@ export const LETTER: LetterBlock[] = [
 
 export const SIGNATURE = 'Ryan';
 
-/** Closing line under the letter. */
+/** Closing line under the signature. The build adds the month and year. */
 export const FOOTER = 'Written in Dallas, TX';

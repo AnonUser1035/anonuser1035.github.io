@@ -75,7 +75,7 @@ rounded:
   none: '0px'
   focus: '2px'
 spacing:
-  gutter-left: 'max(22px, 17vw)'
+  gutter-left: 'clamp(22px, 28vw - 112px, 17vw)'
   gutter-right: '22px'
   measure: '35rem'
   strip-max: '1680px'
@@ -106,9 +106,13 @@ components:
   venue:
     textColor: '{colors.secondary}'
     typography: '{typography.small}'
-  footer:
+  dateline:
     textColor: '{colors.secondary}'
     typography: '{typography.small}'
+  portrait:
+    backgroundColor: '{colors.paper}'
+    border: '1px solid {colors.rule}'
+    padding: '3px'
 ---
 
 # Design System: ryanbohluli.com
@@ -148,12 +152,12 @@ Light by default; dark follows `prefers-color-scheme` only. All colors are token
 
 ### Accents
 
-- **Marker** (`#c1121f`, dark `#f0505a`): the selection dot and the pulsing pen at the end of the trace. The favicon's full stop is the same pen. Nothing else is crimson.
+- **Marker** (`#c1121f`, dark `#f0505a`): the selection dot and the pulsing pen at the end of the trace. The favicon's full stop is the same pen. The only other crimson is the name's fresh ink for a moment after it's clicked.
 - **Navy** (`#23406e`, dark `#a4bae6`): link hover and focus, year labels under the strip, and the date at the start of a caption.
 
 ### Named Rules
 
-**The Crimson Rule.** Crimson means "this beat" or "the pen". Never use it for text, links or decoration.
+**The Crimson Rule.** Crimson means "this beat" or "the pen". Never use it for text, links or decoration. The one exception is the name easter egg: clicked, the name turns crimson as if the pen had just written it, then dries back to ink.
 
 **The Ink Trace Rule.** The waveform is ink in both themes. A colored trace reads as a monitor screenshot, not a printed strip.
 
@@ -163,12 +167,12 @@ Light by default; dark follows `prefers-color-scheme` only. All colors are token
 
 ### Hierarchy
 
-- **Name** (italic 400, 52px, 1.1, `-0.02em`; 40px on phones): the only large type. It shares the signature's italic, so the letter opens and closes in one hand. Weight 500 is left only for the author's name in citation lists.
-- **Lead** (400, 31px, 1.36; 26px on phones): the letter's opening sentence.
-- **Body** (400, 20px, 1.62; 18.5px on phones): the letter. Measure capped at 35rem.
+- **Name** (italic 400, 52px, 1.1, `-0.02em`, easing down to 40px on phones): the only large type. It shares the signature's italic, so the letter opens and closes in one hand. Weight 500 is left only for the author's name in citation lists.
+- **Lead** (400, 31px, 1.36, easing down to 26px on phones): the letter's opening sentence.
+- **Body** (400, 20px, 1.62, easing down to 18.5px on phones): the letter. Measure capped at 35rem.
 - **Signature** (italic, 26px, 1.3): "Ryan".
 - **Caption** (italic, 18px, 1.5, Secondary): beat captions and the idle hint. The date label is upright and navy.
-- **Small** (17px, 1.5): venues (italic), the footer (italic), author lists and the talks note.
+- **Small** (17px, 1.5): venues (italic), the dateline (italic), author lists and the talks note.
 - **Year labels** (italic, 14.5px, Navy) and **printed marks** (12.5px, Muted): text laid over the strip in screen pixels.
 
 ### Named Rules
@@ -179,7 +183,7 @@ Light by default; dark follows `prefers-color-scheme` only. All colors are token
 
 ## 4. Elevation
 
-Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes from whitespace alone. The only radius is the 2px corner on the link focus outline.
+Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes from whitespace alone; the portrait's mount is a 1px Rule hairline, not a shadow. The only radius is the 2px corner on the link focus outline.
 
 ## 5. Components
 
@@ -191,7 +195,7 @@ Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes fr
 - **Printed marks:** "II" top left and "25 mm/s" top right, in Muted.
 - **Year labels:** italic navy, centered under the first beat of each year, 4% of the strip height from the bottom so they clear the S waves.
 - **Pen:** a crimson dot at the end of the trace that fades in after printing and pulses slowly.
-- **Selection:** each beat is an invisible button spanning its hit area. Hover (mouse), focus (keyboard) or tap (touch) shows a 2 mm crimson dot with a 2px strip-paper ring on the R peak. The dot is the focus indicator; buttons have no outline. Leaving the strip, tabbing past it or tapping elsewhere clears it.
+- **Selection:** each beat is an invisible button spanning its hit area, and the strip is a horizontal listbox with one tab stop: Tab enters on the oldest beat (or the one focused last), the arrow keys move between beats, and Home and End jump to the ends. Screen readers read each beat once from its label, with its position. Hover (mouse), focus (keyboard) or tap (touch) shows a 2 mm crimson dot with a 2px strip-paper ring on the R peak. The dot is the focus indicator; buttons have no outline. Leaving the strip, tabbing past it or tapping elsewhere clears it.
 
 ### Caption
 
@@ -202,9 +206,9 @@ Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes fr
 
 ### Letter
 
-- **Column:** left gutter `max(22px, 17vw)`, right gutter 22px, measure 35rem.
+- **Column:** left gutter `clamp(22px, 28vw - 112px, 17vw)` (22px on phones, matching the right, growing to the 17vw letterhead indent by about 1024px), right gutter 22px, measure 35rem.
 - **Rhythm:** paragraphs 1em apart. The selected-work block gets 3em above and below; its items sit 1em apart, each a linked title with its venue on the next line in small italic Secondary.
-- **Close:** the signature in italic, with "Written in Dallas, TX" directly beneath it in small italic Secondary and no gap.
+- **Close:** a small portrait beside the signature in italic, with the dateline ("Written in Dallas, TX, November 2026", the month from the build in Dallas time) directly beneath it in small italic Secondary and no gap. The portrait is mounted like a print: 3px of paper inside a 1px Rule hairline. Its frame runs from the top of the R in "Ryan" to the dateline's baseline, computed from Newsreader's metrics (ascent 0.74em, descent 0.26em, italic cap 0.676em); keep those numbers in step if the signature or dateline size changes.
 
 ### Links
 
@@ -216,13 +220,13 @@ Flat. No shadows, no lifted surfaces, no rounded containers. Separation comes fr
 ### Talks page
 
 - The name links home. An italic Secondary line names the page, followed by a short note pointing to Google Scholar and ORCID.
-- Each entry is a title, then a Vancouver author list in small Secondary with "Bohluli RS" in weight 500, then the venue in small italic.
+- Each entry is a title (linked to the published paper when there is one), then a full Vancouver author list in small Secondary with "Bohluli RS" in weight 500, then the venue in small italic.
 
-### Phones (under 760px)
+### Phones and resizing
 
-- The strip keeps a 900px minimum width inside a sideways scroller with `direction: rtl`, so it opens on the most recent beats without script. The scrollbar is hidden.
+- Nothing jumps as the window resizes. The margin, type sizes and top spacing ease from their phone values at 480px to their desktop values at about 1024px.
+- Under 760px the strip sits in a sideways scroller with `direction: rtl`, so it opens on the most recent beats without script. The scrollbar is hidden. Its minimum width eases from 900px on a 390px phone to the full window at 760px, where it meets the desktop strip.
 - The page itself never scrolls sideways.
-- Type steps down (name 40px, lead 26px, body 18.5px) and the top padding drops to 7vh.
 
 ### Favicon
 

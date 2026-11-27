@@ -52,7 +52,11 @@
 
   --font-serif: Newsreader, 'Newsreader Fallback', Georgia, 'Times New Roman', serif;
 
-  --gutter-left: max(22px, 17vw);
+  /* Sizes ease from their phone value at 480px to their desktop value at
+     about 1024px, so resizing the window never makes the page jump. The
+     left margin matches the right one on phones and grows into the
+     letterhead indent. */
+  --gutter-left: clamp(22px, calc(28vw - 112px), 17vw);
   --gutter-right: 22px;
   --measure: 35rem;
   --strip-max: 1680px;

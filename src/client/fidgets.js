@@ -10,6 +10,8 @@
  * - Tear-off: click the pen dot; the printout tears away and fresh paper
  *   prints.
  * - Re-ink: click the signature or the line under it; both write again.
+ * - Fresh ink: click the name; it turns the pen's crimson and dries back to
+ *   ink while the printout tears off.
  * - Year steps: click a printed year to step through that year's milestones.
  */
 (() => {
@@ -329,7 +331,7 @@
   // Re-ink: the signature writes itself again, then the line under it.
   const lines = [
     document.querySelector('.signature'),
-    document.querySelector('.footer p'),
+    document.querySelector('.dateline'),
   ].filter((el) => el instanceof HTMLElement);
   const reink = () => {
     if (reduced.matches) return;
@@ -343,6 +345,22 @@
     line.addEventListener('click', reink);
     line.addEventListener('animationend', () => {
       line.classList.remove('is-inking');
+    });
+  }
+
+  // Fresh ink: the name takes the pen's crimson and dries back to ink, and
+  // the printout tears off once the pen has finished printing.
+  const name = document.querySelector('.name-ink');
+  if (name instanceof HTMLElement) {
+    name.addEventListener('click', () => {
+      if (reduced.matches) return;
+      name.classList.remove('is-fresh');
+      void name.offsetWidth;
+      name.classList.add('is-fresh');
+      if (armed(penHit)) tearOff();
+    });
+    name.addEventListener('animationend', () => {
+      name.classList.remove('is-fresh');
     });
   }
 
@@ -360,8 +378,8 @@
           : [],
       );
       if (group.length === 0) return;
-      const current = beats.findIndex((beat) =>
-        beat.hasAttribute('aria-current'),
+      const current = beats.findIndex(
+        (beat) => beat.getAttribute('aria-selected') === 'true',
       );
       select(group[(group.indexOf(current) + 1) % group.length]);
     });
