@@ -20,12 +20,7 @@ const person = {
   // Keeps search engines linking the pre-middle-initial name to this profile.
   alternateName: 'Ryan Bohluli',
   url: SITE_URL,
-  sameAs: [
-    PROFILES.linkedin,
-    PROFILES.github,
-    PROFILES.scholar,
-    PROFILES.orcid,
-  ],
+  sameAs: [PROFILES.linkedin, PROFILES.scholar, PROFILES.orcid],
   affiliation: {
     '@type': 'CollegeOrUniversity',
     name: 'Johns Hopkins University',
@@ -44,7 +39,15 @@ function block(item: LetterBlock): string {
   return `<p class="work-intro">${esc(item.intro)}</p><ul class="selected-work">${works}</ul>`;
 }
 
-export function home(): string {
+/** "November 2026": when the letter was last built, in Dallas time. */
+export const dated = (now: Date) =>
+  now.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Chicago',
+  });
+
+export function home(now: Date): string {
   return (
     '<main class="page">' +
     jsonLd(person) +
@@ -55,7 +58,7 @@ export function home(): string {
     LETTER.map(block).join('') +
     `<p class="signature">${esc(SIGNATURE)}</p>` +
     '</div>' +
-    `<footer class="footer column"><p>${esc(FOOTER)}</p></footer>` +
+    `<footer class="footer column"><p>${esc(`${FOOTER}, ${dated(now)}`)}</p></footer>` +
     '</main>'
   );
 }
@@ -80,7 +83,7 @@ export function talks(): string {
   const items = TALKS.map(
     (talk) =>
       '<li class="paper">' +
-      `<p class="paper-title">${esc(talk.title)}</p>` +
+      `<p class="paper-title">${talk.href ? `<a href="${esc(talk.href)}">${esc(talk.title)}</a>` : esc(talk.title)}</p>` +
       `<p class="paper-authors">${authors(talk.authors)}</p>` +
       `<p class="paper-venue">${esc(citationLine(talk))}</p>` +
       '</li>',

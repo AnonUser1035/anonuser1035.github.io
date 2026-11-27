@@ -4,7 +4,7 @@ import { EMAIL, NAME, PROFILES } from '../../data/content.ts';
 import { TALKS } from '../../data/talks.ts';
 import { SITE_URL } from '../../site.ts';
 import { jsonLd } from '../html.ts';
-import { citationLine } from '../pages.ts';
+import { citationLine, dated } from '../pages.ts';
 import { renderSite } from '../site.ts';
 
 const site = renderSite({ now: new Date('2026-11-26T00:00:00Z') });
@@ -29,7 +29,7 @@ describe('the letter', () => {
     expect(href('Neuro Safety Systems')).toBe(
       'https://neurosafetysystems.com/',
     );
-    expect(href('Here’s how it started')).toBe(
+    expect(href('how it started')).toBe(
       'https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/',
     );
     expect(href('All publications')).toBe(PROFILES.scholar);
@@ -65,11 +65,25 @@ describe('the letter', () => {
     expect(letter?.textContent).not.toMatch(/Cho Lab|COACH|P\.S\.|small tools/);
   });
 
-  it('signs off and says where it was written', () => {
+  it('signs off and says where and when it was written', () => {
     expect(home.querySelector('.signature')?.textContent).toBe('Ryan');
     expect(home.querySelector('footer')?.textContent).toBe(
-      'Written in Dallas, TX',
+      'Written in Dallas, TX, November 2026',
     );
+  });
+
+  it('dates the letter in Dallas time', () => {
+    expect(dated(new Date('2026-12-01T03:00:00Z'))).toBe('November 2026');
+    expect(dated(new Date('2026-12-01T07:00:00Z'))).toBe('December 2026');
+  });
+
+  it('says up front that Ryan is an undergraduate applying to medical school', () => {
+    const text = home.querySelector('.letter')?.textContent ?? '';
+    expect(text).toContain(
+      'I’m a senior at Johns Hopkins studying neuroscience.',
+    );
+    expect(text).toContain('I’m applying to medical school');
+    expect(text).toContain('from Johns Hopkins Engineering.');
   });
 
   it('describes a schema.org Person affiliated with Johns Hopkins', () => {
@@ -87,10 +101,10 @@ describe('the letter', () => {
     });
     expect(data.sameAs).toEqual([
       PROFILES.linkedin,
-      PROFILES.github,
       PROFILES.scholar,
       PROFILES.orcid,
     ]);
+    expect(JSON.stringify(data)).not.toMatch(/github/i);
     expect(JSON.stringify(data)).not.toMatch(/Chief Research Officer/);
   });
 
@@ -110,6 +124,23 @@ describe('/talks/', () => {
         'Bohluli RS',
       );
     }
+  });
+
+  it('gives every entry a format and a full author list', () => {
+    for (const talk of TALKS) {
+      expect(talk.kind).toBe('Poster');
+      expect(talk.authors).not.toMatch(/et al/);
+    }
+  });
+
+  it('links both focused-ultrasound posters to the published paper', () => {
+    const links = [...talks.querySelectorAll('.paper-title a')].map((a) =>
+      a.getAttribute('href'),
+    );
+    expect(links).toEqual([
+      'https://doi.org/10.1115/DMD2026-1020',
+      'https://doi.org/10.1115/DMD2026-1020',
+    ]);
   });
 
   it('shows the poster award on its entry', () => {
