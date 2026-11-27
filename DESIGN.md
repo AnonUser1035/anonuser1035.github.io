@@ -75,7 +75,7 @@ rounded:
   none: '0px'
   focus: '2px'
 spacing:
-  gutter-left: 'max(22px, 17vw)'
+  gutter-left: 'clamp(22px, 28vw - 112px, 17vw)'
   gutter-right: '22px'
   measure: '35rem'
   strip-max: '1680px'
@@ -106,9 +106,13 @@ components:
   venue:
     textColor: '{colors.secondary}'
     typography: '{typography.small}'
-  footer:
+  dateline:
     textColor: '{colors.secondary}'
     typography: '{typography.small}'
+  portrait:
+    backgroundColor: '{colors.paper}'
+    border: '1px solid {colors.rule}'
+    padding: '3px'
 ---
 
 # Design System: ryanbohluli.com
@@ -118,12 +122,12 @@ components:
 Name: ryanbohluli.com
 Colors: paper #faf8f5, ink #1d2129, secondary #454a54, muted #6a6e78, rule #d8d9de, navy #23406e, strip-paper #fcf1f2, grid-minor rgb(204 70 98 / 0.13), grid-major rgb(204 70 98 / 0.3), marker #c1121f, paper-dark #121419, ink-dark #e7e8ec (+8 more in the frontmatter)
 Fonts: Newsreader (display, lead, body, signature, caption, small, year-label, print)
-Spacing: gutter-left max(22px, 17vw), gutter-right 22px, measure 35rem, strip-max 1680px, name-gap 32px, caption-gap 16px, paragraph 1em, section 3em, page-top 11vh, page-bottom 12vh
+Spacing: gutter-left clamp(22px, 28vw - 112px, 17vw), gutter-right 22px, measure 35rem, strip-max 1680px, name-gap 32px, caption-gap 16px, paragraph 1em, section 3em, page-top 11vh, page-bottom 12vh
 Radius: none 0px, focus 2px
 North Star: "A letter on ECG letterhead"
 Rules:
 
-- The Crimson Rule. Crimson means "this beat" or "the pen".
+- The Crimson Rule. Crimson means "this beat" or "the pen" (including the name's fresh ink when clicked).
 - The Ink Trace Rule. The waveform is ink in both themes.
 - The One Family Rule. Hierarchy comes from size, italics and color within Newsreader.
 - The No Headings Rule. The letter has no section headings.
@@ -133,6 +137,7 @@ Rules:
 - Don't use em dashes anywhere in the copy (a test enforces this).
 - Don't color the waveform, animate anything besides the print reveal and pen, or move the letter when a beat is selected.
 - Don't let the page scroll sideways on phones; only the strip scrolls.
+- Don't add breakpoints that make sizes jump; ease them between 480px and 1024px.
   Do:
 - Do keep the strip anatomically accurate and keep `src/lib/__tests__/ecg.test.ts` passing.
 - Do fold related moments into one caption rather than adding a sixteenth beat.
