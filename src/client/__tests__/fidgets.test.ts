@@ -63,6 +63,7 @@ describe('easter eggs', () => {
     const gain = () => strip.style.getPropertyValue('--gain');
     // 1250 px wide: 5 px per mm, so 1 px of drag is 0.2 mm/mV.
     strip.getBoundingClientRect = () => ({ width: 1250 }) as DOMRect;
+    expect(speed()).toBe('25 mm/s · 10 mm/mV');
 
     pointer('pointerdown', cal, { clientY: 100, button: 0 });
     pointer('pointermove', cal, { clientY: 90 });
@@ -73,12 +74,12 @@ describe('easter eggs', () => {
     pointer('pointermove', cal, { clientY: 200 });
     expect(speed()).toBe('25 mm/s · 2.5 mm/mV');
     pointer('pointermove', cal, { clientY: 101 });
-    expect(speed()).toBe('25 mm/s');
+    expect(speed()).toBe('25 mm/s · 10 mm/mV');
     expect(gain()).toBe('1');
 
     pointer('pointerup', cal);
     pointer('pointermove', cal, { clientY: 0 });
-    expect(speed()).toBe('25 mm/s');
+    expect(speed()).toBe('25 mm/s · 10 mm/mV');
   });
 
   it('tear off the printout from the pen dot and print fresh paper after', () => {

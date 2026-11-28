@@ -88,7 +88,7 @@ export function strip() {
     `<div class="strip" role="listbox" aria-orientation="horizontal" aria-label="Milestones on the rhythm strip" data-marker-y="${fixed(R_MARKER_Y)}" data-baseline="${BASELINE_MM}">` +
     svg +
     '<span class="strip-print strip-print--lead" aria-hidden="true">II</span>' +
-    '<span class="strip-print strip-print--speed" aria-hidden="true">25 mm/s</span>' +
+    '<span class="strip-print strip-print--speed" aria-hidden="true">25 mm/s · 10 mm/mV</span>' +
     ticks +
     buttons +
     '</div></div></div>' +
