@@ -126,7 +126,7 @@ export const LEAD =
 
 export const LETTER: LetterBlock[] = [
   'I grew up in Dallas, and I’m now a neuroscience senior at Johns Hopkins. In the [Thakor Lab](https://neuroengineering.bme.jhu.edu/), I research whether focused ultrasound can help regulate blood pressure after a spinal cord injury.',
-  'Three of my rugby teammates and I started [Neuro Safety Systems](https://neurosafetysystems.com/). We’re building wearables that can tell when a driver is getting drowsy. Here’s [how we started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/), written by Johns Hopkins Engineering.',
+  'Three of my rugby teammates and I started [Neuro Safety Systems](https://neurosafetysystems.com/). We’re building wearables that can tell when a driver is getting drowsy. [Here’s how we started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/), written by Johns Hopkins Engineering.',
   'I’m Iranian American, and at Hopkins I helped bring back the Iranian Cultural Society. I also volunteer at Gandomak, a Farsi language school.',
   'In Baltimore County, I’m an EMT with the Arbutus Volunteer Fire Department. I’m applying to medical school because I want to care for patients and let what I learn from them shape what I study and build.',
   {

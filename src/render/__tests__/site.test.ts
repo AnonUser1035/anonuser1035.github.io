@@ -29,7 +29,7 @@ describe('the letter', () => {
     expect(href('Neuro Safety Systems')).toBe(
       'https://neurosafetysystems.com/',
     );
-    expect(href('how we started')).toBe(
+    expect(href('Here’s how we started')).toBe(
       'https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/',
     );
     expect(href('All publications are on Google Scholar')).toBe(
