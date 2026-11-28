@@ -29,10 +29,12 @@ describe('the letter', () => {
     expect(href('Neuro Safety Systems')).toBe(
       'https://neurosafetysystems.com/',
     );
-    expect(href('how it started')).toBe(
+    expect(href('how we started')).toBe(
       'https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/',
     );
-    expect(href('All publications')).toBe(PROFILES.scholar);
+    expect(href('All publications are on Google Scholar')).toBe(
+      PROFILES.scholar,
+    );
     expect(href('ORCID')).toBe(PROFILES.orcid);
     expect(href('talks and posters')).toBe('/talks/');
     expect(href(EMAIL)).toBe(`mailto:${EMAIL}`);
@@ -88,11 +90,9 @@ describe('the letter', () => {
 
   it('says up front that Ryan is an undergraduate applying to medical school', () => {
     const text = home.querySelector('.letter')?.textContent ?? '';
-    expect(text).toContain(
-      'I’m a senior at Johns Hopkins studying neuroscience.',
-    );
+    expect(text).toContain('I’m now a neuroscience senior at Johns Hopkins.');
     expect(text).toContain('I’m applying to medical school');
-    expect(text).toContain('from Johns Hopkins Engineering.');
+    expect(text).toContain('written by Johns Hopkins Engineering.');
   });
 
   it('describes a schema.org Person affiliated with Johns Hopkins', () => {
