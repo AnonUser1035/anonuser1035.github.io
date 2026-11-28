@@ -121,4 +121,40 @@
       select(index);
     }
   });
+
+  // Phones: the strip sits in a sideways scroller that opens on the most
+  // recent beats. While the trace prints, the paper runs under a pen that
+  // holds still where it will come to rest, so the view starts on the
+  // oldest beat and ends at the right end as before. Touching, scrolling or
+  // focusing the strip hands it back to the reader. Under reduced motion
+  // nothing prints, so nothing pans.
+  const scroller = strip.parentElement;
+  const reveal = strip.querySelector('.strip-reveal');
+  const effect = reveal?.getAnimations?.()[0]?.effect;
+  const viewBox = strip.querySelector('.strip-svg')?.getAttribute('viewBox');
+  if (
+    scroller &&
+    reveal &&
+    effect &&
+    viewBox &&
+    scroller.scrollWidth > scroller.clientWidth
+  ) {
+    // The share of the strip's width that the trace prints across.
+    const share =
+      Number(reveal.getAttribute('width')) / Number(viewBox.split(' ')[2]);
+    let frame = 0;
+    const ride = () => {
+      const progress = Number(effect.getComputedTiming().progress ?? 1);
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const left = (1 - progress) * share * strip.clientWidth;
+      // RTL: 0 is the right end and -max the left.
+      scroller.scrollLeft = -Math.min(max, left);
+      frame = progress < 1 ? requestAnimationFrame(ride) : 0;
+    };
+    const stop = () => cancelAnimationFrame(frame);
+    for (const type of ['pointerdown', 'wheel', 'focusin']) {
+      scroller.addEventListener(type, stop, { passive: true });
+    }
+    ride();
+  }
 })();

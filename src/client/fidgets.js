@@ -167,8 +167,7 @@
     if (stepped === gain) return;
     gain = stepped;
     strip.style.setProperty('--gain', String(gain / STANDARD_GAIN));
-    speed.textContent =
-      gain === STANDARD_GAIN ? '25 mm/s' : `25 mm/s · ${gain} mm/mV`;
+    speed.textContent = `25 mm/s · ${gain} mm/mV`;
   };
   cal.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;

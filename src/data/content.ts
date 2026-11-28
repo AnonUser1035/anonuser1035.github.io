@@ -125,9 +125,10 @@ export const LEAD =
   'Hi, I’m Ryan. I study the nervous system, mostly by trying to read it before something goes wrong.';
 
 export const LETTER: LetterBlock[] = [
-  'I’m a senior at Johns Hopkins studying neuroscience. In the [Thakor Lab](https://neuroengineering.bme.jhu.edu/) I research how focused ultrasound might help regulate blood pressure after spinal cord injury. With three Hopkins rugby teammates I also started [Neuro Safety Systems](https://neurosafetysystems.com/), which is developing wearable systems to detect driver drowsiness. Here’s [how it started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/), from Johns Hopkins Engineering.',
-  'I volunteer as an EMT with the Arbutus Volunteer Fire Department in Baltimore County. I’m applying to medical school, and I want patient care to shape the questions I study and the tools I build.',
-  'I’m Iranian American and grew up in Dallas. I helped revive Hopkins’ Iranian Cultural Society and volunteer at Gandomak, a Farsi language school.',
+  'I grew up in Dallas, and I’m now a neuroscience senior at Johns Hopkins. In the [Thakor Lab](https://neuroengineering.bme.jhu.edu/), I research whether focused ultrasound can help regulate blood pressure after a spinal cord injury.',
+  'Three of my rugby teammates and I started [Neuro Safety Systems](https://neurosafetysystems.com/). We’re building wearables that can tell when a driver is getting drowsy. [Here’s how we started](https://engineering.jhu.edu/magazine/inquiring-minds/change-agents/fighting-fatigue-on-the-road/), written by Johns Hopkins Engineering.',
+  'I’m Iranian American, and at Hopkins I helped bring back the Iranian Cultural Society. I also volunteer at Gandomak, a Farsi language school.',
+  'In Baltimore County, I’m an EMT with the Arbutus Volunteer Fire Department. I’m applying to medical school because I want to care for patients and let what I learn from them shape what I study and build.',
   {
     intro: 'Selected work:',
     works: [
@@ -157,7 +158,7 @@ export const LETTER: LetterBlock[] = [
       },
     ],
   },
-  `[All publications](${PROFILES.scholar}) are on Google Scholar, my author profile is on [ORCID](${PROFILES.orcid}), and [talks and posters](/talks/) have their own page.`,
+  `[All publications are on Google Scholar](${PROFILES.scholar}), my author profile is on [ORCID](${PROFILES.orcid}), and [talks and posters](/talks/) have their own page.`,
   `The best way to reach me is [${EMAIL}](mailto:${EMAIL}). I’m also on [LinkedIn](${PROFILES.linkedin}), and here’s my [résumé (PDF)](/resume.pdf).`,
 ];
 

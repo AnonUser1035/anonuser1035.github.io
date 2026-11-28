@@ -25,7 +25,17 @@ export class FakeCSSAnimation {
 
 const html = renderSite()['index.html'];
 
-export function loadHome({ reducedMotion = false } = {}) {
+/**
+ * @param before Runs after the page is in the DOM and before its script, to
+ *   stub layout jsdom doesn't do.
+ */
+export function loadHome({
+  reducedMotion = false,
+  before,
+}: {
+  reducedMotion?: boolean;
+  before?: () => void;
+} = {}) {
   const animations: FakeAnimation[] = [];
   const prints = [new FakeCSSAnimation(), new FakeCSSAnimation()];
 
@@ -51,6 +61,7 @@ export function loadHome({ reducedMotion = false } = {}) {
 
   const page = new DOMParser().parseFromString(html, 'text/html');
   document.body.innerHTML = page.body.innerHTML;
+  before?.();
   const script = [...page.querySelectorAll('script:not([type])')]
     .map((s) => s.textContent)
     .join('\n');
