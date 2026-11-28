@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { HINT, MILESTONES } from '../../data/content.ts';
-import { buildStrip } from '../../lib/ecg.ts';
+import { buildStrip, STRIP_WIDTH_MM } from '../../lib/ecg.ts';
 import { loadHome } from './page.ts';
 
 const geometry = buildStrip(MILESTONES.length);
@@ -176,5 +176,75 @@ describe('rhythm strip', () => {
     ticks.forEach((t, i) => {
       expect(parseFloat(t.style.left)).toBeCloseTo(Number(expected[i][1]), 3);
     });
+  });
+});
+
+describe('rhythm strip on a phone', () => {
+  // A 900 px strip in a 390 px scroller: 510 px of scroll. RTL, so the
+  // right end is 0 and the left end is -510.
+  const setup = () => {
+    const state = { progress: 0, left: 0 };
+    const frames: FrameRequestCallback[] = [];
+    loadHome({
+      before: () => {
+        const scroller = document.querySelector('.strip-scroller');
+        Object.defineProperties(scroller, {
+          scrollWidth: { value: 900 },
+          clientWidth: { value: 390 },
+          scrollLeft: {
+            get: () => state.left,
+            set: (value: number) => {
+              state.left = value;
+            },
+          },
+        });
+        Object.defineProperty(strip(), 'clientWidth', { value: 900 });
+        Element.prototype.getAnimations = () =>
+          [
+            {
+              effect: {
+                getComputedTiming: () => ({ progress: state.progress }),
+              },
+            },
+          ] as unknown as Animation[];
+        window.requestAnimationFrame = (callback) => frames.push(callback);
+        window.cancelAnimationFrame = () => {
+          frames.length = 0;
+        };
+      },
+    });
+    const reveal = document.querySelector('.strip-reveal');
+    const printed =
+      (Number(reveal?.getAttribute('width')) / STRIP_WIDTH_MM) * 900;
+    /** Advance the print to this share and run the next frame. */
+    const at = (progress: number) => {
+      state.progress = progress;
+      frames.shift()?.(0);
+      return state.left;
+    };
+    return { state, frames, printed, at };
+  };
+
+  it('follows the pen while it prints and rests on the latest beats', () => {
+    const { state, frames, printed, at } = setup();
+    expect(state.left).toBe(-510); // opens on the oldest beats
+    expect(at(0.3)).toBe(-510); // the pen crosses the first screen
+    expect(at(0.75)).toBeCloseTo(-0.25 * printed);
+    expect(at(0.9)).toBeCloseTo(-0.1 * printed);
+    expect(at(1)).toBe(-0);
+    expect(frames).toHaveLength(0);
+  });
+
+  it('hands the scroller back as soon as the reader touches it', () => {
+    const { state, frames, at } = setup();
+    at(0.75);
+    const left = state.left;
+    document
+      .querySelector('.strip-scroller')
+      ?.dispatchEvent(
+        new PointerEvent('pointerdown', { pointerType: 'touch' }),
+      );
+    expect(frames).toHaveLength(0);
+    expect(at(0.9)).toBe(left);
   });
 });
